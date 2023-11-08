@@ -1,0 +1,64 @@
+Table users {
+  id SERIAL [pk, increment]
+  created_at TIMESTAMP
+  updated_at TIMESTAMP
+  username VARCHAR(30)
+  avater VARCHAR(200)
+  phone VARCHAR(25)
+  email VARCHAR(40)
+  password VARCHAR(50)
+  role VARCHAR(15)
+}
+
+Table business {
+  id SERIAL [pk, increment]
+  created_at TIMESTAMP
+  user_id INTEGER [ref: > users.id]
+  product_id INTEGER [ref: > product.id]
+}
+
+Table product {
+  id SERIAL [pk, increment]
+  created_at TIMESTAMP
+  updated_at TIMESTAMP
+  user_id INTEGER [ref: > users.id]
+  business_id INTEGER [ref: > business.id]
+  name VARCHAR(30)
+  image VARCHAR(200)
+  price INTEGER
+  type VARCHAR(15)
+}
+
+Table review {
+  id SERIAL [pk, increment]
+  created_at TIMESTAMP
+  updated_at TIMESTAMP
+  user_id INTEGER [ref: > users.id]
+  product_id INTEGER [ref: > product.id]
+  business_id INTEGER [ref: > business.id]
+  text VARCHAR(50)
+  rating INTEGER
+}
+
+Table cart {
+  id SERIAL [pk, increment]
+  created_at TIMESTAMP
+  updated_at TIMESTAMP
+  user_id INTEGER [ref: > users.id]
+  product_id INTEGER [ref: > product.id]
+  business_id INTEGER [ref: > business.id]
+  subTotal INTEGER
+}
+
+Table order {
+  id SERIAL [pk, increment]
+  created_at TIMESTAMP
+  updated_at TIMESTAMP
+  business_id INTEGER [ref: > business.id]
+  cart_id INTEGER [ref: > cart.id]
+  user_id INTEGER [ref: > users.id]
+  subTotal INTEGER
+  paid BOOLEAN
+  pay_type VARCHAR(30)
+  status BOOLEAN
+}
