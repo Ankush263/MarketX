@@ -14,6 +14,13 @@ class UserRepo {
 		return toCamelCase(rows)[0];
 	}
 
+	static async findByEmail(email) {
+		const { rows } = await pool.query('SELECT * FROM users WHERE email = $1', [
+			email,
+		]);
+		return toCamelCase(rows)[0];
+	}
+
 	static async create(username, avater, email, password, role) {
 		const { rows } = await pool.query(
 			`

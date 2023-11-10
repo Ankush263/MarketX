@@ -7,17 +7,17 @@ exports.getAllUsers = getAll(UserRepo);
 exports.getSingleUser = getOne(UserRepo);
 exports.deleteUser = deleteOne(UserRepo);
 
-exports.createUser = catchAsync(async (req, res, next) => {
-	const { username, avater, email, password, role } = req.body;
-	const user = await UserRepo.create(username, avater, email, password, role);
+// exports.createUser = catchAsync(async (req, res, next) => {
+// 	const { username, avater, email, password, role } = req.body;
+// 	const user = await UserRepo.create(username, avater, email, password, role);
 
-	res.status(200).json({
-		status: 'success',
-		data: {
-			user,
-		},
-	});
-});
+// 	res.status(200).json({
+// 		status: 'success',
+// 		data: {
+// 			user,
+// 		},
+// 	});
+// });
 
 exports.updateUserById = catchAsync(async (req, res, next) => {
 	const { id } = req.params;
