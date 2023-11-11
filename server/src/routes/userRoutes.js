@@ -4,6 +4,8 @@ const {
 	getSingleUser,
 	updateUserById,
 	deleteUser,
+	getMe,
+	updateMe,
 } = require('../controllers/userControllers');
 
 const {
@@ -22,6 +24,8 @@ router.route('/logout').get(logout);
 
 router.use(protect);
 
+router.route('/me').get(getMe);
+router.route('/updateMe').patch(updateMe);
 router.route('/updateMyPassword').patch(updatePassword);
 router.route('/').get(getAllUsers);
 
