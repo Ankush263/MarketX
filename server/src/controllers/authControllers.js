@@ -1,10 +1,10 @@
-const crypto = require('crypto');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const UserRepo = require('../repo/user-repo');
 const bcrypt = require('bcryptjs');
+const pool = require('../pool');
 require('dotenv').config({ path: '../../.env' });
 
 const signToken = (id) => {
@@ -14,7 +14,7 @@ const signToken = (id) => {
 };
 
 const createAndSendToken = (user, statusCode, res) => {
-	const token = signToken(user._id);
+	const token = signToken(user.id);
 
 	const cookieOptions = {
 		expires: new Date(
@@ -52,6 +52,10 @@ exports.signup = catchAsync(async (req, res, next) => {
 	createAndSendToken(newUser, 201, res);
 });
 
+const correctPassword = async (existingPassword, givenPassword) => {
+	return await bcrypt.compare(existingPassword, givenPassword);
+};
+
 exports.login = catchAsync(async (req, res, next) => {
 	const { email, password } = req.body;
 
@@ -60,9 +64,8 @@ exports.login = catchAsync(async (req, res, next) => {
 	}
 
 	const user = await UserRepo.findByEmail(email);
-	const comparePassword = await bcrypt.compare(password, user.password);
 
-	if (!user || !comparePassword) {
+	if (!user || !(await correctPassword(password, user.password))) {
 		return next(new AppError(`Incorrect email or password`, 401));
 	}
 
@@ -79,4 +82,49 @@ exports.logout = (req, res) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
 	let token;
+	if (
+		req.headers.authorization &&
+		req.headers.authorization.startsWith('Bearer')
+	) {
+		token = req.headers.authorization.split(' ')[1];
+	} else if (req.cookies.jwt) {
+		token = req.cookies.jwt;
+	}
+	if (!token) {
+		return next(
+			new AppError(`You aren't logged in! Please log in to get access`, 401)
+		);
+	}
+
+	const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+	const freshUser = await UserRepo.findById(decoded.id);
+	if (!freshUser) {
+		return next(
+			new AppError(`The user belonging to this token does no longer exist`, 401)
+		);
+	}
+
+	req.user = freshUser;
+	next();
+});
+
+exports.updatePassword = catchAsync(async (req, res, next) => {
+	const user = await UserRepo.findById(req.user.id);
+
+	if (!(await correctPassword(req.body.passwordCurrent, user.password))) {
+		return next(new AppError(`Your current password is wrong`, 401));
+	}
+
+	const saltedPassword = await bcrypt.hash(req.body.password, 12);
+
+	await pool.query(
+		`
+			UPDATE users
+			SET password = $1, passwordChangedAt = CURRENT_TIMESTAMP
+			WHERE id = $2
+		`,
+		[saltedPassword, req.user.id]
+	);
+
+	createAndSendToken(user, 200, res);
 });

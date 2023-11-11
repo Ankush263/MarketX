@@ -3,6 +3,7 @@ const userRouter = require('./routes/userRoutes');
 const globalErrorHandler = require('../src/controllers/errorControllers');
 const AppError = require('../src/utils/appError');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 module.exports = () => {
 	const app = express();
@@ -16,6 +17,7 @@ module.exports = () => {
 	if (process.env.NODE_ENV === 'development') {
 		app.use(morgan('dev'));
 	}
+	app.use(cookieParser());
 
 	app.use('/api/v1/users', userRouter);
 
