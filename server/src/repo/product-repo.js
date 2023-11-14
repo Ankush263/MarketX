@@ -23,15 +23,27 @@ class ProductRepo {
 		stock,
 		unit,
 		type,
-		user_id
+		user_id,
+		business_id
 	) {
 		const { rows } = await pool.query(
 			`
-				INSERT INTO products (name, company, description, image, price, stock, unit, type, user_id)
-				VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+				INSERT INTO products (name, company, description, image, price, stock, unit, type, user_id, business_id)
+				VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 				RETURNING *;
 			`,
-			[name, company, description, image, price, stock, unit, type, user_id]
+			[
+				name,
+				company,
+				description,
+				image,
+				price,
+				stock,
+				unit,
+				type,
+				user_id,
+				business_id,
+			]
 		);
 		return toCamelCase(rows)[0];
 	}
@@ -56,6 +68,16 @@ class ProductRepo {
 			[name, company, image, price, stock, unit, type, id]
 		);
 		return toCamelCase(rows)[0];
+	}
+
+	static async findByUserId(id) {
+		const { rows } = await pool.query(
+			`
+				SELECT * FROM products WHERE user_id = $1;
+			`,
+			[id]
+		);
+		return toCamelCase(rows);
 	}
 
 	static async delete(id) {

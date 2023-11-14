@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const UserRepo = require('../repo/user-repo');
+const BusinessRepo = require('../repo/business-repo');
 const bcrypt = require('bcryptjs');
 const pool = require('../pool');
 require('dotenv').config({ path: '../../.env' });
@@ -48,6 +49,10 @@ exports.signup = catchAsync(async (req, res, next) => {
 		saltedPassword,
 		role
 	);
+
+	if (role === 'business') {
+		await BusinessRepo.create(newUser.id);
+	}
 
 	createAndSendToken(newUser, 201, res);
 });

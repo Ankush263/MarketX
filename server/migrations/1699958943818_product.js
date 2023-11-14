@@ -10,6 +10,7 @@ exports.up = (pgm) => {
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         user_id INTEGER REFERENCES users(id),
+        business_id INTEGER REFERENCES business(id),
         name VARCHAR(200) NOT NULL,
         company VARCHAR(50) NOT NULL,
         description VARCHAR(500) NOT NULL,
@@ -23,8 +24,6 @@ exports.up = (pgm) => {
     `
 	);
 };
-
-// TODO: Add description
 
 exports.down = (pgm) => {
 	pgm.sql(
