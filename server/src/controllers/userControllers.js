@@ -2,7 +2,7 @@ const UserRepo = require('../repo/user-repo');
 const ProductRepo = require('../repo/product-repo');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const { getAll, getOne, deleteOne, updateOne } = require('./handleFactory');
+const { getAll, getOne, deleteOne } = require('./handleFactory');
 const BusinessRepo = require('../repo/business-repo');
 
 exports.getAllUsers = getAll(UserRepo);

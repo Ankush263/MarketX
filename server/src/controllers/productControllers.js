@@ -3,12 +3,32 @@ const UserRepo = require('../repo/user-repo');
 const BusinessRepo = require('../repo/business-repo');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
-const { getAll, getOne, deleteOne } = require('./handleFactory');
+const { getAll, getOne } = require('./handleFactory');
 
 exports.getAllProducts = getAll(ProductRepo);
 exports.getSingleProduct = getOne(ProductRepo);
-// TODO: Before deleting a product, I should delete the product id from business table
-exports.deleteProduct = deleteOne(ProductRepo);
+// TODO: Before deleting a product, I should delete the product id from business table✅
+
+exports.deleteProduct = catchAsync(async (req, res, next) => {
+	const { id } = req.params;
+	const product = await ProductRepo.findById(id);
+	const businessAccount = await BusinessRepo.findByUserId(product.userId);
+
+	await BusinessRepo.removeProductId(product.id, businessAccount.userId);
+
+	const doc = await ProductRepo.delete(id);
+
+	if (!doc) {
+		return next(new AppError(`No document was found with that id`, 404));
+	}
+
+	res.status(200).json({
+		status: 'success',
+		data: {
+			doc,
+		},
+	});
+});
 
 exports.createProduct = catchAsync(async (req, res, next) => {
 	const { name, company, description, image, price, stock, unit, type } =
