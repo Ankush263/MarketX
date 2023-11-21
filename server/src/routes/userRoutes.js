@@ -7,6 +7,7 @@ const {
 	getMe,
 	updateMe,
 	deleteMe,
+	getMyBusinessProfile,
 } = require('../controllers/userControllers');
 
 const {
@@ -26,6 +27,7 @@ router.route('/logout').get(logout);
 router.use(protect);
 
 router.route('/me').get(getMe);
+router.route('/myBusinessProfile').get(getMyBusinessProfile);
 router.route('/updateMe').patch(updateMe);
 router.route('/deleteMe').delete(deleteMe);
 router.route('/updateMyPassword').patch(updatePassword);

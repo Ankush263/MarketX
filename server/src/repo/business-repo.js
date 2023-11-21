@@ -40,6 +40,37 @@ class BusinessRepo {
 		return toCamelCase(rows);
 	}
 
+	static async getMyBusinessProfile(user_id) {
+		const { rows } = await pool.query(
+			`
+				SELECT
+				users.username,
+				users.id AS userId,
+				users.avater,
+				users.email,
+				JSON_AGG(
+						JSON_BUILD_OBJECT(
+							'productName', products.name,
+							'company', products.company,
+							'description', products.description,
+							'image', products.image,
+							'price', products.price,
+							'unit', products.unit,
+							'stock', products.stock,
+							'type', products.type
+						)
+					) AS products
+				FROM users
+				LEFT JOIN business ON business.user_id = users.id
+				LEFT JOIN products ON products.business_id = business.id
+				WHERE users.id = $1
+				GROUP BY users.username, users.id, users.avater, users.email;
+			`,
+			[user_id]
+		);
+		return toCamelCase(rows);
+	}
+
 	static async removeProductId(product_id, user_id) {
 		const { rows } = await pool.query(
 			`

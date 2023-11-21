@@ -76,6 +76,22 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 	});
 });
 
+exports.getMyBusinessProfile = catchAsync(async (req, res, next) => {
+	const myBusinessProfile = await BusinessRepo.getMyBusinessProfile(
+		req.user.id
+	);
+	if (!myBusinessProfile) {
+		return next(new AppError(`You don't have any business profile`, 404));
+	}
+
+	res.status(200).json({
+		status: 'success',
+		data: {
+			myBusinessProfile,
+		},
+	});
+});
+
 exports.updateMe = catchAsync(async (req, res, next) => {
 	const id = req.user.id;
 	const data = req.body;
