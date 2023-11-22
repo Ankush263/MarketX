@@ -7,6 +7,7 @@ const userRouter = require('./routes/userRoutes');
 const productRouter = require('./routes/productRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const cartRouter = require('./routes/cartRoutes');
+const buyRouter = require('./routes/buyRoutes');
 
 module.exports = () => {
 	const app = express();
@@ -26,6 +27,7 @@ module.exports = () => {
 	app.use('/api/v1/products', productRouter);
 	app.use('/api/v1/review', reviewRouter);
 	app.use('/api/v1/cart', cartRouter);
+	app.use('/api/v1/buy', buyRouter);
 
 	app.all('*', (req, res, next) => {
 		next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
