@@ -8,7 +8,6 @@ const BusinessRepo = require('../repo/business-repo');
 exports.getAllUsers = getAll(UserRepo);
 exports.getSingleUser = getOne(UserRepo);
 exports.deleteUser = deleteOne(UserRepo);
-// exports.updateUserById = updateOne(UserRepo);
 
 exports.updateUserById = catchAsync(async (req, res, next) => {
 	const { id } = req.params;

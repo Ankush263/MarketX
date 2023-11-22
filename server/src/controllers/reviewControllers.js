@@ -3,10 +3,6 @@ const UserRepo = require('../repo/user-repo');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
-/* 
-  TODO: Make sure that only the user with the "customer" role can create the review. ✅
-  TODO: The user with the "business" role can't create the review. ✅
-*/
 exports.createReview = catchAsync(async (req, res, next) => {
 	const { business_id, product_id, text, rating } = req.body;
 	const user = await UserRepo.findById(req.user.id);

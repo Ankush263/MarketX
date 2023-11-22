@@ -30,36 +30,6 @@ exports.getOne = (Model) =>
 		});
 	});
 
-// exports.updateOne = (Model) =>
-// 	catchAsync(async (req, res, next) => {
-// 		const { id } = req.params;
-// 		const data = req.body;
-// 		console.log(
-// 			id,
-// 			Object.values(data)
-// 				.filter((value) => typeof value === 'string')
-// 				.join(', ')
-// 		);
-// 		const user = await Model.findByIdAndUpdate(
-// 			id,
-// 			data.username,
-// 			data.avater,
-// 			data.email,
-// 			data.role
-// 		);
-
-// 		if (!user) {
-// 			return next(new AppError(`No user was found with that id`, 404));
-// 		}
-
-// 		res.status(200).json({
-// 			status: 'success',
-// 			data: {
-// 				doc: user,
-// 			},
-// 		});
-// 	});
-
 exports.deleteOne = (Model) =>
 	catchAsync(async (req, res, next) => {
 		const { id } = req.params;

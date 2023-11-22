@@ -7,7 +7,6 @@ const { getAll, getOne } = require('./handleFactory');
 
 exports.getAllProducts = getAll(ProductRepo);
 exports.getSingleProduct = getOne(ProductRepo);
-// TODO: Before deleting a product, I should delete the product id from business table✅
 
 exports.deleteProduct = catchAsync(async (req, res, next) => {
 	const { id } = req.params;
