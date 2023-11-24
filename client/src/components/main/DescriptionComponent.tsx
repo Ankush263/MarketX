@@ -1,5 +1,6 @@
 import { Box, Text, Button } from '@mantine/core';
-import React, { useMemo } from 'react';
+import React from 'react';
+import { useDescriptionComponentStyle } from './styles/useDescriptionComponentStyle';
 
 interface DescriptionProps {
 	mainText: string;
@@ -12,36 +13,7 @@ function DescriptionComponent({
 	smallText,
 	buttonText,
 }: DescriptionProps) {
-	const styles = useMemo(
-		() => ({
-			font: {
-				fontFamily: 'Josefin Sans',
-				lineHeight: '50px',
-			},
-			buttonPink: {
-				fontSize: '12px',
-				width: '200px',
-				backgroundColor: 'black',
-				transition: 'background-color 0.3s, color 0.3s',
-				'&:hover': {
-					backgroundColor: 'pink',
-					color: 'black',
-				},
-			},
-			buttonWhite: {
-				fontSize: '12px',
-				width: '200px',
-				backgroundColor: 'white',
-				color: 'black',
-				transition: 'background-color 0.3s, color 0.3s',
-				'&:hover': {
-					backgroundColor: 'black',
-					color: 'white',
-				},
-			},
-		}),
-		[]
-	);
+	const styles = useDescriptionComponentStyle();
 
 	return (
 		<Box>

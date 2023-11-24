@@ -5,45 +5,12 @@ import {
 	IconShoppingCartPlus,
 	IconSettings2,
 } from '@tabler/icons-react';
-import React, { useMemo } from 'react';
+import React from 'react';
+import { useNavStyles } from './styles/useNavStyles';
 
 function Nav() {
-	const styles = useMemo(
-		() => ({
-			main: {
-				display: 'flex',
-				justifyContent: 'center',
-			},
-			nav: {
-				width: '65%',
-				height: '80px',
-				display: 'flex',
-				justifyContent: 'space-between',
-				alignItems: 'center',
-			},
-			bigTextStyle: {
-				marginRight: '50px',
-				fontFamily: 'Kaushan Script',
-				fontSize: '30px',
-				fontWeight: 700,
-			},
-			leftNav: {
-				width: '25%',
-				height: '100%',
-				display: 'flex',
-				justifyContent: 'space-around',
-				alignItems: 'center',
-			},
-			rightNav: {
-				width: '30%',
-				height: '100%',
-				display: 'flex',
-				justifyContent: 'space-around',
-				alignItems: 'center',
-			},
-		}),
-		[]
-	);
+	const styles = useNavStyles();
+
 	return (
 		<Box sx={styles.main}>
 			<Box sx={styles.nav}>

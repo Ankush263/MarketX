@@ -1,57 +1,16 @@
 import { Box, rem } from '@mantine/core';
-import React, { useRef, useMemo } from 'react';
+import React, { useRef } from 'react';
 import { BackgroundImage } from '@mantine/core';
 import Nav from '../navbar/Nav';
 import { Carousel } from '@mantine/carousel';
 import DescriptionComponent from './DescriptionComponent';
 import Autoplay from 'embla-carousel-autoplay';
+import DiscountComponent from '../discount/DiscountComponent';
+import { useMainStyle } from './styles/useMainStyles';
 
 function Main() {
 	const autoplay = useRef(Autoplay({ delay: 5000 }));
-	const styles = useMemo(
-		() => ({
-			descriptionBox: {
-				width: '340px',
-				position: 'absolute' as const,
-				bottom: 0,
-				left: 0,
-				marginBottom: '200px',
-				marginLeft: '150px',
-				zIndex: 1,
-			},
-			videoDescriptionBox: {
-				width: '340px',
-				position: 'absolute' as const,
-				bottom: 0,
-				left: 0,
-				marginBottom: '550px',
-				marginLeft: '350px',
-				zIndex: 1,
-			},
-			carouselStyle: {
-				indicator: {
-					width: rem(8),
-					height: rem(8),
-					transition: 'width 250ms ease',
-					color: 'black',
-					background: 'black',
-					borderRadius: '100px',
-
-					'&[data-active]': {
-						width: rem(40),
-					},
-				},
-			},
-			main: {
-				position: 'absolute' as const,
-				top: 0,
-				left: 0,
-				zIndex: 1,
-				width: '100%',
-			},
-		}),
-		[]
-	);
+	const styles = useMainStyle();
 
 	return (
 		<Box>
@@ -122,6 +81,9 @@ function Main() {
 					</BackgroundImage>
 				</Carousel.Slide>
 			</Carousel>
+			<Box>
+				<DiscountComponent />
+			</Box>
 		</Box>
 	);
 }
