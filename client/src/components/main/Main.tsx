@@ -1,4 +1,4 @@
-import { Box, rem } from '@mantine/core';
+import { Box } from '@mantine/core';
 import React, { useRef } from 'react';
 import { BackgroundImage } from '@mantine/core';
 import Nav from '../navbar/Nav';
@@ -7,6 +7,7 @@ import DescriptionComponent from './DescriptionComponent';
 import Autoplay from 'embla-carousel-autoplay';
 import DiscountComponent from '../discount/DiscountComponent';
 import { useMainStyle } from './styles/useMainStyles';
+import BestSellerComponent from '../bestseller/BestSellerComponent';
 
 function Main() {
 	const autoplay = useRef(Autoplay({ delay: 5000 }));
@@ -83,6 +84,9 @@ function Main() {
 			</Carousel>
 			<Box>
 				<DiscountComponent />
+			</Box>
+			<Box>
+				<BestSellerComponent />
 			</Box>
 		</Box>
 	);
