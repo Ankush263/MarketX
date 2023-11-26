@@ -10,10 +10,6 @@ export const useDiscountTextStyles = () => {
 					transform: 'scale(1.1)',
 				},
 			},
-			font: {
-				fontFamily: 'Josefin Sans',
-				lineHeight: '50px',
-			},
 			button: {
 				fontSize: '12px',
 				backgroundColor: 'white',

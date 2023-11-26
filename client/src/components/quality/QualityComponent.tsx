@@ -14,16 +14,10 @@ function QualityComponent() {
 				left={450}
 				pos={'absolute'}
 			>
-				<Text fw={'bold'} fz={'25px'} sx={{ fontFamily: 'Josefin Sans' }}>
+				<Text fw={'bold'} fz={'25px'} ff={'Josefin Sans'}>
 					Our Quality Control
 				</Text>
-				<Text
-					align="center"
-					fz={'md'}
-					sx={{ fontFamily: 'Josefin Sans' }}
-					mt={35}
-					fw={500}
-				>
+				<Text align="center" fz={'md'} ff={'Josefin Sans'} mt={35} fw={500}>
 					Every component of our toys is checked to ensure that it complies with
 					all safety rules. Design review, material quality, final product
 					testing, hardness testing, chemical, fire resistance testing, and
@@ -31,12 +25,7 @@ function QualityComponent() {
 					performed with the primary purpose of providing a high-quality product
 					to your children.
 				</Text>
-				<Text
-					align="center"
-					sx={{ fontFamily: 'Josefin Sans' }}
-					mt={25}
-					fw={500}
-				>
+				<Text align="center" ff={'Josefin Sans'} mt={25} fw={500}>
 					Toys are the basis of child development. Without the interest of the
 					baby, even the coolest and most expensive toy will not fulfill its
 					task.

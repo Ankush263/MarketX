@@ -11,7 +11,7 @@ function Nav() {
 	return (
 		<Flex justify={'center'}>
 			<Flex w={'65%'} h={80} justify={'space-between'} align={'center'}>
-				<Text sx={{ fontFamily: 'Kaushan Script' }} mr={50} fz={30} fw={700}>
+				<Text ff={'Josefin Sans'} mr={50} fz={30} fw={700}>
 					MarketX
 				</Text>
 				<Flex justify={'space-around'} align={'center'} w={'25%'} h={'100%'}>

@@ -36,12 +36,13 @@ function DiscountText({
 					fz={'28px'}
 					fw={500}
 					color="#fff"
-					sx={styles.font}
+					lh={'50px'}
+					ff={'Josefin Sans'}
 					align={smallText === 'Special Offer' ? 'center' : 'start'}
 				>
 					{smallText}
 				</Text>
-				<Text fz={'45px'} fw={500} color="#fff" sx={styles.font}>
+				<Text fz={'45px'} fw={500} color="#fff" lh={'50px'} ff={'Josefin Sans'}>
 					{bigText}
 				</Text>
 			</Box>

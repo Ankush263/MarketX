@@ -32,7 +32,7 @@ function ItemCardComponent() {
 			withBorder
 		>
 			<Flex justify="space-between" align={'center'} w={'100%'} h={40}>
-				<Text fw={500} size={'12px'} sx={{ fontFamily: 'Josefin Sans' }}>
+				<Text fw={500} size={'12px'} ff={'Josefin Sans'}>
 					DRIBBLE
 				</Text>
 				<Flex justify={'center'} align={'center'} gap={'2px'}>
@@ -63,7 +63,7 @@ function ItemCardComponent() {
 			</Box>
 			{mouseHover ? (
 				<Flex direction={'column'} gap={'xs'}>
-					<Text sx={{ fontFamily: 'Josefin Sans' }} align="center">
+					<Text ff={'Josefin Sans'} align="center">
 						Bear plush toy
 					</Text>
 					<Flex justify={'space-between'} align={'center'} w="100%">
@@ -97,10 +97,10 @@ function ItemCardComponent() {
 				</Flex>
 			) : (
 				<Flex direction={'column'} gap={'xs'}>
-					<Text sx={{ fontFamily: 'Josefin Sans' }}>Bear plush toy</Text>
+					<Text ff={'Josefin Sans'}>Bear plush toy</Text>
 					<Flex justify={'center'} align={'center'}>
 						<Rating defaultValue={3} size="xs" />
-						<Text size={12} sx={{ fontFamily: 'Josefin Sans' }}>
+						<Text size={12} ff={'Josefin Sans'}>
 							(3)
 						</Text>
 					</Flex>

@@ -18,7 +18,7 @@ function DescriptionComponent({
 	return (
 		<Box>
 			<Box>
-				<Text fz={'45px'} fw={550} sx={styles.font}>
+				<Text fz={'45px'} fw={550} lh={'50px'} ff={'Josefin Sans'}>
 					{mainText}
 				</Text>
 			</Box>

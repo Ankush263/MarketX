@@ -3,10 +3,6 @@ import React, { useMemo } from 'react';
 export const useDescriptionComponentStyle = () => {
 	return useMemo(
 		() => ({
-			font: {
-				fontFamily: 'Josefin Sans',
-				lineHeight: '50px',
-			},
 			buttonPink: {
 				fontSize: '12px',
 				backgroundColor: 'black',

@@ -5,7 +5,7 @@ import ItemCardComponent from './ItemCard/ItemCardComponent';
 function BestSellerComponent() {
 	return (
 		<Flex direction={'column'} align={'center'} mt="50px">
-			<Text fz={'25px'} fw={550} sx={{ fontFamily: 'Josefin Sans' }} mb={30}>
+			<Text fz={'25px'} fw={550} ff={'Josefin Sans'} mb={30}>
 				Our Best Sellers
 			</Text>
 			<Grid maw={'100%'} w="80%" gutter={'xl'}>
