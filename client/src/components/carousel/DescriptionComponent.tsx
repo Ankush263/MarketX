@@ -1,6 +1,7 @@
 import { Box, Text, Button } from '@mantine/core';
 import React from 'react';
 import { useDescriptionComponentStyle } from './styles/useDescriptionComponentStyle';
+import Link from 'next/link';
 
 interface DescriptionProps {
 	mainText: string;

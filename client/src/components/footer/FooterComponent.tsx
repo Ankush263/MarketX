@@ -10,7 +10,7 @@ function FooterComponent() {
 			justify={'space-around'}
 			align={'center'}
 		>
-			<Text ff={'Josefin Sans'} mr={50} fz={30} fw={700}>
+			<Text ff={'Kaushan Script'} mr={50} fz={30} fw={700}>
 				MarketX
 			</Text>
 
