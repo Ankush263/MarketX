@@ -13,41 +13,25 @@ import {
 import React, { useState } from 'react';
 import { useCounter } from '@mantine/hooks';
 import { IconPlus, IconMinus, IconShoppingBag } from '@tabler/icons-react';
+import { itemCardStyles } from './styles/itemCardStyles';
 
 function ItemCardComponent() {
 	const [mouseHover, setMouseHover] = useState<boolean>(false);
 	const [mouseHoverButton, setMouseHoverButton] = useState<boolean>(false);
 	const [count, handlers] = useCounter(0, { min: 1, max: 3 });
+	const styles = itemCardStyles();
 
 	return (
 		<Card
 			onMouseEnter={() => setMouseHover(true)}
 			onMouseLeave={() => setMouseHover(false)}
-			sx={{
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'center',
-				alignItems: 'center',
-				cursor: 'pointer',
-				boxShadow: '5px 3px 3px rgba(237, 231, 225, .6)',
-				'&:hover': {
-					boxShadow: '5px 5px 12px 10px rgba(237, 231, 225, .8)',
-				},
-			}}
+			sx={styles.card}
 			w={270}
 			h={420}
 			radius="xl"
 			withBorder
 		>
-			<Box
-				sx={{
-					width: '100%',
-					height: '40px',
-					display: 'flex',
-					justifyContent: 'space-between',
-					alignItems: 'center',
-				}}
-			>
+			<Flex justify="space-between" align={'center'} w={'100%'} h={40}>
 				<Text fw={500} size={'12px'} sx={{ fontFamily: 'Josefin Sans' }}>
 					DRIBBLE
 				</Text>
@@ -57,12 +41,25 @@ function ItemCardComponent() {
 						45.00
 					</Text>
 				</Flex>
-			</Box>
-			<Box sx={{ overflow: 'hidden' }}>
-				<Image
-					src={'/image/1_2fd6af37-8624-4644-90da-8d4f2a0c548b.webp'}
-					alt="product image"
-				/>
+			</Flex>
+			<Box
+				sx={{
+					overflow: 'hidden',
+				}}
+			>
+				{mouseHover ? (
+					<Image
+						src={'/image/pooh2_notBg.webp'}
+						alt="product image"
+						sx={styles.fImage}
+					/>
+				) : (
+					<Image
+						src={'/image/1_2fd6af37-8624-4644-90da-8d4f2a0c548b.webp'}
+						alt="product image"
+						sx={styles.sImage}
+					/>
+				)}
 			</Box>
 			{mouseHover ? (
 				<Flex direction={'column'} gap={'xs'}>
@@ -93,12 +90,7 @@ function ItemCardComponent() {
 						w={150}
 						radius={'xl'}
 						color="dark"
-						sx={{
-							fontSize: '12px',
-							'&:hover': {
-								backgroundColor: 'pink',
-							},
-						}}
+						sx={styles.button}
 					>
 						{mouseHoverButton ? <IconShoppingBag /> : 'Add To Cart'}
 					</Button>

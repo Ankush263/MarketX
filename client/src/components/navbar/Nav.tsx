@@ -1,4 +1,4 @@
-import { Box, Text, ActionIcon } from '@mantine/core';
+import { Text, ActionIcon, Flex } from '@mantine/core';
 import {
 	IconUser,
 	IconSearch,
@@ -6,25 +6,24 @@ import {
 	IconSettings2,
 } from '@tabler/icons-react';
 import React from 'react';
-import { useNavStyles } from './styles/useNavStyles';
 
 function Nav() {
-	const styles = useNavStyles();
-
 	return (
-		<Box sx={styles.main}>
-			<Box sx={styles.nav}>
-				<Text sx={styles.bigTextStyle}>MarketX</Text>
-				<Box sx={styles.leftNav}>
+		<Flex justify={'center'}>
+			<Flex w={'65%'} h={80} justify={'space-between'} align={'center'}>
+				<Text sx={{ fontFamily: 'Kaushan Script' }} mr={50} fz={30} fw={700}>
+					MarketX
+				</Text>
+				<Flex justify={'space-around'} align={'center'} w={'25%'} h={'100%'}>
 					<Text fz="lg" fw={500} component="a" href="#">
 						Home
 					</Text>
 					<Text fz="lg" fw={500} component="a" href="#">
 						Products
 					</Text>
-				</Box>
+				</Flex>
 
-				<Box sx={styles.rightNav}>
+				<Flex justify={'space-around'} align={'center'} w={'30%'} h={'100%'}>
 					<ActionIcon color="dark" size="xl" variant="transparent">
 						<IconUser size="1.625rem" />
 					</ActionIcon>
@@ -37,9 +36,9 @@ function Nav() {
 					<ActionIcon color="dark" size="xl" variant="transparent">
 						<IconSettings2 size="1.625rem" />
 					</ActionIcon>
-				</Box>
-			</Box>
-		</Box>
+				</Flex>
+			</Flex>
+		</Flex>
 	);
 }
 

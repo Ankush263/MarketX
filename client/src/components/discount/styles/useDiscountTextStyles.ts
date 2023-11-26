@@ -1,22 +1,20 @@
 import React, { useMemo } from 'react';
 
-export const useDescriptionComponentStyle = () => {
+export const useDiscountTextStyles = () => {
 	return useMemo(
 		() => ({
+			main: {
+				zIndex: 1,
+				transition: 'transform 0.2s ease-in-out',
+				'&:hover': {
+					transform: 'scale(1.1)',
+				},
+			},
 			font: {
 				fontFamily: 'Josefin Sans',
 				lineHeight: '50px',
 			},
-			buttonPink: {
-				fontSize: '12px',
-				backgroundColor: 'black',
-				transition: 'background-color 0.3s, color 0.3s',
-				'&:hover': {
-					backgroundColor: 'pink',
-					color: 'black',
-				},
-			},
-			buttonWhite: {
+			button: {
 				fontSize: '12px',
 				backgroundColor: 'white',
 				color: 'black',

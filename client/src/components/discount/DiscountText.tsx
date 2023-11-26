@@ -1,5 +1,6 @@
-import { Box, Button, Text } from '@mantine/core';
-import React, { useMemo } from 'react';
+import { Box, Button, Flex, Text } from '@mantine/core';
+import React from 'react';
+import { useDiscountTextStyles } from './styles/useDiscountTextStyles';
 
 interface DiscountTextProps {
 	smallText: string;
@@ -16,44 +17,20 @@ function DiscountText({
 	bottom,
 	left,
 }: DiscountTextProps) {
-	const styles = useMemo(
-		() => ({
-			main: {
-				position: 'absolute' as const,
-				zIndex: 1,
-				bottom: bottom,
-				left: left,
-				width: '300px',
-				height: '175px',
-				display: 'flex',
-				flexDirection: 'column' as const,
-				justifyContent: 'space-between' as const,
-				alignItems: smallText === 'Special Offer' ? 'center' : 'start',
-				transition: 'transform 0.2s ease-in-out',
-				'&:hover': {
-					transform: 'scale(1.1)',
-				},
-			},
-			font: {
-				fontFamily: 'Josefin Sans',
-				lineHeight: '50px',
-			},
-			button: {
-				fontSize: '12px',
-				width: '150px',
-				backgroundColor: 'white',
-				color: 'black',
-				transition: 'background-color 0.3s, color 0.3s',
-				'&:hover': {
-					backgroundColor: 'black',
-					color: 'white',
-				},
-			},
-		}),
-		[]
-	);
+	const styles = useDiscountTextStyles();
+
 	return (
-		<Box sx={styles.main}>
+		<Flex
+			sx={styles.main}
+			pos={'absolute'}
+			bottom={bottom}
+			left={left}
+			w={300}
+			h={175}
+			direction={'column'}
+			justify={'space-between'}
+			align={smallText === 'Special Offer' ? 'center' : 'start'}
+		>
 			<Box>
 				<Text
 					fz={'28px'}
@@ -68,10 +45,10 @@ function DiscountText({
 					{bigText}
 				</Text>
 			</Box>
-			<Button sx={styles.button} radius="xl" uppercase size="md">
+			<Button sx={styles.button} radius="xl" uppercase size="md" w={150}>
 				{buttonText}
 			</Button>
-		</Box>
+		</Flex>
 	);
 }
 

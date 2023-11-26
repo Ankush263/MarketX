@@ -8,6 +8,8 @@ import Autoplay from 'embla-carousel-autoplay';
 import DiscountComponent from '../discount/DiscountComponent';
 import { useMainStyle } from './styles/useMainStyles';
 import BestSellerComponent from '../bestseller/BestSellerComponent';
+import OfferComponent from '../offer/OfferComponent';
+import QualityComponent from '../quality/QualityComponent';
 
 function Main() {
 	const autoplay = useRef(Autoplay({ delay: 5000 }));
@@ -15,7 +17,7 @@ function Main() {
 
 	return (
 		<Box>
-			<Box sx={styles.main}>
+			<Box sx={{ zIndex: 1 }} pos={'absolute'} top={0} left={0} w={'100%'}>
 				<Nav />
 			</Box>
 			<Carousel
@@ -31,11 +33,17 @@ function Main() {
 					<BackgroundImage
 						src="/image/slide-01_6e24db38-2fdd-4804-9fb5-633e6e66b86f.webp"
 						radius="sm"
-						sx={{
-							height: '100%',
-						}}
+						h={'100%'}
 					>
-						<Box sx={styles.descriptionBox}>
+						<Box
+							sx={{ zIndex: 1 }}
+							w={340}
+							pos={'absolute'}
+							bottom={0}
+							left={0}
+							mb={200}
+							ml={150}
+						>
 							<DescriptionComponent
 								mainText={'Fun Place for your Child'}
 								smallText={`Nothing better than a beautiful toy as a gift for a child. 
@@ -53,7 +61,15 @@ function Main() {
 							muted
 							loop
 						/>
-						<Box sx={styles.videoDescriptionBox}>
+						<Box
+							sx={{ zIndex: 1 }}
+							w={340}
+							pos={'absolute'}
+							bottom={0}
+							left={0}
+							mb={550}
+							ml={350}
+						>
 							<DescriptionComponent
 								mainText={'Toys: Sparks of Creativity'}
 								smallText={`Nothing better than a beautiful toy as a gift for a child. 
@@ -71,7 +87,15 @@ function Main() {
 							height: '100%',
 						}}
 					>
-						<Box sx={styles.descriptionBox}>
+						<Box
+							sx={{ zIndex: 1 }}
+							w={340}
+							pos={'absolute'}
+							bottom={0}
+							left={0}
+							mb={200}
+							ml={150}
+						>
 							<DescriptionComponent
 								mainText={'Delivering Smile with Toys'}
 								smallText={`Nothing better than a beautiful toy as a gift for a child. 
@@ -87,6 +111,12 @@ function Main() {
 			</Box>
 			<Box>
 				<BestSellerComponent />
+			</Box>
+			<Box>
+				<OfferComponent />
+			</Box>
+			<Box>
+				<QualityComponent />
 			</Box>
 		</Box>
 	);

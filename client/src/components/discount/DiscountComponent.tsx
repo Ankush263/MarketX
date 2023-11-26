@@ -1,4 +1,4 @@
-import { Box, Image } from '@mantine/core';
+import { Box, Flex, Image } from '@mantine/core';
 import React from 'react';
 import DiscountText from './DiscountText';
 import { useDiscountStyles } from './styles/useDiscountStyles';
@@ -7,9 +7,15 @@ function DiscountComponent() {
 	const styles = useDiscountStyles();
 
 	return (
-		<Box sx={styles.main}>
-			<Box sx={styles.upperBox}>
-				<Box sx={styles.upperLeftImageBox}>
+		<Flex direction={'column'} justify={'center'} align={'center'}>
+			<Flex
+				justify={'space-between'}
+				align={'center'}
+				h={'50vh'}
+				w={'80%'}
+				mt={20}
+			>
+				<Box sx={styles.upperLeftImageBox} w={590}>
 					<Image
 						src="/image/banner-01_de317ca7-3140-4d6d-9a88-5465fad30db5.webp"
 						radius="lg"
@@ -41,8 +47,8 @@ function DiscountComponent() {
 						left={830}
 					/>
 				</Box>
-			</Box>
-			<Box sx={styles.lowerBox}>
+			</Flex>
+			<Box sx={styles.lowerBox} h={'50vh'} w={'80%'} mt={20} mb={20}>
 				<Image
 					src="/image/banner-03_e47cc8df-8a25-4abe-84fd-19709a236a4b.webp"
 					radius="lg"
@@ -57,7 +63,7 @@ function DiscountComponent() {
 					left={620}
 				/>
 			</Box>
-		</Box>
+		</Flex>
 	);
 }
 

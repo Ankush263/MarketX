@@ -43,6 +43,7 @@ function DescriptionComponent({
 					sx={
 						buttonText === 'shop now' ? styles.buttonWhite : styles.buttonPink
 					}
+					w={200}
 				>
 					{buttonText}
 				</Button>

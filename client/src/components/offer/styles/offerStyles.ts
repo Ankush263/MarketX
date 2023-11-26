@@ -1,34 +1,25 @@
 import React, { useMemo } from 'react';
 
-export const useDiscountStyles = () => {
+export const offerStyles = () => {
 	return useMemo(
 		() => ({
-			upperLeftImageBox: {
+			leftImageBox: {
 				borderRadius: '15px',
 				overflow: 'hidden',
 			},
-			upperLeftImage: {
+			leftImage: {
 				transition: 'transform 0.2s ease-in-out',
 				'&:hover': {
-					transform: 'scale(1.2)',
+					transform: 'scale(1.1)',
 				},
 			},
-			upperRightImageBox: {
+			rightImageBox: {
 				borderRadius: '15px',
 				overflow: 'hidden',
 			},
-			upperRightImage: {
+			rightImage: {
 				transition: 'transform 0.2s ease-in-out',
-				'&:hover': {
-					transform: 'scale(1.2)',
-				},
-			},
-			lowerBox: {
-				borderRadius: '15px',
-				overflow: 'hidden',
-			},
-			lowerImageBox: {
-				transition: 'transform 0.2s ease-in-out',
+				borderRadius: '8px',
 				'&:hover': {
 					transform: 'scale(1.2)',
 				},
