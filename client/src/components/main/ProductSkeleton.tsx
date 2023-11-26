@@ -1,8 +1,7 @@
-import { Text, Grid, Flex } from '@mantine/core';
 import React from 'react';
-import ItemCardComponent from './ItemCard/ItemCardComponent';
+import { Flex, Grid, Skeleton, Text } from '@mantine/core';
 
-function BestSellerComponent() {
+function ProductSkeleton() {
 	return (
 		<Flex direction={'column'} align={'center'} mt="50px">
 			<Text fz={'25px'} fw={550} ff={'Josefin Sans'} mb={30}>
@@ -10,20 +9,20 @@ function BestSellerComponent() {
 			</Text>
 			<Grid maw={'100%'} w="80%" gutter={'xl'}>
 				<Grid.Col md={6} lg={3}>
-					<ItemCardComponent />
+					<Skeleton w={270} h={420} />
 				</Grid.Col>
 				<Grid.Col md={6} lg={3}>
-					<ItemCardComponent />
+					<Skeleton w={270} h={420} />
 				</Grid.Col>
 				<Grid.Col md={6} lg={3}>
-					<ItemCardComponent />
+					<Skeleton w={270} h={420} />
 				</Grid.Col>
 				<Grid.Col md={6} lg={3}>
-					<ItemCardComponent />
+					<Skeleton w={270} h={420} />
 				</Grid.Col>
 			</Grid>
 		</Flex>
 	);
 }
 
-export default BestSellerComponent;
+export default ProductSkeleton;

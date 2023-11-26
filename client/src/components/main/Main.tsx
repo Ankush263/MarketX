@@ -1,12 +1,18 @@
-import { Box } from '@mantine/core';
-import React from 'react';
+import { Box, Loader } from '@mantine/core';
+import React, { Suspense } from 'react';
 import Nav from '../navbar/Nav';
 import DiscountComponent from '../discount/DiscountComponent';
-import BestSellerComponent from '../bestseller/BestSellerComponent';
 import OfferComponent from '../offer/OfferComponent';
 import QualityComponent from '../quality/QualityComponent';
 import FooterComponent from '../footer/FooterComponent';
-import CarouselComponent from '../carousel/CarouselComponent';
+import ProductSkeleton from './ProductSkeleton';
+
+const BestSellerComponent = React.lazy(
+	() => import('../bestseller/BestSellerComponent')
+);
+const CarouselComponent = React.lazy(
+	() => import('../carousel/CarouselComponent')
+);
 
 function Main() {
 	return (
@@ -14,15 +20,15 @@ function Main() {
 			<Box sx={{ zIndex: 1 }} pos={'absolute'} top={0} left={0} w={'100%'}>
 				<Nav />
 			</Box>
-			<Box>
+			<Suspense fallback={<Loader />}>
 				<CarouselComponent />
-			</Box>
+			</Suspense>
 			<Box>
 				<DiscountComponent />
 			</Box>
-			<Box>
+			<Suspense fallback={<ProductSkeleton />}>
 				<BestSellerComponent />
-			</Box>
+			</Suspense>
 			<Box>
 				<OfferComponent />
 			</Box>
