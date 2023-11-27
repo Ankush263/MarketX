@@ -7,6 +7,7 @@ import {
 import React from 'react';
 import SearchComponent from './search/SearchComponent';
 import Link from 'next/link';
+import CartComponent from '../cart/CartComponent';
 
 function Nav() {
 	return (
@@ -33,9 +34,10 @@ function Nav() {
 					</ActionIcon>
 
 					<SearchComponent />
-					<ActionIcon color="dark" size="xl" variant="transparent">
+					<CartComponent />
+					{/* <ActionIcon color="dark" size="xl" variant="transparent">
 						<IconShoppingCartPlus size="1.625rem" />
-					</ActionIcon>
+					</ActionIcon> */}
 					<ActionIcon color="dark" size="xl" variant="transparent">
 						<IconSettings2 size="1.625rem" />
 					</ActionIcon>
