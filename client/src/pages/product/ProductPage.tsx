@@ -1,6 +1,7 @@
-import { Box, Flex, Text } from '@mantine/core';
+import { Box, Flex, Grid, Text } from '@mantine/core';
 import React from 'react';
 import Nav from '@/components/navbar/Nav';
+import ItemCardComponent from '@/components/Itemcard/ItemCardComponent';
 
 function ProductPage() {
 	return (
@@ -31,7 +32,27 @@ function ProductPage() {
 					</Text>
 				</Flex>
 			</Flex>
-			<Box mt={20}>Products</Box>
+			<Box mt={20}>
+				<Flex direction={'column'} align={'center'} mt="50px">
+					<Text fz={'25px'} fw={550} ff={'Josefin Sans'} mb={30}>
+						Our Best Sellers
+					</Text>
+					<Grid maw={'100%'} w="80%" gutter={'xl'}>
+						<Grid.Col md={6} lg={4}>
+							<ItemCardComponent width={380} height={620} />
+						</Grid.Col>
+						<Grid.Col md={6} lg={4}>
+							<ItemCardComponent width={380} height={620} />
+						</Grid.Col>
+						<Grid.Col md={6} lg={4}>
+							<ItemCardComponent width={380} height={620} />
+						</Grid.Col>
+						<Grid.Col md={6} lg={4}>
+							<ItemCardComponent width={380} height={620} />
+						</Grid.Col>
+					</Grid>
+				</Flex>
+			</Box>
 		</Flex>
 	);
 }

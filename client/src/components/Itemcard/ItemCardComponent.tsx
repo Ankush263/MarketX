@@ -15,7 +15,12 @@ import { useCounter } from '@mantine/hooks';
 import { IconPlus, IconMinus, IconShoppingBag } from '@tabler/icons-react';
 import { itemCardStyles } from './styles/itemCardStyles';
 
-function ItemCardComponent() {
+interface ItemCardInterface {
+	width: number;
+	height: number;
+}
+
+function ItemCardComponent({ width, height }: ItemCardInterface) {
 	const [mouseHover, setMouseHover] = useState<boolean>(false);
 	const [mouseHoverButton, setMouseHoverButton] = useState<boolean>(false);
 	const [count, handlers] = useCounter(0, { min: 1, max: 3 });
@@ -26,8 +31,10 @@ function ItemCardComponent() {
 			onMouseEnter={() => setMouseHover(true)}
 			onMouseLeave={() => setMouseHover(false)}
 			sx={styles.card}
-			w={270}
-			h={420}
+			w={width}
+			h={height}
+			// w={270}
+			// h={420}
 			radius="xl"
 			withBorder
 		>

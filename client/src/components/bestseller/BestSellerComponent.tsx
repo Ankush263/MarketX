@@ -1,6 +1,6 @@
 import { Text, Grid, Flex } from '@mantine/core';
 import React from 'react';
-import ItemCardComponent from './ItemCard/ItemCardComponent';
+import ItemCardComponent from '../Itemcard/ItemCardComponent';
 
 function BestSellerComponent() {
 	return (
@@ -10,16 +10,16 @@ function BestSellerComponent() {
 			</Text>
 			<Grid maw={'100%'} w="80%" gutter={'xl'}>
 				<Grid.Col md={6} lg={3}>
-					<ItemCardComponent />
+					<ItemCardComponent width={270} height={420} />
 				</Grid.Col>
 				<Grid.Col md={6} lg={3}>
-					<ItemCardComponent />
+					<ItemCardComponent width={270} height={420} />
 				</Grid.Col>
 				<Grid.Col md={6} lg={3}>
-					<ItemCardComponent />
+					<ItemCardComponent width={270} height={420} />
 				</Grid.Col>
 				<Grid.Col md={6} lg={3}>
-					<ItemCardComponent />
+					<ItemCardComponent width={270} height={420} />
 				</Grid.Col>
 			</Grid>
 		</Flex>
