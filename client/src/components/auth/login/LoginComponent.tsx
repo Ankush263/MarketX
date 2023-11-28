@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	Box,
 	Flex,
@@ -9,6 +9,17 @@ import {
 } from '@mantine/core';
 
 function LoginComponent({ handleRegister }: any) {
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
+
+	const handleClick = async () => {
+		try {
+			console.log(email, password);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<Flex direction={'column'} w={400} h={280} justify={'space-around'}>
 			<Box>
@@ -20,13 +31,28 @@ function LoginComponent({ handleRegister }: any) {
 				</Text>
 			</Box>
 			<Box>
-				<TextInput placeholder="Enter Your Email Here" label="Email" />
+				<TextInput
+					placeholder="Enter Your Email Here"
+					label="Email"
+					onChange={(e) => setEmail(e.target.value)}
+				/>
 			</Box>
 			<Box>
-				<PasswordInput placeholder="Password" label="Password" />
+				<PasswordInput
+					placeholder="Password"
+					label="Password"
+					onChange={(e) => setPassword(e.target.value)}
+				/>
 			</Box>
 			<Flex direction={'column'} justify={'center'} align={'center'}>
-				<Button radius="xl" uppercase w={200} color="dark" fz={12}>
+				<Button
+					radius="xl"
+					uppercase
+					w={200}
+					color="dark"
+					fz={12}
+					onClick={handleClick}
+				>
 					sign in
 				</Button>
 				<Text

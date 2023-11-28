@@ -46,7 +46,15 @@ function DiscountText({
 					{bigText}
 				</Text>
 			</Box>
-			<Button sx={styles.button} radius="xl" uppercase size="md" w={150}>
+			<Button
+				sx={styles.button}
+				radius="xl"
+				uppercase
+				size="md"
+				w={150}
+				component={'a'}
+				href={'/product/ProductPage'}
+			>
 				{buttonText}
 			</Button>
 		</Flex>
