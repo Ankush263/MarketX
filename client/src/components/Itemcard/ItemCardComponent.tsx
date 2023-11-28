@@ -33,8 +33,6 @@ function ItemCardComponent({ width, height }: ItemCardInterface) {
 			sx={styles.card}
 			w={width}
 			h={height}
-			// w={270}
-			// h={420}
 			radius="xl"
 			withBorder
 		>

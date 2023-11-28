@@ -48,19 +48,13 @@ function CartComponent() {
 				</Flex>} */}
 				<Flex direction={'column'} justify={'center'} align={'center'}>
 					<Box w={'85%'}>
-						<Text fz={25} fw={700}>
+						<Text fz={25} fw={600}>
 							Shopping Cart
 						</Text>
 					</Box>
 					<Box>
-						<ScrollArea
-							h={400}
-							scrollHideDelay={500}
-							w={500}
-							mt={20}
-							sx={{ border: '1px solid red' }}
-						>
-							<Text fz={25} fw={700} mt={10}>
+						<ScrollArea h={400} scrollHideDelay={500} w={500} mt={20}>
+							{/* <Text fz={25} fw={700} mt={10}>
 								Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
 								hic officia velit voluptatem pariatur, excepturi quasi. Tempora
 								soluta molestias fugit eius corporis? Dolorem sint modi illum
@@ -74,11 +68,15 @@ function CartComponent() {
 								ad assumenda, molestiae fuga iure accusantium placeat quam ipsum
 								iste laborum expedita quis repellat provident dicta? Ratione
 								laudantium beatae eligendi illo!
-							</Text>
+							</Text> */}
+							<CartItemCard />
+							<CartItemCard />
+							<CartItemCard />
+							<CartItemCard />
 						</ScrollArea>
 					</Box>
 					<Flex w={'85%'} justify={'end'} mt={10}>
-						<Text fz={20} fw={700}>
+						<Text fz={18} fw={700}>
 							SUBTOTAL $40.60 USD
 						</Text>
 					</Flex>
