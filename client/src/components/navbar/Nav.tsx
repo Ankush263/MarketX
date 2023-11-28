@@ -1,13 +1,10 @@
 import { Text, ActionIcon, Flex } from '@mantine/core';
-import {
-	IconUser,
-	IconShoppingCartPlus,
-	IconSettings2,
-} from '@tabler/icons-react';
+import { IconSettings2 } from '@tabler/icons-react';
 import React from 'react';
 import SearchComponent from './search/SearchComponent';
 import Link from 'next/link';
 import CartComponent from '../cart/CartComponent';
+import AuthComponent from '../auth/AuthComponent';
 
 function Nav() {
 	return (
@@ -29,15 +26,10 @@ function Nav() {
 				</Flex>
 
 				<Flex justify={'space-around'} align={'center'} w={'30%'} h={'100%'}>
-					<ActionIcon color="dark" size="xl" variant="transparent">
-						<IconUser size="1.625rem" />
-					</ActionIcon>
+					<AuthComponent />
 
 					<SearchComponent />
 					<CartComponent />
-					{/* <ActionIcon color="dark" size="xl" variant="transparent">
-						<IconShoppingCartPlus size="1.625rem" />
-					</ActionIcon> */}
 					<ActionIcon color="dark" size="xl" variant="transparent">
 						<IconSettings2 size="1.625rem" />
 					</ActionIcon>
