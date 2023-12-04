@@ -2,6 +2,7 @@ const express = require('express');
 const globalErrorHandler = require('../src/controllers/errorControllers');
 const AppError = require('../src/utils/appError');
 const morgan = require('morgan');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./routes/userRoutes');
 const productRouter = require('./routes/productRoutes');
@@ -11,6 +12,8 @@ const buyRouter = require('./routes/buyRoutes');
 
 module.exports = () => {
 	const app = express();
+
+	app.use(cors());
 
 	app.use(express.json());
 
