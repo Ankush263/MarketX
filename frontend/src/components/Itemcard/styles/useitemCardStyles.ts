@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
-export const itemCardStyles = () => {
+export const useItemCardStyles = () => {
 	return useMemo(
 		() => ({
 			card: {

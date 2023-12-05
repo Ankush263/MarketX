@@ -11,10 +11,9 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import {
 	IconShoppingCartPlus,
-	IconShoppingBag,
+	// IconShoppingBag,
 	IconTrash,
 } from '@tabler/icons-react';
-import React from 'react';
 import CartItemCard from './CartItemCard';
 
 function CartComponent() {

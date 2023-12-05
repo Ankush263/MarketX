@@ -8,7 +8,6 @@ import {
 } from '@mantine/core';
 import { useCounter } from '@mantine/hooks';
 import { IconMinus, IconPlus, IconTrash } from '@tabler/icons-react';
-import React from 'react';
 
 function CartItemCard() {
 	const [count, handlers] = useCounter(0, { min: 1, max: 3 });

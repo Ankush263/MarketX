@@ -1,5 +1,4 @@
 import { Box, Flex, Image } from '@mantine/core';
-import React from 'react';
 import DiscountText from './DiscountText';
 import { useDiscountStyles } from './styles/useDiscountStyles';
 

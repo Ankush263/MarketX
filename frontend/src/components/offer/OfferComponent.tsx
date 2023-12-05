@@ -1,10 +1,9 @@
 import { Box, Flex, Image } from '@mantine/core';
-import React from 'react';
 import DiscountText from '../discount/DiscountText';
-import { offerStyles } from './styles/offerStyles';
+import { useOfferStyles } from './styles/offerStyles';
 
 function OfferComponent() {
-	const styles = offerStyles();
+	const styles = useOfferStyles();
 
 	return (
 		<Flex justify={'center'}>

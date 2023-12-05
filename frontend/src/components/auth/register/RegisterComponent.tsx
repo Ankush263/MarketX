@@ -7,13 +7,17 @@ import {
 	Button,
 } from '@mantine/core';
 import { useState } from 'react';
+import { setLogin } from '../../../redux/auth/authSlice';
 // import { useQuery } from '@tanstack/react-query';
+import { useDispatch } from 'react-redux';
 
-function RegisterComponent({ handleLogin }: any) {
+function RegisterComponent() {
 	const [username, setUsername] = useState<string>('');
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+
+	const dispatch = useDispatch();
 
 	// const { data } = useQuery({
 	// 	queryKey: ['register-user'],
@@ -27,7 +31,6 @@ function RegisterComponent({ handleLogin }: any) {
 			console.log(password === passwordConfirm);
 			console.log(passwordConfirm.length);
 			console.log(passwordConfirm.length > 1 && password === passwordConfirm);
-			// console.log('data: ', data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -86,7 +89,12 @@ function RegisterComponent({ handleLogin }: any) {
 				>
 					create account
 				</Button>
-				<Text mt={5} fz={12} onClick={handleLogin} sx={{ cursor: 'pointer' }}>
+				<Text
+					mt={5}
+					fz={12}
+					onClick={() => dispatch(setLogin(true))}
+					sx={{ cursor: 'pointer' }}
+				>
 					Already have an account? Log in here
 				</Text>
 			</Flex>

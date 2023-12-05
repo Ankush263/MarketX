@@ -1,5 +1,5 @@
 import { rem } from '@mantine/core';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 export const useMainStyle = () => {
 	return useMemo(

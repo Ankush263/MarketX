@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
 	Box,
 	Flex,
@@ -7,10 +7,14 @@ import {
 	PasswordInput,
 	Button,
 } from '@mantine/core';
+import { setLogin } from '../../../redux/auth/authSlice';
+import { useDispatch } from 'react-redux';
 
-function LoginComponent({ handleRegister }: any) {
+function LoginComponent() {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
+
+	const dispatch = useDispatch();
 
 	const handleClick = async () => {
 		try {
@@ -58,7 +62,7 @@ function LoginComponent({ handleRegister }: any) {
 				<Text
 					mt={5}
 					fz={12}
-					onClick={handleRegister}
+					onClick={() => dispatch(setLogin(false))}
 					sx={{ cursor: 'pointer' }}
 				>
 					Don't have an account? Register here

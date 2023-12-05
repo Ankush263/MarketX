@@ -1,7 +1,6 @@
 import { ActionIcon, Box, Modal, Autocomplete } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
-import React from 'react';
 
 function SearchComponent() {
 	const [opened, { open, close }] = useDisclosure(false);

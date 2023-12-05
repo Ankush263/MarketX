@@ -10,10 +10,10 @@ import {
 	ActionIcon,
 	Progress,
 } from '@mantine/core';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useCounter } from '@mantine/hooks';
 import { IconPlus, IconMinus, IconShoppingBag } from '@tabler/icons-react';
-import { itemCardStyles } from './styles/itemCardStyles';
+import { useItemCardStyles } from './styles/useitemCardStyles';
 
 interface ItemCardInterface {
 	width: number;
@@ -24,7 +24,7 @@ function ItemCardComponent({ width, height }: ItemCardInterface) {
 	const [mouseHover, setMouseHover] = useState<boolean>(false);
 	const [mouseHoverButton, setMouseHoverButton] = useState<boolean>(false);
 	const [count, handlers] = useCounter(0, { min: 1, max: 3 });
-	const styles = itemCardStyles();
+	const styles = useItemCardStyles();
 
 	return (
 		<Card

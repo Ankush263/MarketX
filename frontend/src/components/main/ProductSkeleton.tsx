@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flex, Grid, Skeleton, Text } from '@mantine/core';
 
 function ProductSkeleton() {

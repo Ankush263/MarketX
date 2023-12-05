@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
 import { Box, ActionIcon, Modal, Flex, Image } from '@mantine/core';
 import { IconUser } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
 import LoginComponent from './login/LoginComponent';
 import RegisterComponent from './register/RegisterComponent';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 function AuthComponent() {
 	const [opened, { open, close }] = useDisclosure(false);
-	const [login, setLogin] = useState<boolean>(true);
 
-	const handleLogin = () => {
-		setLogin(true);
-	};
+	const login = useSelector((state: RootState) => state.auth.value);
 
-	const handleRegister = () => {
-		setLogin(false);
-	};
+	// const dispatch = useDispatch();
+
+	// const handleLogin = () => {
+	// 	setLogin(true);
+	// };
+
+	// const handleRegister = () => {
+	// 	setLogin(false);
+	// };
 
 	return (
 		<Box>
@@ -41,11 +45,7 @@ function AuthComponent() {
 						justify={'center'}
 						align={'center'}
 					>
-						{login ? (
-							<LoginComponent handleRegister={handleRegister} />
-						) : (
-							<RegisterComponent handleLogin={handleLogin} />
-						)}
+						{login ? <LoginComponent /> : <RegisterComponent />}
 					</Flex>
 				</Flex>
 			</Modal>

@@ -1,5 +1,4 @@
 import { Box, Button, Flex, Text } from '@mantine/core';
-import React from 'react';
 import { useDiscountTextStyles } from './styles/useDiscountTextStyles';
 
 interface DiscountTextProps {

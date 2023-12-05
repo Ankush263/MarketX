@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
-export const offerStyles = () => {
+export const useOfferStyles = () => {
 	return useMemo(
 		() => ({
 			leftImageBox: {
