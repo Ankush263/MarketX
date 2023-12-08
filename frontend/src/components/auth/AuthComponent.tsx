@@ -8,18 +8,7 @@ import { RootState } from '../../redux/store';
 
 function AuthComponent() {
 	const [opened, { open, close }] = useDisclosure(false);
-
 	const login = useSelector((state: RootState) => state.auth.value);
-
-	// const dispatch = useDispatch();
-
-	// const handleLogin = () => {
-	// 	setLogin(true);
-	// };
-
-	// const handleRegister = () => {
-	// 	setLogin(false);
-	// };
 
 	return (
 		<Box>

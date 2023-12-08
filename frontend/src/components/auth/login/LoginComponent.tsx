@@ -9,6 +9,12 @@ import {
 } from '@mantine/core';
 import { setLogin } from '../../../redux/auth/authSlice';
 import { useDispatch } from 'react-redux';
+import { login } from '../../../api';
+import {
+	callSuccessNotification,
+	callErrorNotification,
+} from '../../../notification';
+import { AxiosError } from 'axios';
 
 function LoginComponent() {
 	const [email, setEmail] = useState<string>('');
@@ -18,9 +24,24 @@ function LoginComponent() {
 
 	const handleClick = async () => {
 		try {
-			console.log(email, password);
+			const response = await login({ email, password });
+			const token = response.data.token;
+			const expire =
+				new Date().getTime() + Number(import.meta.env.VITE_TOKEN_EXPIRE_TIME);
+			localStorage.setItem(
+				'Token',
+				JSON.stringify({ value: `${token}`, expires: expire })
+			);
+			callSuccessNotification(
+				`Congrats🎉🎉 you've just successfully login into our market`
+			);
+			setTimeout(() => {
+				history.go(0);
+			}, 2000);
 		} catch (error) {
 			console.log(error);
+			error instanceof AxiosError &&
+				callErrorNotification(error.response?.data.message);
 		}
 	};
 

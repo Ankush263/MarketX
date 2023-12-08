@@ -6,10 +6,16 @@ import {
 	PasswordInput,
 	Button,
 } from '@mantine/core';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { setLogin } from '../../../redux/auth/authSlice';
-// import { useQuery } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
+import { signup } from '../../../api';
+import {
+	callErrorNotification,
+	callSuccessNotification,
+} from '../../../notification';
+import { AxiosError } from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function RegisterComponent() {
 	const [username, setUsername] = useState<string>('');
@@ -17,24 +23,35 @@ function RegisterComponent() {
 	const [password, setPassword] = useState<string>('');
 	const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
+	const history = useHistory();
 	const dispatch = useDispatch();
 
-	// const { data } = useQuery({
-	// 	queryKey: ['register-user'],
-	// 	queryFn: async () =>
-	// 		await (await fetch('http://localhost:8000/api/v1/users')).json(),
-	// });
-
-	const handleClick = async () => {
+	const handleClick = useCallback(async () => {
 		try {
-			console.log(username, email, password, passwordConfirm);
-			console.log(password === passwordConfirm);
-			console.log(passwordConfirm.length);
-			console.log(passwordConfirm.length > 1 && password === passwordConfirm);
+			if (password !== passwordConfirm) {
+				callErrorNotification('Password Confirm does not match with password');
+				return;
+			}
+			const response = await signup({ username, email, password });
+			const token = response.data.token;
+			const expire =
+				new Date().getTime() + Number(import.meta.env.VITE_TOKEN_EXPIRE_TIME);
+			localStorage.setItem(
+				'Token',
+				JSON.stringify({ value: `${token}`, expires: expire })
+			);
+			callSuccessNotification(
+				`Congrats🎉🎉 you've successfully registered into our market`
+			);
+			setTimeout(() => {
+				history.go(0);
+			}, 2000);
 		} catch (error) {
 			console.log(error);
+			error instanceof AxiosError &&
+				callErrorNotification(error.response?.data.message);
 		}
-	};
+	}, [email, history, password, passwordConfirm, username]);
 
 	return (
 		<Flex direction={'column'} w={400} h={450} justify={'space-around'}>
