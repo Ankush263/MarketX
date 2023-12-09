@@ -4,9 +4,35 @@ const BusinessRepo = require('../repo/business-repo');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const { getAll, getOne } = require('./handleFactory');
+const { uploadImage } = require('./s3bucket');
+const { s3 } = require('./s3');
+
+exports.uploadImg = uploadImage.single('image');
 
 exports.getAllProducts = getAll(ProductRepo);
 exports.getSingleProduct = getOne(ProductRepo);
+
+exports.deletePhoto = catchAsync(async (req, res, next) => {
+	const product = await ProductRepo.findById(req.params.id);
+
+	const parts = product.image[0].split(
+		`https://${process.env.BUCKET_NAME}.s3.amazonaws.com/`
+	);
+	const key = parts[1];
+
+	const params = {
+		Bucket: `${process.env.BUCKET_NAME}`,
+		Key: key,
+	};
+	s3.deleteObject(params, (err, data) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+		}
+	});
+	next();
+});
 
 exports.deleteProduct = catchAsync(async (req, res, next) => {
 	const { id } = req.params;
@@ -30,21 +56,21 @@ exports.deleteProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.createProduct = catchAsync(async (req, res, next) => {
-	const { name, company, description, image, price, stock, unit, type } =
-		req.body;
+	const { name, company, description, price, stock, unit, type } = req.body;
 	const me = await UserRepo.findById(req.user.id);
-
 	if (me.role !== 'business') {
 		return next(new AppError(`Please sign in from a business account`, 401));
 	}
 
 	const businessProfile = await BusinessRepo.findByUserId(req.user.id);
+	const key = req.file.key;
+	const image = `https://${process.env.BUCKET_NAME}.s3.amazonaws.com/${key}`;
 
 	const product = await ProductRepo.create(
 		name,
 		company,
 		description,
-		image,
+		[image],
 		price,
 		stock,
 		unit,
@@ -52,7 +78,6 @@ exports.createProduct = catchAsync(async (req, res, next) => {
 		req.user.id,
 		businessProfile.id
 	);
-
 	await BusinessRepo.addProductId(product.id, req.user.id);
 
 	res.status(200).json({
@@ -62,6 +87,56 @@ exports.createProduct = catchAsync(async (req, res, next) => {
 		},
 	});
 });
+
+exports.checkUser = catchAsync(async (req, res, next) => {
+	const product = await ProductRepo.findById(req.params.id);
+	const me = await UserRepo.findById(req.user.id);
+	if (product.userId !== me.id) {
+		return next(new AppError(`You can't update others product`, 404));
+	}
+	next();
+});
+
+exports.updateProduct = catchAsync(async (req, res, next) => {
+	const { name, company, description, image, price, stock, unit, type } =
+		req.body;
+	const update = await ProductRepo.findByIdAndUpdate(
+		req.params.id,
+		name,
+		company,
+		description,
+		[image],
+		price,
+		stock,
+		unit,
+		type
+	);
+
+	res.status(200).json({
+		status: 'success',
+		data: {
+			data: update,
+		},
+	});
+});
+
+exports.updateProductImage = catchAsync(async (req, res, next) => {
+	const key = req.file.key;
+	const image = `https://${process.env.BUCKET_NAME}.s3.amazonaws.com/${key}`;
+	const update = await ProductRepo.findByIdAndUpdateImage(
+		[image],
+		req.params.id
+	);
+
+	res.status(200).json({
+		status: 'success',
+		data: {
+			data: update,
+		},
+	});
+});
+
+exports.updateImage = catchAsync(async (req, res, next) => {});
 
 const getProductByUserId = (type) =>
 	catchAsync(async (req, res, next) => {

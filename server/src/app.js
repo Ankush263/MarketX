@@ -13,7 +13,12 @@ const buyRouter = require('./routes/buyRoutes');
 module.exports = () => {
 	const app = express();
 
-	app.use(cors());
+	app.use(
+		cors({
+			origin: '*',
+			credentials: true,
+		})
+	);
 
 	app.use(express.json());
 
@@ -25,6 +30,7 @@ module.exports = () => {
 		app.use(morgan('dev'));
 	}
 	app.use(cookieParser());
+	app.use(express.json({ limit: '10kb' }));
 
 	app.use('/api/v1/users', userRouter);
 	app.use('/api/v1/products', productRouter);

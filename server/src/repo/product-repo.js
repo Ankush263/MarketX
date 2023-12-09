@@ -52,6 +52,7 @@ class ProductRepo {
 		id,
 		name,
 		company,
+		description,
 		image,
 		price,
 		stock,
@@ -60,12 +61,33 @@ class ProductRepo {
 	) {
 		const { rows } = await pool.query(
 			`
+			UPDATE products
+			SET
+				name = COALESCE($1, name),
+				company = COALESCE($2, company),
+				description = COALESCE($3, description),
+				image = COALESCE($4, image),
+				price = COALESCE($5, price),
+				stock = COALESCE($6, stock),
+				unit = COALESCE($7, unit),
+				type = COALESCE($8, type)
+			WHERE id = $9
+			RETURNING *;
+			`,
+			[name, company, description, image, price, stock, unit, type, id]
+		);
+		return toCamelCase(rows)[0];
+	}
+
+	static async findByIdAndUpdateImage(image, id) {
+		const { rows } = await pool.query(
+			`
 				UPDATE products
-				SET name = $1, company = $2, image = $3, price = $4, stock = $5, unit = $6, type = $7
-				WHERE id = $8
+				SET image = $1
+				WHERE id = $2
 				RETURNING *;
 			`,
-			[name, company, image, price, stock, unit, type, id]
+			[image, id]
 		);
 		return toCamelCase(rows)[0];
 	}
