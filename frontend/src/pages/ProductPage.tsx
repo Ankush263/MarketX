@@ -1,8 +1,34 @@
-import { Box, Flex, Grid, Text } from '@mantine/core';
+import { Box, Flex, Grid, Loader, Text } from '@mantine/core';
 import Nav from '../components/navbar/Nav';
-import ItemCardComponent from '../components/Itemcard/ItemCardComponent';
+import { getProducts } from '../api';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { Suspense, useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setProductAction } from '../redux/products/productSlice';
+import React from 'react';
+
+const ItemCardComponent = React.lazy(
+	() => import('../components/Itemcard/ItemCardComponent')
+);
 
 function ProductPage() {
+	const products = useSelector((state: RootState) => state.product.value);
+	const dispatch = useDispatch();
+
+	const fetch = useCallback(async () => {
+		try {
+			const product = await getProducts();
+			dispatch(setProductAction(product.data.data.doc));
+		} catch (error) {
+			console.log(error);
+		}
+	}, [dispatch]);
+
+	useEffect(() => {
+		fetch();
+	}, [fetch]);
+
 	return (
 		<Flex direction={'column'}>
 			<Box>
@@ -37,18 +63,30 @@ function ProductPage() {
 						Our Best Sellers
 					</Text>
 					<Grid maw={'100%'} w="80%" gutter={'xl'}>
-						<Grid.Col md={6} lg={4}>
-							<ItemCardComponent width={380} height={620} />
-						</Grid.Col>
-						<Grid.Col md={6} lg={4}>
-							<ItemCardComponent width={380} height={620} />
-						</Grid.Col>
-						<Grid.Col md={6} lg={4}>
-							<ItemCardComponent width={380} height={620} />
-						</Grid.Col>
-						<Grid.Col md={6} lg={4}>
-							<ItemCardComponent width={380} height={620} />
-						</Grid.Col>
+						{products.map((product) => {
+							return (
+								<Grid.Col md={6} lg={4} key={product.id}>
+									<Suspense
+										fallback={
+											<Flex
+												justify={'center'}
+												align={'center'}
+												w={'100%'}
+												h={'100vh'}
+											>
+												<Loader />
+											</Flex>
+										}
+									>
+										<ItemCardComponent
+											width={380}
+											height={620}
+											product={product}
+										/>
+									</Suspense>
+								</Grid.Col>
+							);
+						})}
 					</Grid>
 				</Flex>
 			</Box>

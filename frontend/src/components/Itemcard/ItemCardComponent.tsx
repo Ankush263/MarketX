@@ -14,17 +14,25 @@ import { useState } from 'react';
 import { useCounter } from '@mantine/hooks';
 import { IconPlus, IconMinus, IconShoppingBag } from '@tabler/icons-react';
 import { useItemCardStyles } from './styles/useitemCardStyles';
+import { Product } from '../../redux/products/productSlice';
+import { useHistory } from 'react-router-dom';
 
 interface ItemCardInterface {
 	width: number;
 	height: number;
+	product: Product;
 }
 
-function ItemCardComponent({ width, height }: ItemCardInterface) {
+function ItemCardComponent({ width, height, product }: ItemCardInterface) {
 	const [mouseHover, setMouseHover] = useState<boolean>(false);
 	const [mouseHoverButton, setMouseHoverButton] = useState<boolean>(false);
 	const [count, handlers] = useCounter(0, { min: 1, max: 3 });
 	const styles = useItemCardStyles();
+	const history = useHistory();
+
+	const handleClick = (id: number) => {
+		history.push(`/products/product/${id}`);
+	};
 
 	return (
 		<Card
@@ -37,39 +45,29 @@ function ItemCardComponent({ width, height }: ItemCardInterface) {
 			withBorder
 		>
 			<Flex justify="space-between" align={'center'} w={'100%'} h={40}>
-				<Text fw={500} size={'12px'} ff={'Josefin Sans'}>
-					DRIBBLE
+				<Text fw={500} size={'15px'} ff={'Josefin Sans'}>
+					{product?.company}
 				</Text>
 				<Flex justify={'center'} align={'center'} gap={'2px'}>
 					<Text fw={550}>$</Text>
 					<Text fw={500} size={'25px'}>
-						45.00
+						{product?.price}
 					</Text>
 				</Flex>
 			</Flex>
 			<Box
 				sx={{
 					overflow: 'hidden',
+					cursor: 'pointer',
 				}}
+				onClick={() => handleClick(product?.id)}
 			>
-				{mouseHover ? (
-					<Image
-						src={'/image/pooh2_notBg.webp'}
-						alt="product image"
-						sx={styles.fImage}
-					/>
-				) : (
-					<Image
-						src={'/image/1_2fd6af37-8624-4644-90da-8d4f2a0c548b.webp'}
-						alt="product image"
-						sx={styles.sImage}
-					/>
-				)}
+				<Image src={product?.image[0]} alt="product image" sx={styles.sImage} />
 			</Box>
 			{mouseHover ? (
 				<Flex direction={'column'} gap={'xs'}>
 					<Text ff={'Josefin Sans'} align="center">
-						Bear plush toy
+						{product?.name}
 					</Text>
 					<Flex justify={'space-between'} align={'center'} w="100%">
 						<ActionIcon onClick={handlers.decrement}>
@@ -102,11 +100,11 @@ function ItemCardComponent({ width, height }: ItemCardInterface) {
 				</Flex>
 			) : (
 				<Flex direction={'column'} gap={'xs'}>
-					<Text ff={'Josefin Sans'}>Bear plush toy</Text>
+					<Text ff={'Josefin Sans'}>{product?.name}</Text>
 					<Flex justify={'center'} align={'center'}>
 						<Rating defaultValue={3} size="xs" />
 						<Text size={12} ff={'Josefin Sans'}>
-							(3)
+							({product?.ratings})
 						</Text>
 					</Flex>
 				</Flex>

@@ -77,8 +77,8 @@ class BuyRepo {
 					company, 
 					image, 
 					price, 
-					stock, 
-					unit, 
+					weight, 
+					tags, 
 					type, 
 					quantity 
 				FROM cart

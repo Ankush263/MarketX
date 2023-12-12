@@ -20,15 +20,15 @@ class ProductRepo {
 		description,
 		image,
 		price,
-		stock,
-		unit,
+		tags,
+		weight,
 		type,
 		user_id,
 		business_id
 	) {
 		const { rows } = await pool.query(
 			`
-				INSERT INTO products (name, company, description, image, price, stock, unit, type, user_id, business_id)
+				INSERT INTO products (name, company, description, image, price, tags, weight, type, user_id, business_id)
 				VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
 				RETURNING *;
 			`,
@@ -38,8 +38,8 @@ class ProductRepo {
 				description,
 				image,
 				price,
-				stock,
-				unit,
+				tags,
+				weight,
 				type,
 				user_id,
 				business_id,
@@ -55,8 +55,8 @@ class ProductRepo {
 		description,
 		image,
 		price,
-		stock,
-		unit,
+		tags,
+		weight,
 		type
 	) {
 		const { rows } = await pool.query(
@@ -68,13 +68,13 @@ class ProductRepo {
 				description = COALESCE($3, description),
 				image = COALESCE($4, image),
 				price = COALESCE($5, price),
-				stock = COALESCE($6, stock),
-				unit = COALESCE($7, unit),
+				tags = COALESCE($6, tags),
+				weight = COALESCE($7, weight),
 				type = COALESCE($8, type)
 			WHERE id = $9
 			RETURNING *;
 			`,
-			[name, company, description, image, price, stock, unit, type, id]
+			[name, company, description, image, price, tags, weight, type, id]
 		);
 		return toCamelCase(rows)[0];
 	}

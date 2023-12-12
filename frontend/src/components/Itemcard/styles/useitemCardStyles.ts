@@ -8,7 +8,7 @@ export const useItemCardStyles = () => {
 				flexDirection: 'column' as const,
 				justifyContent: 'center',
 				alignItems: 'center',
-				cursor: 'pointer',
+				// cursor: 'pointer',
 				boxShadow: '5px 3px 3px rgba(237, 231, 225, .6)',
 				'&:hover': {
 					boxShadow: '5px 5px 12px 10px rgba(237, 231, 225, .8)',

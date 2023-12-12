@@ -56,7 +56,7 @@ exports.deleteProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.createProduct = catchAsync(async (req, res, next) => {
-	const { name, company, description, price, stock, unit, type } = req.body;
+	const { name, company, description, price, tags, weight, type } = req.body;
 	const me = await UserRepo.findById(req.user.id);
 	if (me.role !== 'business') {
 		return next(new AppError(`Please sign in from a business account`, 401));
@@ -72,8 +72,8 @@ exports.createProduct = catchAsync(async (req, res, next) => {
 		description,
 		[image],
 		price,
-		stock,
-		unit,
+		[tags],
+		weight,
 		type,
 		req.user.id,
 		businessProfile.id
@@ -98,7 +98,7 @@ exports.checkUser = catchAsync(async (req, res, next) => {
 });
 
 exports.updateProduct = catchAsync(async (req, res, next) => {
-	const { name, company, description, image, price, stock, unit, type } =
+	const { name, company, description, image, price, tags, weight, type } =
 		req.body;
 	const update = await ProductRepo.findByIdAndUpdate(
 		req.params.id,
@@ -107,8 +107,8 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
 		description,
 		[image],
 		price,
-		stock,
-		unit,
+		[tags],
+		weight,
 		type
 	);
 

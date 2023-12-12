@@ -55,8 +55,8 @@ class BusinessRepo {
 							'description', products.description,
 							'image', products.image,
 							'price', products.price,
-							'unit', products.unit,
-							'stock', products.stock,
+							'tags', products.tags,
+							'weight', products.weight,
 							'type', products.type
 						)
 					) AS products

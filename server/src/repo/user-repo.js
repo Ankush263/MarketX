@@ -36,10 +36,14 @@ class UserRepo {
 	static async findByIdAndUpdate(id, username, avater, email, role) {
 		const { rows } = await pool.query(
 			`
-        UPDATE users
-        SET username = $1, avater = $2, email = $3, role = $4
-        WHERE id = $5
-        RETURNING *;
+				UPDATE users
+				SET 
+					username = COALESCE($1, username),
+					avater = COALESCE($2, avater),
+					email = COALESCE($3, email),
+					role = COALESCE($4, role)
+				WHERE id = $5
+				RETURNING *;
       `,
 			[username, avater, email, role, id]
 		);
