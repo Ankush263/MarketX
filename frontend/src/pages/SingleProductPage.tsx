@@ -1,13 +1,4 @@
-import {
-	ActionIcon,
-	Box,
-	Button,
-	CloseButton,
-	Flex,
-	Image,
-	Progress,
-	Text,
-} from '@mantine/core';
+import { Box, Flex, Image, Text } from '@mantine/core';
 import { useParams } from 'react-router-dom';
 import Nav from '../components/navbar/Nav';
 import { useCallback, useEffect, useState } from 'react';
@@ -15,8 +6,7 @@ import { getSingleProduct } from '../api';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { Product } from '../redux/products/productSlice';
-import { IconMinus, IconPlus, IconShoppingBag } from '@tabler/icons-react';
-import { useCounter } from '@mantine/hooks';
+import AddToCartButton from '../components/cart/AddToCartButton';
 
 interface RouteParams {
 	productId: string;
@@ -25,12 +15,9 @@ function SingleProductPage() {
 	const { productId } = useParams<RouteParams>();
 	const token = useSelector((state: RootState) => state.token.value);
 	const [product, setProduct] = useState<Product>();
-	const [count, handlers] = useCounter(0, { min: 1, max: 3 });
-	const [mouseHoverButton, setMouseHoverButton] = useState<boolean>(false);
 
 	const fetch = useCallback(async () => {
 		const product = await getSingleProduct(productId, token);
-		console.log(product.data.data.doc);
 		setProduct(product.data.data.doc);
 	}, [productId, token]);
 
@@ -86,38 +73,7 @@ function SingleProductPage() {
 						</Text>
 					</Text>
 					<Flex>
-						<Flex direction={'column'}>
-							<Flex justify={'space-between'} align={'center'} w={100}>
-								<ActionIcon onClick={handlers.decrement}>
-									<IconMinus size="1.125rem" />
-								</ActionIcon>
-								<Text>{count}</Text>
-								{count === 3 ? (
-									<CloseButton aria-label="Close modal" disabled />
-								) : (
-									<ActionIcon onClick={handlers.increment}>
-										<IconPlus size="1.125rem" />
-									</ActionIcon>
-								)}
-							</Flex>
-							<Progress
-								value={34 * count}
-								size="xs"
-								w={100}
-								color={count === 1 ? 'green' : count === 2 ? 'red' : 'blue'}
-							/>
-						</Flex>
-						<Button
-							onMouseEnter={() => setMouseHoverButton(true)}
-							onMouseLeave={() => setMouseHoverButton(false)}
-							w={150}
-							radius={'xl'}
-							ml={20}
-							color="dark"
-							fz={12}
-						>
-							{mouseHoverButton ? <IconShoppingBag /> : 'Add To Cart'}
-						</Button>
+						<AddToCartButton product={product && product} />
 					</Flex>
 				</Flex>
 			</Flex>

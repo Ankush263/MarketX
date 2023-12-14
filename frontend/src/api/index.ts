@@ -4,9 +4,11 @@ const URL = `http://localhost:8000`;
 
 const USER_URL = `${URL}/api/v1/users`;
 const PRODUCT_URL = `${URL}/api/v1/products`;
+const CART_URL = `${URL}/api/v1/cart`;
 
 const USER_API = axios.create({ baseURL: USER_URL });
 const PRODUCT_API = axios.create({ baseURL: PRODUCT_URL });
+const CART_API = axios.create({ baseURL: CART_URL });
 
 export const signup = (_details: {
 	username: string;
@@ -24,3 +26,32 @@ export const getProducts = () => PRODUCT_API.get('/');
 
 export const getSingleProduct = (id: string, _token: string | null) =>
 	PRODUCT_API.get(`/${id}`, { headers: { Authorization: `Bearer ${_token}` } });
+
+export const addToCart = (productId: string, _token: string | null) =>
+	CART_API.post(
+		'/',
+		{ productId },
+		{
+			headers: { Authorization: `Bearer ${_token}` },
+		}
+	);
+
+export const removeFromCart = (productId: string, _token: string | null) =>
+	CART_API.post(
+		'/remove',
+		{ productId },
+		{
+			headers: { Authorization: `Bearer ${_token}` },
+		}
+	);
+
+export const getMyCartItems = (_token: string | null) =>
+	CART_API.get('/myCart', { headers: { Authorization: `Bearer ${_token}` } });
+
+export const getTotal = (_token: string | null) =>
+	CART_API.get('/total', { headers: { Authorization: `Bearer ${_token}` } });
+
+export const deleteCartByUserId = (_token: string | null) =>
+	CART_API.delete(`/deleteByUserId`, {
+		headers: { Authorization: `Bearer ${_token}` },
+	});

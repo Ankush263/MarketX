@@ -1,21 +1,9 @@
-import {
-	Box,
-	Flex,
-	Text,
-	Image,
-	Card,
-	Rating,
-	Button,
-	CloseButton,
-	ActionIcon,
-	Progress,
-} from '@mantine/core';
+import { Box, Flex, Text, Image, Card, Rating } from '@mantine/core';
 import { useState } from 'react';
-import { useCounter } from '@mantine/hooks';
-import { IconPlus, IconMinus, IconShoppingBag } from '@tabler/icons-react';
 import { useItemCardStyles } from './styles/useitemCardStyles';
 import { Product } from '../../redux/products/productSlice';
 import { useHistory } from 'react-router-dom';
+import AddToCartButton from '../cart/AddToCartButton';
 
 interface ItemCardInterface {
 	width: number;
@@ -25,8 +13,6 @@ interface ItemCardInterface {
 
 function ItemCardComponent({ width, height, product }: ItemCardInterface) {
 	const [mouseHover, setMouseHover] = useState<boolean>(false);
-	const [mouseHoverButton, setMouseHoverButton] = useState<boolean>(false);
-	const [count, handlers] = useCounter(0, { min: 1, max: 3 });
 	const styles = useItemCardStyles();
 	const history = useHistory();
 
@@ -69,34 +55,7 @@ function ItemCardComponent({ width, height, product }: ItemCardInterface) {
 					<Text ff={'Josefin Sans'} align="center">
 						{product?.name}
 					</Text>
-					<Flex justify={'space-between'} align={'center'} w="100%">
-						<ActionIcon onClick={handlers.decrement}>
-							<IconMinus size="1.125rem" />
-						</ActionIcon>
-						<Text>{count}</Text>
-						{count === 3 ? (
-							<CloseButton aria-label="Close modal" disabled />
-						) : (
-							<ActionIcon onClick={handlers.increment}>
-								<IconPlus size="1.125rem" />
-							</ActionIcon>
-						)}
-					</Flex>
-					<Progress
-						value={34 * count}
-						size="xs"
-						color={count === 1 ? 'green' : count === 2 ? 'red' : 'blue'}
-					/>
-					<Button
-						onMouseEnter={() => setMouseHoverButton(true)}
-						onMouseLeave={() => setMouseHoverButton(false)}
-						w={150}
-						radius={'xl'}
-						color="dark"
-						sx={styles.button}
-					>
-						{mouseHoverButton ? <IconShoppingBag /> : 'Add To Cart'}
-					</Button>
+					<AddToCartButton product={product && product} />
 				</Flex>
 			) : (
 				<Flex direction={'column'} gap={'xs'}>

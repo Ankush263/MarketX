@@ -101,7 +101,7 @@ class CartRepo {
 	static async getCart(userId) {
 		const { rows } = await pool.query(
 			`
-				SELECT cart.id, cart.user_id, name, image, company, price, quantity, price * quantity AS sub_total
+				SELECT cart.id, products.id as productid, cart.user_id, name, image, company, price, quantity, price * quantity AS sub_total
 				FROM cart
 				JOIN products ON products.id = cart.product_id
 				WHERE cart.user_id = $1;
@@ -118,6 +118,17 @@ class CartRepo {
 				FROM cart
 				JOIN products ON products.id = cart.product_id
 				WHERE cart.user_id = $1;
+			`,
+			[userId]
+		);
+		return toCamelCase(rows)[0];
+	}
+
+	static async deleteByUserId(userId) {
+		const { rows } = await pool.query(
+			`
+				DELETE FROM cart
+				WHERE user_id = $1
 			`,
 			[userId]
 		);

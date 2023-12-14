@@ -5,6 +5,9 @@ const { deleteOne } = require('./handleFactory');
 
 exports.addItemToCart = catchAsync(async (req, res, next) => {
 	const { productId } = req.body;
+	if (!productId) {
+		return next(new AppError('Please provied a valid productId', 404));
+	}
 	const cart = await CartRepo.addToCart(req.user.id, productId);
 
 	res.status(200).json({
@@ -81,6 +84,21 @@ exports.checkOwner = catchAsync(async (req, res, next) => {
 		return next(new AppError(`You are not the owner of this cart`, 404));
 	}
 	next();
+});
+
+exports.deleteCartItemsByUserId = catchAsync(async (req, res, next) => {
+	const userId = req.user.id;
+	if (!userId) {
+		return next(new AppError(`Please provied a valid userId`, 404));
+	}
+	await CartRepo.deleteByUserId(userId);
+
+	res.status(200).json({
+		status: 'success',
+		data: {
+			cart: null,
+		},
+	});
 });
 
 exports.deleteCart = deleteOne(CartRepo);

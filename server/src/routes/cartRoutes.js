@@ -7,6 +7,7 @@ const {
 	getMyCartWithProducts,
 	getTotal,
 	removeItemsFromCart,
+	deleteCartItemsByUserId,
 } = require('../controllers/cartControllers');
 
 const { protect } = require('../controllers/authControllers');
@@ -17,6 +18,7 @@ router.use(protect);
 router.route('/myCart').get(getMyCartWithProducts);
 router.route('/total').get(getTotal);
 router.route('/remove').post(removeItemsFromCart);
+router.route('/deleteByUserId').delete(deleteCartItemsByUserId);
 router.route('/').post(addItemToCart).get(getMyCart);
 router.route('/:id').delete(checkOwner, deleteCart);
 
