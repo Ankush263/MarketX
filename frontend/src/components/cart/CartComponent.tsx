@@ -165,6 +165,7 @@ function CartComponent() {
 							color="dark"
 							fz={12}
 							disabled={!getTotalQuery?.data}
+							onClick={() => history.push('/checkout')}
 						>
 							check out
 						</Button>
