@@ -1,6 +1,85 @@
 const BuyRepo = require('../repo/buy-repo');
+const CartRepo = require('../repo/cart-repo');
+const UserRepo = require('../repo/user-repo');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+exports.getCheckoutSession = catchAsync(async (req, res, next) => {
+	const cart = await CartRepo.getCart(req.user.id);
+	const lineItems = cart.map((item) => ({
+		price_data: {
+			currency: 'usd',
+			product_data: {
+				name: item.name,
+				images: [item.image[0]],
+			},
+			unit_amount: item.price * 100,
+		},
+		quantity: item.quantity,
+	}));
+	const customer = await stripe.customers.create({
+		email: req.user.email,
+	});
+	const session = await stripe.checkout.sessions.create({
+		payment_method_types: ['card'],
+		success_url: `${req.protocol}://${req.get('host')}/products?alert=buy`, // Redirect to the success page
+		customer: customer.id,
+		client_reference_id: req.user.id,
+		mode: 'payment',
+		line_items: lineItems,
+	});
+
+	res.status(200).json({
+		status: 'success',
+		session,
+	});
+});
+
+const createCheckoutSession = async (session) => {
+	const customerId = session.customer;
+	const customer = await stripe.customers.retrieve(customerId);
+	const user = await UserRepo.findByEmail(customer.email);
+	const userId = user.id;
+	await BuyRepo.buy(userId, 'card', 'true');
+};
+
+exports.webhookCheckout = (req, res, next) => {
+	const signature = req.headers['stripe-signature'];
+
+	let event;
+	try {
+		event = stripe.webhooks.constructEvent(
+			req.body,
+			signature,
+			process.env.STRIPE_WEBHOOK_SECRET
+		);
+	} catch (err) {
+		console.log(err);
+		return res.status(400).send(`Webhook error: ${err.message}`);
+	}
+
+	switch (event.type) {
+		case 'payment_intent.succeeded':
+			const paymentIntentSucceeded = event.data.object;
+			createCheckoutSession(paymentIntentSucceeded);
+			break;
+		default:
+			console.log(`Unhandled event type ${event.type}`);
+	}
+	res.send();
+};
+
+exports.checkoutSuccess = catchAsync(async (req, res, next) => {
+	const sessoinId = req.query.sessoin_id;
+	const session = await stripe.checkout.sessions.retrieve(sessoinId);
+	const customer = await stripe.customers.retrieve(session.customer);
+	console.log('session: ', session);
+	console.log('customer: ', customer);
+	res.send(
+		`<html><body><h1>Thanks for your order, ${customer.email}!</h1></body></html>`
+	);
+});
 
 exports.createBuy = catchAsync(async (req, res, next) => {
 	const { payment_option, paid } = req.body;
