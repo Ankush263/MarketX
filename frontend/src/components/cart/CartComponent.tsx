@@ -15,7 +15,12 @@ import {
 } from '@tabler/icons-react';
 import CartItemCard from './CartItemCard';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getMyCartItems, getTotal, deleteCartByUserId } from '../../api';
+import {
+	getMyCartItems,
+	getTotal,
+	deleteCartByUserId,
+	startCheckoutSession,
+} from '../../api';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { CartItemInterface } from '../../interface';
@@ -24,7 +29,7 @@ import { useHistory } from 'react-router-dom';
 
 function CartComponent() {
 	const token = useSelector((state: RootState) => state.token.value);
-	const cartOpene = useSelector((state: RootState) => state.cart.value);
+	const cartOpen = useSelector((state: RootState) => state.cart.value);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const queryClient = useQueryClient();
@@ -80,7 +85,13 @@ function CartComponent() {
 
 	const handleCartOpen = () => {
 		getTotalQuery.refetch();
-		return cartOpene;
+		return cartOpen;
+	};
+
+	const handleStartCheckoutSession = async () => {
+		const checkoutSession = await startCheckoutSession(token);
+		const stripeRedirectURL = checkoutSession.data.session.url;
+		window.location.replace(stripeRedirectURL);
 	};
 
 	return (
@@ -165,7 +176,7 @@ function CartComponent() {
 							color="dark"
 							fz={12}
 							disabled={!getTotalQuery?.data}
-							onClick={() => history.push('/checkout')}
+							onClick={handleStartCheckoutSession}
 						>
 							check out
 						</Button>

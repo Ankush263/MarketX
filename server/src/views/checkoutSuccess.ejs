@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<style>
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+		}
+		.box {
+			width: 300px;
+			height: 400px;
+			box-shadow: 10px 5px 5px dimgray;
+			border: 1px solid gray;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			align-items: center;
+			border-radius: 10px;
+		}
+		.flex {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+		}
+		button {
+			padding: 10px;
+			color: white;
+			font-weight: 600;
+			background-color: rgb(46, 99, 179);
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+	<body>
+		<div class="box">
+			<div class="flex">
+				<span style="font-size: 70px">💳</span>
+				<span style="font-size: 70px">🛒</span>
+				<span style="font-size: 70px">🫂</span>
+			</div>
+			<h3 style="text-align: center">
+				Thank you
+				<span
+					style="
+						color: rgb(8, 99, 99);
+						font-family: Georgia, 'Times New Roman', Times, serif;
+					"
+					><%= customerName %></span
+				>
+				for shopping with us
+			</h3>
+			<div class="flex">
+				<span style="font-size: 70px">🥳</span>
+				<span style="font-size: 70px">🎊</span>
+				<span style="font-size: 70px">🪅</span>
+			</div>
+			<button onclick="handleClick()">Go Home</button>
+		</div>
+		<script>
+			function handleClick() {
+				window.location.href = 'http://127.0.0.1:5173/';
+			}
+		</script>
+	</body>
+</html>

@@ -11,7 +11,8 @@ exports.up = (pgm) => {
         id SERIAL PRIMARY KEY,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         user_id INTEGER REFERENCES users(id),
-        cart_id INTEGER REFERENCES cart(id),
+        product_id INTEGER REFERENCES products(id),
+        quantity INTEGER DEFAULT 1,
         payment_option payment DEFAULT 'card',
         sub_total INTEGER DEFAULT 0,
         paid BOOLEAN DEFAULT true

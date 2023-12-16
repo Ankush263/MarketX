@@ -5,10 +5,12 @@ const URL = `http://localhost:8000`;
 const USER_URL = `${URL}/api/v1/users`;
 const PRODUCT_URL = `${URL}/api/v1/products`;
 const CART_URL = `${URL}/api/v1/cart`;
+const BUY_URL = `${URL}/api/v1/buy`;
 
 const USER_API = axios.create({ baseURL: USER_URL });
 const PRODUCT_API = axios.create({ baseURL: PRODUCT_URL });
 const CART_API = axios.create({ baseURL: CART_URL });
+const BUY_API = axios.create({ baseURL: BUY_URL });
 
 export const signup = (_details: {
 	username: string;
@@ -53,5 +55,10 @@ export const getTotal = (_token: string | null) =>
 
 export const deleteCartByUserId = (_token: string | null) =>
 	CART_API.delete(`/deleteByUserId`, {
+		headers: { Authorization: `Bearer ${_token}` },
+	});
+
+export const startCheckoutSession = (_token: string | null) =>
+	BUY_API.get('/checkout-session', {
 		headers: { Authorization: `Bearer ${_token}` },
 	});

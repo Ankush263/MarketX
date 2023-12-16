@@ -23,7 +23,9 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 	});
 	const session = await stripe.checkout.sessions.create({
 		payment_method_types: ['card'],
-		success_url: `${req.protocol}://${req.get('host')}/products?alert=buy`, // Redirect to the success page
+		success_url: `${req.protocol}://${req.get(
+			'host'
+		)}/api/v1/buy/success?session_id={CHECKOUT_SESSION_ID}`,
 		customer: customer.id,
 		client_reference_id: req.user.id,
 		mode: 'payment',
@@ -71,14 +73,19 @@ exports.webhookCheckout = (req, res, next) => {
 };
 
 exports.checkoutSuccess = catchAsync(async (req, res, next) => {
-	const sessoinId = req.query.sessoin_id;
-	const session = await stripe.checkout.sessions.retrieve(sessoinId);
-	const customer = await stripe.customers.retrieve(session.customer);
-	console.log('session: ', session);
-	console.log('customer: ', customer);
-	res.send(
-		`<html><body><h1>Thanks for your order, ${customer.email}!</h1></body></html>`
-	);
+	const sessionId = req.query.session_id;
+	if (!sessionId) {
+		return next(new AppError(`Session Id does not exists`, 404));
+	}
+	const session = await stripe.checkout.sessions.retrieve(sessionId);
+	if (!session) {
+		return next(new AppError(`Session does not exists`, 404));
+	}
+	const customerName = session.customer_details.name || 'Unknown Customer';
+
+	res.render('checkoutSuccess', {
+		customerName,
+	});
 });
 
 exports.createBuy = catchAsync(async (req, res, next) => {

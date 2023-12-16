@@ -10,11 +10,9 @@ const { protect } = require('../controllers/authControllers');
 
 const router = express.Router();
 
-router.use(protect);
-
-router.route('/').post(createBuy).get(getMyBuy);
-router.route('/checkout-session').get(getCheckoutSession);
+router.route('/').post(protect, createBuy).get(protect, getMyBuy);
+router.route('/checkout-session').get(protect, getCheckoutSession);
 router.route('/success').get(checkoutSuccess);
-router.route('/total').get(getTotal);
+router.route('/total').get(protect, getTotal);
 
 module.exports = router;

@@ -11,6 +11,7 @@ const reviewRouter = require('./routes/reviewRoutes');
 const cartRouter = require('./routes/cartRoutes');
 const buyRouter = require('./routes/buyRoutes');
 const { webhookCheckout } = require('./controllers/buyControllers');
+const path = require('path');
 
 module.exports = () => {
 	const app = express();
@@ -22,7 +23,8 @@ module.exports = () => {
 		})
 	);
 
-	// app.use(express.json());
+	app.set('views', path.join(__dirname, 'views'));
+	app.set('view engine', 'ejs');
 
 	app.use((req, res, next) => {
 		console.log('🚓🚓🚙🚙');
@@ -46,6 +48,10 @@ module.exports = () => {
 	app.use('/api/v1/review', reviewRouter);
 	app.use('/api/v1/cart', cartRouter);
 	app.use('/api/v1/buy', buyRouter);
+
+	app.get('/checkout', (req, res) => {
+		res.render('checkoutSuccess');
+	});
 
 	app.all('*', (req, res, next) => {
 		next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
