@@ -31,14 +31,26 @@ class BuyRepo {
 				throw new Error('No cart items found for this user.');
 			}
 
+			const sub_total = (
+				await pool.query(
+					`
+					SELECT SUM(price * quantity) AS sub_total
+					FROM cart
+					JOIN products ON products.id = cart.product_id
+					WHERE cart.user_id = $1;
+				`,
+					[user_id]
+				)
+			).rows[0].sub_total;
+
 			const buyQueries = cartIds.map(async (cart_id) => {
 				const buyQuery = await pool.query(
 					`
-						INSERT INTO buy (user_id, cart_id, payment_option, paid)
-						VALUES ($1, $2, $3, $4)
+						INSERT INTO buy (user_id, cart_id, payment_option, paid, sub_total)
+						VALUES ($1, $2, $3, $4, $5)
 						RETURNING *
           `,
-					[user_id, cart_id, payment_option, paid]
+					[user_id, cart_id, payment_option, paid, sub_total]
 				);
 				return buyQuery.rows[0];
 			});

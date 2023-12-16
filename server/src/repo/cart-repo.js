@@ -11,7 +11,7 @@ class CartRepo {
 
 	static async findById(id) {
 		const { rows } = await pool.query('SELECT * FROM cart WHERE id = $1', [id]);
-		return toCamelCase(rows)[0];
+		return toCamelCase(rows);
 	}
 
 	static async create(userId, productId, quantity) {

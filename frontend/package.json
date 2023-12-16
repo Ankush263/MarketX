@@ -16,6 +16,8 @@
 		"@mantine/hooks": "^6.0.21",
 		"@mantine/notifications": "^6.0.21",
 		"@reduxjs/toolkit": "^2.0.1",
+		"@stripe/react-stripe-js": "^2.4.0",
+		"@stripe/stripe-js": "^2.2.1",
 		"@tabler/icons-react": "^2.42.0",
 		"@tanstack/react-query": "^5.12.2",
 		"@tanstack/react-query-devtools": "^5.12.2",
