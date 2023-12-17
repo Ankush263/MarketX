@@ -1,7 +1,9 @@
+import MainComponent from './components/main/MainComponent';
+
 function App() {
 	return (
 		<>
-			<div>Ankush</div>
+			<MainComponent />
 		</>
 	);
 }

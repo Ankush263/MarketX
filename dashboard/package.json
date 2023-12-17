@@ -13,6 +13,7 @@
     "@emotion/react": "^11.11.1",
     "@mantine/core": "^6.0.21",
     "@mantine/hooks": "^6.0.21",
+    "@tabler/icons-react": "^2.44.0",
     "@tanstack/react-query": "^5.14.0",
     "@tanstack/react-query-devtools": "^5.14.0",
     "axios": "^1.6.2",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
+    "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react": "^4.2.1",
