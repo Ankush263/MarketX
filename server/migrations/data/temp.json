@@ -1,0 +1,65 @@
+[
+	{
+		"name": "Bear plush toy",
+		"company": "Darbie",
+		"description": "All kids love stuffed toys. Toddlers love to hug and talk to them, girls love to collect stuffed animals. Every child has a favorite fox or other cute animal. Children love to take them to bed and for walks.",
+		"price": 45,
+		"type": "Stuffed toys",
+		"tags": ["sale", "toys"],
+		"weight": "0.37kg"
+	},
+	{
+		"name": "Owl stuffed toy",
+		"company": "Tomika",
+		"description": "All kids love stuffed toys. Toddlers love to hug and talk to them, girls love to collect stuffed animals. Every child has a favorite fox or other cute animal. Children love to take them to bed and for walks.",
+		"price": 28,
+		"type": "Stuffed toys",
+		"tags": ["sale", "toys"],
+		"weight": "0.25kg"
+	},
+	{
+		"name": "Radio controlled car",
+		"company": "Darbie",
+		"description": "Remote control games aren't just for kids - they're great for all ages, especially if you're into and love to play. This is increased perception and intelligence, increased creativity and imagination.",
+		"price": 68,
+		"type": "Transport toys",
+		"tags": ["new", "toys"],
+		"weight": "0.79kg"
+	},
+	{
+		"name": "Transformer",
+		"company": "Darbie",
+		"description": "Transformers are not only the heroes of the film, but also children's toys, which are simply adored by boys of different ages. Children are fascinated by the fact that this is not just one toy, but two at once, or even more.",
+		"price": 45,
+		"type": "Robots",
+		"tags": ["new", "toys"],
+		"weight": "0.82kg"
+	},
+	{
+		"name": "Boat toy",
+		"company": "Tomika",
+		"description": "A bath toy is a great way to instill a love of hygiene in your baby and a great excuse to play. Have a water fight? Capture a pirate ship? It's easy if parents buy this boat for their child.",
+		"price": 5,
+		"type": "Transport toys",
+		"tags": ["new", "toys"],
+		"weight": "0.08kg"
+	},
+	{
+		"name": "Robot toy",
+		"company": "Playkit",
+		"description": "Games with a robot are the first step into the world of cybernetics, gadgets and high technologies. This contributes to the adaptation of the child to modern life realities, arouses interest in technical innovations and programming.",
+		"price": 125,
+		"type": "Robots",
+		"tags": ["sale", "toys"],
+		"weight": "1.2kg"
+	},
+	{
+		"name": "House constructor",
+		"company": "Playkit",
+		"description": "By connecting the components of the constructor, the child learns to make precise movements, feels the smallest details and corners of objects. Such stimulation has a beneficial effect on the motor and speech skills.",
+		"price": 58,
+		"type": "Constructor",
+		"tags": ["sale", "toys"],
+		"weight": "0.45kg"
+	}
+]
