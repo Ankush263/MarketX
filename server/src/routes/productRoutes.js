@@ -11,6 +11,7 @@ const {
 	uploadImg,
 	checkUser,
 	deletePhoto,
+	searchByUsername,
 } = require('../controllers/productControllers');
 
 const { protect } = require('../controllers/authControllers');
@@ -23,6 +24,7 @@ router.use(protect);
 router.route('/userId/:id').get(getProductsByUserId);
 router.route('/updateImg/:id').patch(uploadImg, updateProductImage);
 router.route('/myProducts').get(getMyProducts);
+router.route('/search').get(searchByUsername);
 router.route('/').post(uploadImg, createProduct);
 router
 	.route('/:id')

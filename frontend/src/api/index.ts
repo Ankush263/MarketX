@@ -62,3 +62,8 @@ export const startCheckoutSession = (_token: string | null) =>
 	BUY_API.get('/checkout-session', {
 		headers: { Authorization: `Bearer ${_token}` },
 	});
+
+export const search = (_token: string | null, query: string) =>
+	PRODUCT_API.get(`/search?name=${query}`, {
+		headers: { Authorization: `Bearer ${_token}` },
+	});

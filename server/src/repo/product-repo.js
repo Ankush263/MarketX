@@ -102,6 +102,16 @@ class ProductRepo {
 		return toCamelCase(rows);
 	}
 
+	static async searchProductsByName(searchTerm) {
+		const { rows } = await pool.query(
+			`
+				SELECT * FROM products WHERE name ILIKE $1;
+			`,
+			[`%${searchTerm}%`]
+		);
+		return toCamelCase(rows);
+	}
+
 	static async delete(id) {
 		const { rows } = await pool.query(
 			`

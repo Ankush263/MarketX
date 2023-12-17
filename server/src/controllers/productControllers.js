@@ -136,8 +136,6 @@ exports.updateProductImage = catchAsync(async (req, res, next) => {
 	});
 });
 
-exports.updateImage = catchAsync(async (req, res, next) => {});
-
 const getProductByUserId = (type) =>
 	catchAsync(async (req, res, next) => {
 		const products =
@@ -156,6 +154,18 @@ const getProductByUserId = (type) =>
 			},
 		});
 	});
+
+exports.searchByUsername = catchAsync(async (req, res, next) => {
+	const searchTerms = req.query.name;
+	const doc = await ProductRepo.searchProductsByName(searchTerms);
+
+	res.status(200).json({
+		status: 'success',
+		data: {
+			data: doc,
+		},
+	});
+});
 
 exports.getMyProducts = getProductByUserId('myProducts');
 
