@@ -1,14 +1,17 @@
 import { ActionIcon, Box, Divider, Flex, Text } from '@mantine/core';
 import {
-	IconChartBar,
-	IconCloudUpload,
+	// IconChartBar,
+	// IconCloudUpload,
 	IconClipboardList,
 	IconHistory,
 	IconBrandGoogleBigQuery,
 	IconUser,
-	IconLogout,
+	// IconLogout,
 } from '@tabler/icons-react';
 import { useComponentStyle } from './styles/useComponentStyle';
+import LogoutComponent from '../auth/LogoutComponent';
+import UploadNavButtonComponent from '../uploadproducts/UploadNavButtonComponent';
+import OverviewNavButtonComponent from '../overview/OverviewNavButtonComponent';
 
 function SideBar() {
 	const styles = useComponentStyle();
@@ -22,27 +25,30 @@ function SideBar() {
 				direction={'column'}
 				align={'center'}
 			>
-				<Text color="white" ff={'Kaushan Script'} mr={50} fz={30} fw={700}>
+				<Text
+					color="white"
+					ff={'Kaushan Script'}
+					mr={50}
+					fz={30}
+					fw={700}
+					mt={10}
+				>
 					MarketX
 				</Text>
-				<Divider my={'xl'} w={280} />
-				<Flex mt={50} mb={50} direction={'column'}>
-					<Flex w={250} sx={styles.hoverComponent} align={'center'}>
+				<Box mt={70}>
+					<Divider w={280} />
+				</Box>
+				<Flex mt={50} mb={30} direction={'column'}>
+					{/* <Flex w={250} sx={styles.hoverComponent} align={'center'}>
 						<ActionIcon variant="transparent">
 							<IconChartBar color="white" size="1.2rem" />
 						</ActionIcon>
 						<Text fw={500} color="white" fz={15} ml={12}>
 							Overview
 						</Text>
-					</Flex>
-					<Flex w={250} sx={styles.hoverComponent} align={'center'}>
-						<ActionIcon variant="transparent">
-							<IconCloudUpload color="white" size="1.2rem" />
-						</ActionIcon>
-						<Text fw={500} color="white" fz={15} ml={12}>
-							Upload Product
-						</Text>
-					</Flex>
+					</Flex> */}
+					<OverviewNavButtonComponent />
+					<UploadNavButtonComponent />
 					<Flex w={250} sx={styles.hoverComponent} align={'center'}>
 						<ActionIcon variant="transparent">
 							<IconClipboardList color="white" size="1.2rem" />
@@ -78,14 +84,7 @@ function SideBar() {
 				</Flex>
 				<Divider my={'xl'} w={280} />
 				<Box mt={80}>
-					<Flex w={250} sx={styles.hoverComponent} align={'center'}>
-						<ActionIcon variant="transparent">
-							<IconLogout color="white" size="1.2rem" />
-						</ActionIcon>
-						<Text fw={500} color="white" fz={15} ml={12}>
-							Logout
-						</Text>
-					</Flex>
+					<LogoutComponent />
 				</Box>
 			</Flex>
 		</Box>

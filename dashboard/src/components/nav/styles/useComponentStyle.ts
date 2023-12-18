@@ -12,9 +12,6 @@ export const useComponentStyle = () => {
 					cursor: 'pointer',
 					backgroundColor: 'rgb(27, 38, 53)',
 				},
-				'&:active': {
-					backgroundColor: 'rgba(255, 255, 255, 0.04)',
-				},
 			},
 		}),
 		[]

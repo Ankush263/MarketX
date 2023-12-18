@@ -16,6 +16,7 @@ export const signup = (_details: {
 	username: string;
 	email: string;
 	password: string;
+	role: string;
 }) => USER_API.post('/signup', _details);
 
 export const login = (_details: { email: string; password: string }) =>

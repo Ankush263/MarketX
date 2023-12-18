@@ -32,7 +32,12 @@ function RegisterComponent() {
 				callErrorNotification('Password Confirm does not match with password');
 				return;
 			}
-			const response = await signup({ username, email, password });
+			const response = await signup({
+				username,
+				email,
+				password,
+				role: 'customer',
+			});
 			const token = response.data.token;
 			const expire =
 				new Date().getTime() + Number(import.meta.env.VITE_TOKEN_EXPIRE_TIME);
