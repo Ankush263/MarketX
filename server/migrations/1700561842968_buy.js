@@ -12,6 +12,7 @@ exports.up = (pgm) => {
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         user_id INTEGER REFERENCES users(id),
         product_id INTEGER REFERENCES products(id),
+        transaction_id VARCHAR(50),
         quantity INTEGER DEFAULT 1,
         payment_option payment DEFAULT 'card',
         sub_total INTEGER DEFAULT 0,
