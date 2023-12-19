@@ -10,6 +10,7 @@ const productRouter = require('./routes/productRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const cartRouter = require('./routes/cartRoutes');
 const buyRouter = require('./routes/buyRoutes');
+const statsRouter = require('./routes/statsRoutes');
 const { webhookCheckout } = require('./controllers/buyControllers');
 const path = require('path');
 
@@ -48,6 +49,7 @@ module.exports = () => {
 	app.use('/api/v1/review', reviewRouter);
 	app.use('/api/v1/cart', cartRouter);
 	app.use('/api/v1/buy', buyRouter);
+	app.use('/api/v1/stats', statsRouter);
 
 	app.get('/checkout', (req, res) => {
 		res.render('checkoutSuccess');
