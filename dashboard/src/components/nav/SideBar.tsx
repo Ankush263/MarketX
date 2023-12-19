@@ -1,17 +1,14 @@
 import { ActionIcon, Box, Divider, Flex, Text } from '@mantine/core';
 import {
-	// IconChartBar,
-	// IconCloudUpload,
 	IconClipboardList,
 	IconHistory,
 	IconBrandGoogleBigQuery,
-	IconUser,
-	// IconLogout,
 } from '@tabler/icons-react';
 import { useComponentStyle } from './styles/useComponentStyle';
 import LogoutComponent from '../auth/LogoutComponent';
 import UploadNavButtonComponent from '../uploadproducts/UploadNavButtonComponent';
 import OverviewNavButtonComponent from '../overview/OverviewNavButtonComponent';
+import MyAccountButtonComponent from '../account/MyAccountButtonComponent';
 
 function SideBar() {
 	const styles = useComponentStyle();
@@ -39,14 +36,6 @@ function SideBar() {
 					<Divider w={280} />
 				</Box>
 				<Flex mt={50} mb={30} direction={'column'}>
-					{/* <Flex w={250} sx={styles.hoverComponent} align={'center'}>
-						<ActionIcon variant="transparent">
-							<IconChartBar color="white" size="1.2rem" />
-						</ActionIcon>
-						<Text fw={500} color="white" fz={15} ml={12}>
-							Overview
-						</Text>
-					</Flex> */}
 					<OverviewNavButtonComponent />
 					<UploadNavButtonComponent />
 					<Flex w={250} sx={styles.hoverComponent} align={'center'}>
@@ -73,14 +62,7 @@ function SideBar() {
 							Custom Query
 						</Text>
 					</Flex>
-					<Flex w={250} sx={styles.hoverComponent} align={'center'}>
-						<ActionIcon variant="transparent">
-							<IconUser color="white" size="1.2rem" />
-						</ActionIcon>
-						<Text fw={500} color="white" fz={15} ml={12}>
-							My Account
-						</Text>
-					</Flex>
+					<MyAccountButtonComponent />
 				</Flex>
 				<Divider my={'xl'} w={280} />
 				<Box mt={80}>

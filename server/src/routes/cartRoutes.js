@@ -10,11 +10,13 @@ const {
 	deleteCartItemsByUserId,
 } = require('../controllers/cartControllers');
 
-const { protect } = require('../controllers/authControllers');
+const { protect, restrictTo } = require('../controllers/authControllers');
 
 const router = express.Router();
 
 router.use(protect);
+router.use(restrictTo('customer'));
+
 router.route('/myCart').get(getMyCartWithProducts);
 router.route('/total').get(getTotal);
 router.route('/remove').post(removeItemsFromCart);

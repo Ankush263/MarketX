@@ -12,6 +12,9 @@ import ImageDropComponent from './components/ImageDropComponent';
 import { useState } from 'react';
 import { FileWithPath } from '@mantine/dropzone';
 import { createProduct } from '../../api';
+import { useMutation, QueryClient } from '@tanstack/react-query';
+import { getToken } from '../../token';
+import { callSuccessNotification } from '../../notification';
 
 interface ProductDetailsInterface {
 	name: string;
@@ -41,30 +44,35 @@ function UploadProductComponent() {
 	const [tags, setTags] = useState<string[]>(['']);
 	const [image, setImage] = useState<FileWithPath[]>([]);
 	const [showImage, setShowImage] = useState<string>('');
+	const queryClient = new QueryClient();
 
 	const handleCreate = async () => {
-		try {
-			const token: string | null =
-				window.localStorage.getItem('Token') &&
-				JSON.parse(window.localStorage.getItem('Token') || '{}').value;
-			const formData = new FormData();
+		const token = getToken();
+		const formData = new FormData();
 
-			formData.append('name', productDetails.name);
-			formData.append('company', productDetails.company);
-			formData.append('description', productDetails.description);
-			formData.append('image', image[0]);
-			formData.append('price', price as string);
-			tags.forEach((tag) => formData.append('tags', tag));
-			formData.append('weight', productDetails.weight);
-			formData.append('type', productDetails.type);
+		formData.append('name', productDetails.name);
+		formData.append('company', productDetails.company);
+		formData.append('description', productDetails.description);
+		formData.append('image', image[0]);
+		formData.append('price', price as string);
+		tags.forEach((tag) => formData.append('tags', tag));
+		formData.append('weight', productDetails.weight);
+		formData.append('type', productDetails.type);
 
-			const product = await createProduct(token, formData);
-			console.log(product);
-			reset();
-		} catch (error) {
-			console.log(error);
-		}
+		await createProduct(token, formData);
 	};
+
+	const handleCreateMutation = useMutation({
+		mutationFn: handleCreate,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['products'] });
+			callSuccessNotification('Successfully created a new product');
+			reset();
+		},
+		onError: (error) => {
+			console.log(error);
+		},
+	});
 
 	const reset = () => {
 		setProductDetails({
@@ -235,7 +243,7 @@ function UploadProductComponent() {
 				<Button color="gray" onClick={reset}>
 					Cancel
 				</Button>
-				<Button ml={10} onClick={handleCreate}>
+				<Button ml={10} onClick={() => handleCreateMutation.mutate()}>
 					Create
 				</Button>
 			</Flex>

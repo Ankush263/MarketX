@@ -3,7 +3,7 @@ const toCamelCase = require('./utils/to-camel-case');
 const CartRepo = require('./cart-repo');
 
 class BuyRepo {
-	static async buy(user_id, payment_option, paid) {
+	static async buy(user_id, transaction_id, payment_option, paid) {
 		try {
 			const cartItemsQuery = await pool.query(
 				`
@@ -37,11 +37,19 @@ class BuyRepo {
 
 				const buyQuery = await pool.query(
 					`
-						INSERT INTO buy (user_id, product_id, quantity, payment_option, paid, sub_total)
-						VALUES ($1, $2, $3, $4, $5, $6)
+						INSERT INTO buy (user_id, product_id, transaction_id, quantity, payment_option, paid, sub_total)
+						VALUES ($1, $2, $3, $4, $5, $6, $7)
 						RETURNING *
 				`,
-					[user_id, product_id, quantity, payment_option, paid, sub_total]
+					[
+						user_id,
+						product_id,
+						transaction_id,
+						quantity,
+						payment_option,
+						paid,
+						sub_total,
+					]
 				);
 				return buyQuery.rows[0];
 			});

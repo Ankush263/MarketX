@@ -43,7 +43,7 @@ const createCheckoutSession = async (session) => {
 	const customer = await stripe.customers.retrieve(customerId);
 	const user = await UserRepo.findByEmail(customer.email);
 	const userId = user.id;
-	await BuyRepo.buy(userId, 'card', 'true');
+	await BuyRepo.buy(userId, session.id, 'card', 'true');
 };
 
 exports.webhookCheckout = (req, res, next) => {

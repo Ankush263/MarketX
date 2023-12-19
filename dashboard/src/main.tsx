@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { store } from './redux/store.ts';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Notifications } from '@mantine/notifications';
 import AuthPage from './pages/auth/AuthPage.tsx';
 import { Provider } from 'react-redux';
 
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
 				<Router>
+					<Notifications />
 					<MantineProvider
 						withGlobalStyles
 						withNormalizeCSS

@@ -80,7 +80,7 @@ exports.getMyCartWithProducts = catchAsync(async (req, res, next) => {
 exports.checkOwner = catchAsync(async (req, res, next) => {
 	const id = req.params.id;
 	const cart = await CartRepo.findById(id);
-	if (cart.userId !== req.user.id) {
+	if (cart[0].userId !== req.user.id) {
 		return next(new AppError(`You are not the owner of this cart`, 404));
 	}
 	next();
