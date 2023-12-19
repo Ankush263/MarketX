@@ -11,7 +11,7 @@ interface NavigationState {
 }
 
 const initialState: NavigationState = {
-	overview: false,
+	overview: true,
 	uploadProducts: false,
 	myProduct: false,
 	orderHistory: false,

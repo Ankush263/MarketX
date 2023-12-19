@@ -1,4 +1,4 @@
-import { Flex } from '@mantine/core';
+import { Flex, ScrollArea } from '@mantine/core';
 import SideBar from '../nav/SideBar';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -13,8 +13,10 @@ function MainComponent() {
 	return (
 		<Flex bg={'rgb(27, 38, 53)'}>
 			<SideBar />
-			{uploadProducts && <UploadProductComponent />}
-			{overview && <OverviewComponent />}
+			<ScrollArea h={'100vh'} w={'100%'}>
+				{uploadProducts && <UploadProductComponent />}
+				{overview && <OverviewComponent />}
+			</ScrollArea>
 		</Flex>
 	);
 }
