@@ -5,6 +5,7 @@ import { RootState } from '../../redux/store';
 import UploadProductComponent from '../uploadproducts/UploadProductComponent';
 import OverviewComponent from '../overview/OverviewComponent';
 import MyAccountComponent from '../account/MyAccountComponent';
+import OrderHistoryComponent from '../orderhistory/OrderHistoryComponent';
 
 function MainComponent() {
 	const uploadProducts = useSelector(
@@ -14,6 +15,10 @@ function MainComponent() {
 	const myAccount = useSelector(
 		(state: RootState) => state.component.myAccount
 	);
+	const orderhistory = useSelector(
+		(state: RootState) => state.component.orderHistory
+	);
+
 	return (
 		<Flex bg={'rgb(27, 38, 53)'}>
 			<SideBar />
@@ -21,6 +26,7 @@ function MainComponent() {
 				{uploadProducts && <UploadProductComponent />}
 				{overview && <OverviewComponent />}
 				{myAccount && <MyAccountComponent />}
+				{orderhistory && <OrderHistoryComponent />}
 			</ScrollArea>
 		</Flex>
 	);

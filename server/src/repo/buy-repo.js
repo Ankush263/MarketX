@@ -102,6 +102,42 @@ class BuyRepo {
 		);
 		return toCamelCase(rows)[0];
 	}
+
+	static async orderHistory(user_id) {
+		const { rows } = await pool.query(
+			`
+				SELECT 
+					ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS ID,
+					username,
+					email,
+					p.transaction_id,
+					p.name AS product_name,
+					p.quantity, 
+					p.price,
+					p.payment_option,
+					p.sub_total,
+					p.paid
+				FROM users
+				JOIN (
+					SELECT 
+						buy.user_id, 
+						transaction_id,
+						products.name,
+						quantity, 
+						products.price,
+						payment_option,
+						(quantity * price) AS sub_total,
+						paid
+					FROM buy
+					JOIN products ON products.id = buy.product_id
+					WHERE products.user_id = $1
+				) AS p
+				ON p.user_id = users.id;
+			`,
+			[user_id]
+		);
+		return toCamelCase(rows);
+	}
 }
 
 module.exports = BuyRepo;

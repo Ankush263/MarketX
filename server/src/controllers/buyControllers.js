@@ -114,6 +114,17 @@ exports.getMyBuy = catchAsync(async (req, res, next) => {
 	});
 });
 
+exports.getOrderHistory = catchAsync(async (req, res, next) => {
+	const history = await BuyRepo.orderHistory(req.user.id);
+
+	res.status(200).json({
+		status: 'success',
+		data: {
+			history,
+		},
+	});
+});
+
 exports.getTotal = catchAsync(async (req, res, next) => {
 	const total = await BuyRepo.totalCount(req.user.id);
 	if (!total) {

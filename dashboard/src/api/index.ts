@@ -5,10 +5,12 @@ const URL = `http://localhost:8000`;
 const USER_URL = `${URL}/api/v1/users`;
 const PRODUCT_URL = `${URL}/api/v1/products`;
 const STATS_URL = `${URL}/api/v1/stats`;
+const BUY_URL = `${URL}/api/v1/buy`;
 
 const USER_API = axios.create({ baseURL: USER_URL });
 const PRODUCT_API = axios.create({ baseURL: PRODUCT_URL });
 const STATS_API = axios.create({ baseURL: STATS_URL });
+const BUY_API = axios.create({ baseURL: BUY_URL });
 
 export const signup = (_details: {
 	username: string;
@@ -56,3 +58,8 @@ export const updateMe = (
 			headers: { Authorization: `Bearer ${_token}` },
 		}
 	);
+
+export const getOrderHistory = (_token: string | null) =>
+	BUY_API.get('/orderhistory', {
+		headers: { Authorization: `Bearer ${_token}` },
+	});

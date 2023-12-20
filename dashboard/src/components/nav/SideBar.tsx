@@ -1,7 +1,6 @@
 import { ActionIcon, Box, Divider, Flex, Text } from '@mantine/core';
 import {
 	IconClipboardList,
-	IconHistory,
 	IconBrandGoogleBigQuery,
 } from '@tabler/icons-react';
 import { useComponentStyle } from './styles/useComponentStyle';
@@ -9,6 +8,7 @@ import LogoutComponent from '../auth/LogoutComponent';
 import UploadNavButtonComponent from '../uploadproducts/UploadNavButtonComponent';
 import OverviewNavButtonComponent from '../overview/OverviewNavButtonComponent';
 import MyAccountButtonComponent from '../account/MyAccountButtonComponent';
+import OrderHistoryNavButton from '../orderhistory/OrderHistoryNavButton';
 
 function SideBar() {
 	const styles = useComponentStyle();
@@ -46,14 +46,7 @@ function SideBar() {
 							My Products
 						</Text>
 					</Flex>
-					<Flex w={250} sx={styles.hoverComponent} align={'center'}>
-						<ActionIcon variant="transparent">
-							<IconHistory color="white" size="1.2rem" />
-						</ActionIcon>
-						<Text fw={500} color="white" fz={15} ml={12}>
-							Order History
-						</Text>
-					</Flex>
+					<OrderHistoryNavButton />
 					<Flex w={250} sx={styles.hoverComponent} align={'center'}>
 						<ActionIcon variant="transparent">
 							<IconBrandGoogleBigQuery color="white" size="1.2rem" />
