@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { getMe, updateMe } from '../../api';
 import { getToken } from '../../token';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import './styles/ButtonWithAnimation.css';
+import '../../styles/style.css';
 import { callSuccessNotification } from '../../notification';
 
 function MyAccountComponent() {
@@ -161,10 +161,12 @@ function MyAccountComponent() {
 					</Card>
 					<Flex direction={'column'} align={'center'} ml={100} mt={20}>
 						<Flex>
-							<TotalProductCard />
-							<TotalRevenewCard />
+							<Flex mr={20} mb={20}>
+								<TotalProductCard w={300} h={150} iconSize={50} fz={40} />
+							</Flex>
+							<TotalRevenewCard w={300} h={150} iconSize={50} fz={40} />
 						</Flex>
-						<TotalOrderNumberCard />
+						<TotalOrderNumberCard w={300} h={150} iconSize={50} fz={40} />
 					</Flex>
 				</Flex>
 			</Flex>

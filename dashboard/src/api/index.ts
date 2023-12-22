@@ -63,3 +63,18 @@ export const getOrderHistory = (_token: string | null) =>
 	BUY_API.get('/orderhistory', {
 		headers: { Authorization: `Bearer ${_token}` },
 	});
+
+export const getTodaysRevenew = (_token: string | null) =>
+	STATS_API.get('/todaysRevenew', {
+		headers: { Authorization: `Bearer ${_token}` },
+	});
+
+export const getSevenDaysRevenew = (_token: string | null) =>
+	STATS_API.get('/sevenDaysRevenew', {
+		headers: { Authorization: `Bearer ${_token}` },
+	});
+
+export const getProductSellOnTags = (_token: string | null) =>
+	STATS_API.get('/productSellOnTags', {
+		headers: { Authorization: `Bearer ${_token}` },
+	});

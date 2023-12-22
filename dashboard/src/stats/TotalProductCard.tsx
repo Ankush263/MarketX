@@ -1,10 +1,17 @@
-import { Card, Flex, Progress, Text } from '@mantine/core';
+import { Badge, Card, Flex, Progress, Text } from '@mantine/core';
 import { IconShoppingBag } from '@tabler/icons-react';
 import { getTotalProducts } from '../api';
 import { getToken } from '../token';
 import { useQuery } from '@tanstack/react-query';
 
-function TotalProductCard() {
+interface CardSizeInterface {
+	w: number;
+	h: number;
+	iconSize: number;
+	fz: number;
+}
+
+function TotalProductCard({ w, h, iconSize, fz }: CardSizeInterface) {
 	const handleGetTotalProducts = async () => {
 		const token = getToken();
 		const total = await getTotalProducts(token);
@@ -17,26 +24,29 @@ function TotalProductCard() {
 	});
 
 	return (
-		<Card
-			w={300}
-			h={150}
-			mr={20}
-			mb={20}
-			radius={'md'}
-			bg={'rgba(225, 225, 225, 0.09)'}
-		>
+		<Card w={w} h={h} radius={'md'} bg={'rgba(225, 225, 225, 0.09)'}>
 			<Flex justify={'space-between'} align={'center'}>
 				<Flex direction={'column'}>
-					<Text fz={40} color="white">
+					<Text fz={fz} color="white">
 						{query.isLoading ? 'Loading...' : query.data}
 					</Text>
 					<Text fz={14} color="white">
 						Total listed products
 					</Text>
 				</Flex>
-				<IconShoppingBag color="rgb(71, 130, 218)" size={50} />
+				<Flex
+					direction={'column'}
+					justify={'space-between'}
+					align={'center'}
+					h={90}
+				>
+					<Badge radius="sm" variant="filled" mb={10} tt={'capitalize'}>
+						Total
+					</Badge>
+					<IconShoppingBag color="rgb(71, 130, 218)" size={iconSize} />
+				</Flex>
 			</Flex>
-			<Progress mt={30} radius="md" size="sm" value={67} />
+			<Progress mt={25} radius="md" size="sm" value={67} />
 		</Card>
 	);
 }
