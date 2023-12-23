@@ -155,28 +155,28 @@ function ProductBasedOnTags() {
 								</Button>
 							</Menu.Target>
 							<Menu.Dropdown bg={'rgb(27, 38, 53)'}>
-								<Menu.Item color="white" p={0}>
-									<Button
-										fz={12}
-										variant="subtle"
-										onClick={() => {
-											setToggleLabelOutside(true);
-											query.refetch();
-										}}
-									>
+								<Menu.Item
+									color="white"
+									p={0}
+									onClick={() => {
+										setToggleLabelOutside(true);
+										query.refetch();
+									}}
+								>
+									<Button fz={12} variant="subtle">
 										Outside
 									</Button>
 								</Menu.Item>
 								<Divider w={'100%'} my={5} />
-								<Menu.Item color="white" p={0}>
-									<Button
-										fz={12}
-										variant="subtle"
-										onClick={() => {
-											setToggleLabelOutside(false);
-											query.refetch();
-										}}
-									>
+								<Menu.Item
+									color="white"
+									p={0}
+									onClick={() => {
+										setToggleLabelOutside(false);
+										query.refetch();
+									}}
+								>
+									<Button fz={12} variant="subtle">
 										Inside
 									</Button>
 								</Menu.Item>
