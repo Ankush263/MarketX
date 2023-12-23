@@ -39,15 +39,21 @@ function OverviewComponent() {
 						Welcome back!! happy to see you here. 👋
 					</Text>
 				</Flex>
-				<Tooltip label="Click refresh to update details" color="gray" withArrow>
+				<Tooltip
+					label="Click refresh to update details"
+					color="gray"
+					c={'black'}
+					withArrow
+				>
 					<Button
 						leftIcon={
 							<IconRefresh
-								size="1.2rem"
+								size="1.1rem"
 								className={isRefreshing ? 'rotate-icon' : ''}
 							/>
 						}
 						onClick={handleRefresh}
+						fz={13}
 					>
 						Refresh
 					</Button>

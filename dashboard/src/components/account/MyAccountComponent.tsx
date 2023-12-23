@@ -68,6 +68,7 @@ function MyAccountComponent() {
 			<Tooltip
 				label="Click refresh to update the user details"
 				color="gray"
+				c={'black'}
 				position="bottom-start"
 				withArrow
 			>
@@ -99,6 +100,7 @@ function MyAccountComponent() {
 							<Tooltip
 								label="Update your details"
 								color="gray"
+								c={'black'}
 								position="top-start"
 								pos={'fixed'}
 								withArrow
