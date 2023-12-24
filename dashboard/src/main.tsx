@@ -23,6 +23,76 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 						withNormalizeCSS
 						theme={{
 							colorScheme: 'light',
+							components: {
+								TextInput: {
+									styles: {
+										input: {
+											backgroundColor: 'rgb(27, 38, 53)',
+											color: 'white',
+										},
+										label: {
+											color: 'white',
+										},
+									},
+								},
+								Textarea: {
+									styles: {
+										input: {
+											backgroundColor: 'rgb(27, 38, 53)',
+											color: 'white',
+										},
+										label: {
+											color: 'white',
+										},
+									},
+								},
+								NumberInput: {
+									styles: {
+										input: {
+											backgroundColor: 'rgb(27, 38, 53)',
+											color: 'white',
+										},
+										label: {
+											color: 'white',
+										},
+									},
+								},
+								Dropzone: {
+									styles: {
+										root: {
+											backgroundColor: 'rgb(27, 38, 53)',
+											color: 'white',
+										},
+										inner: {
+											backgroundColor: 'rgb(27, 38, 53)',
+											color: 'white',
+										},
+									},
+								},
+								MultiSelect: {
+									styles: {
+										input: {
+											backgroundColor: 'rgb(27, 38, 53)',
+											color: 'white',
+										},
+										dropdown: {
+											backgroundColor: 'rgb(27, 38, 53)',
+										},
+										label: {
+											color: 'white',
+										},
+									},
+								},
+								Accordion: {
+									styles: {
+										control: {
+											'&:hover': {
+												backgroundColor: 'rgba(225, 225, 225, 0.04)',
+											},
+										},
+									},
+								},
+							},
 						}}
 					>
 						<Switch>

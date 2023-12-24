@@ -98,16 +98,14 @@ exports.checkUser = catchAsync(async (req, res, next) => {
 });
 
 exports.updateProduct = catchAsync(async (req, res, next) => {
-	const { name, company, description, image, price, tags, weight, type } =
-		req.body;
+	const { name, company, description, price, tags, weight, type } = req.body;
 	const update = await ProductRepo.findByIdAndUpdate(
 		req.params.id,
 		name,
 		company,
 		description,
-		[image],
 		price,
-		[tags],
+		tags,
 		weight,
 		type
 	);

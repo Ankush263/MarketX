@@ -53,7 +53,6 @@ class ProductRepo {
 		name,
 		company,
 		description,
-		image,
 		price,
 		tags,
 		weight,
@@ -66,15 +65,14 @@ class ProductRepo {
 				name = COALESCE($1, name),
 				company = COALESCE($2, company),
 				description = COALESCE($3, description),
-				image = COALESCE($4, image),
-				price = COALESCE($5, price),
-				tags = COALESCE($6, tags),
-				weight = COALESCE($7, weight),
-				type = COALESCE($8, type)
-			WHERE id = $9
+				price = COALESCE($4, price),
+				tags = COALESCE($5, tags),
+				weight = COALESCE($6, weight),
+				type = COALESCE($7, type)
+			WHERE id = $8
 			RETURNING *;
 			`,
-			[name, company, description, image, price, tags, weight, type, id]
+			[name, company, description, price, tags, weight, type, id]
 		);
 		return toCamelCase(rows)[0];
 	}

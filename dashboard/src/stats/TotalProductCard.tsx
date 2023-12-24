@@ -19,7 +19,7 @@ function TotalProductCard({ w, h, iconSize, fz }: CardSizeInterface) {
 	};
 
 	const query = useQuery({
-		queryKey: ['products'],
+		queryKey: ['total_products'],
 		queryFn: handleGetTotalProducts,
 	});
 

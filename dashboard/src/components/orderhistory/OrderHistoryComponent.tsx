@@ -1,4 +1,13 @@
-import { Divider, Flex, Table, Text, Avatar, Badge, Box } from '@mantine/core';
+import {
+	Divider,
+	Flex,
+	Table,
+	Text,
+	Avatar,
+	Badge,
+	Box,
+	Loader,
+} from '@mantine/core';
 import { getOrderHistory } from '../../api';
 import { getToken } from '../../token';
 import { useState } from 'react';
@@ -27,7 +36,10 @@ function OrderHistoryComponent() {
 		return history.data.data.history;
 	};
 
-	useQuery({ queryKey: ['orders'], queryFn: handleGetOrderHistory });
+	const query = useQuery({
+		queryKey: ['orders'],
+		queryFn: handleGetOrderHistory,
+	});
 
 	const rows = elements.map((element) => (
 		<tr key={element.id}>
@@ -123,7 +135,13 @@ function OrderHistoryComponent() {
 						</tr>
 					</thead>
 					<Text color="white" component="tbody">
-						{rows}
+						{query.isLoading ? (
+							<Flex justify={'center'} align={'center'} mt={50} mb={50}>
+								<Loader variant="dots" />
+							</Flex>
+						) : (
+							rows
+						)}
 					</Text>
 				</Table>
 			</Flex>

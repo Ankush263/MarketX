@@ -6,6 +6,7 @@ import UploadProductComponent from '../uploadproducts/UploadProductComponent';
 import OverviewComponent from '../overview/OverviewComponent';
 import MyAccountComponent from '../account/MyAccountComponent';
 import OrderHistoryComponent from '../orderhistory/OrderHistoryComponent';
+import MyProdcutsComponent from '../../myproducts/MyProdcutsComponent';
 
 function MainComponent() {
 	const uploadProducts = useSelector(
@@ -18,6 +19,9 @@ function MainComponent() {
 	const orderhistory = useSelector(
 		(state: RootState) => state.component.orderHistory
 	);
+	const myproducts = useSelector(
+		(state: RootState) => state.component.myProduct
+	);
 
 	return (
 		<Flex bg={'rgb(27, 38, 53)'}>
@@ -27,6 +31,7 @@ function MainComponent() {
 				{overview && <OverviewComponent />}
 				{myAccount && <MyAccountComponent />}
 				{orderhistory && <OrderHistoryComponent />}
+				{myproducts && <MyProdcutsComponent />}
 			</ScrollArea>
 		</Flex>
 	);

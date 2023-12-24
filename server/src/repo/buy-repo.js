@@ -1,6 +1,5 @@
 const pool = require('../pool');
 const toCamelCase = require('./utils/to-camel-case');
-const CartRepo = require('./cart-repo');
 
 class BuyRepo {
 	static async buy(user_id, transaction_id, payment_option, paid) {

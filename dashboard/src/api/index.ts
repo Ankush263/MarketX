@@ -78,3 +78,26 @@ export const getProductSellOnTags = (_token: string | null) =>
 	STATS_API.get('/productSellOnTags', {
 		headers: { Authorization: `Bearer ${_token}` },
 	});
+
+export const getMyProducts = (_token: string | null) =>
+	PRODUCT_API.get('/myProducts', {
+		headers: { Authorization: `Bearer ${_token}` },
+	});
+
+interface Product {
+	name: string;
+	description: string;
+	price: number;
+	weight: string;
+	company: string;
+	tags: string[];
+	type: string;
+}
+export const updateProducts = (
+	_token: string | null,
+	id: number,
+	details: Product
+) =>
+	PRODUCT_API.patch(`/${id}`, details, {
+		headers: { Authorization: `Bearer ${_token}` },
+	});
