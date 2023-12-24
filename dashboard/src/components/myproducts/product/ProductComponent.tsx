@@ -14,9 +14,9 @@ import {
 } from '@mantine/core';
 import { Product } from '../MyProdcutsComponent';
 import { useState } from 'react';
-import { updateProducts } from '../../api';
-import { getToken } from '../../token';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getToken } from '../../../token';
+import { updateProducts } from '../../../api';
 
 interface ProductDetailsInterface {
 	name: string;

@@ -6,7 +6,7 @@ import UploadProductComponent from '../uploadproducts/UploadProductComponent';
 import OverviewComponent from '../overview/OverviewComponent';
 import MyAccountComponent from '../account/MyAccountComponent';
 import OrderHistoryComponent from '../orderhistory/OrderHistoryComponent';
-import MyProdcutsComponent from '../../myproducts/MyProdcutsComponent';
+import MyProdcutsComponent from '../myproducts/MyProdcutsComponent';
 
 function MainComponent() {
 	const uploadProducts = useSelector(

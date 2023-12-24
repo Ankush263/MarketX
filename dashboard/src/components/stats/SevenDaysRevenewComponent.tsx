@@ -1,7 +1,7 @@
 import { Flex, Text, ActionIcon, Popover, Button } from '@mantine/core';
 import ReactECharts from 'echarts-for-react';
-import { getSevenDaysRevenew } from '../api';
-import { getToken } from '../token';
+import { getSevenDaysRevenew } from '../../api';
+import { getToken } from '../../token';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { IconDotsVertical, IconDownload } from '@tabler/icons-react';

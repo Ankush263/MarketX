@@ -1,12 +1,12 @@
 import { Flex, Text, Button, Divider, TextInput, Loader } from '@mantine/core';
 import { IconPlus, IconSearch } from '@tabler/icons-react';
-import { setNavigationState } from '../redux/component/componentSlice';
 import { useDispatch } from 'react-redux';
 import ProductComponent from './product/ProductComponent';
-import { getMyProducts } from '../api';
-import { getToken } from '../token';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import { getToken } from '../../token';
+import { getMyProducts } from '../../api';
+import { setNavigationState } from '../../redux/component/componentSlice';
 
 export interface Product {
 	id: number;
@@ -121,7 +121,7 @@ function MyProdcutsComponent() {
 								description={product.description}
 								price={product.price}
 								weight={product.weight}
-								company={product.weight}
+								company={product.company}
 								tags={product.tags}
 								type={product.type}
 								id={product.id}

@@ -1,8 +1,8 @@
 import { Badge, Card, Flex, Progress, Text } from '@mantine/core';
-import { IconCash } from '@tabler/icons-react';
-import { getToken } from '../token';
+import { IconShoppingBag } from '@tabler/icons-react';
+import { getTotalProducts } from '../../api';
+import { getToken } from '../../token';
 import { useQuery } from '@tanstack/react-query';
-import { getTotalRevenew } from '../api';
 
 interface CardSizeInterface {
 	w: number;
@@ -11,26 +11,27 @@ interface CardSizeInterface {
 	fz: number;
 }
 
-function TotalRevenewCard({ w, h, iconSize, fz }: CardSizeInterface) {
-	const handleGetTotalRevenew = async () => {
+function TotalProductCard({ w, h, iconSize, fz }: CardSizeInterface) {
+	const handleGetTotalProducts = async () => {
 		const token = getToken();
-		const total = await getTotalRevenew(token);
-		return total.data.data.total.totalSum;
+		const total = await getTotalProducts(token);
+		return total.data.data.total.totalProducts;
 	};
 
 	const query = useQuery({
-		queryKey: ['total_revenew'],
-		queryFn: handleGetTotalRevenew,
+		queryKey: ['total_products'],
+		queryFn: handleGetTotalProducts,
 	});
+
 	return (
 		<Card w={w} h={h} radius={'md'} bg={'rgba(225, 225, 225, 0.09)'}>
 			<Flex justify={'space-between'} align={'center'}>
-				<Flex direction={'column'} align={'space-between'}>
+				<Flex direction={'column'}>
 					<Text fz={fz} color="white">
-						$ {query.isLoading ? 'Loading...' : query.data}
+						{query.isLoading ? 'Loading...' : query.data}
 					</Text>
 					<Text fz={14} color="white">
-						Total revenew
+						Total listed products
 					</Text>
 				</Flex>
 				<Flex
@@ -40,14 +41,14 @@ function TotalRevenewCard({ w, h, iconSize, fz }: CardSizeInterface) {
 					h={90}
 				>
 					<Badge radius="sm" variant="filled" mb={10} tt={'capitalize'}>
-						Anual
+						Total
 					</Badge>
-					<IconCash color="rgb(71, 130, 218)" size={iconSize} />
+					<IconShoppingBag color="rgb(71, 130, 218)" size={iconSize} />
 				</Flex>
 			</Flex>
-			<Progress mt={25} radius="md" size="sm" value={23} />
+			<Progress mt={25} radius="md" size="sm" value={67} />
 		</Card>
 	);
 }
 
-export default TotalRevenewCard;
+export default TotalProductCard;

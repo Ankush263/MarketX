@@ -2,12 +2,12 @@ import { Button, Divider, Flex, Text, Tooltip } from '@mantine/core';
 import { IconRefresh } from '@tabler/icons-react';
 import { useState } from 'react';
 import { callSuccessNotification } from '../../notification';
-import TotalRevenewCard from '../../stats/TotalRevenewCard';
-import TotalProductCard from '../../stats/TotalProductCard';
-import TodaysRevenew from '../../stats/TodaysRevenew';
-import TotalOrderNumberCard from '../../stats/TotalOrderNumberCard';
-import SevenDaysRevenewComponent from '../../stats/SevenDaysRevenewComponent';
-import ProductBasedOnTags from '../../stats/ProductBasedOnTags';
+import TotalRevenewCard from '../stats/TotalRevenewCard';
+import TotalProductCard from '../stats/TotalProductCard';
+import TodaysRevenew from '../stats/TodaysRevenew';
+import TotalOrderNumberCard from '../stats/TotalOrderNumberCard';
+import SevenDaysRevenewComponent from '../stats/SevenDaysRevenewComponent';
+import ProductBasedOnTags from '../stats/ProductBasedOnTags';
 import { useQueryClient } from '@tanstack/react-query';
 
 function OverviewComponent() {

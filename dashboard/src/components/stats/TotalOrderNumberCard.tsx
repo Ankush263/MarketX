@@ -1,7 +1,7 @@
 import { Badge, Card, Flex, Progress, Text } from '@mantine/core';
 import { IconTruckDelivery } from '@tabler/icons-react';
-import { getTotalOrderNumber } from '../api';
-import { getToken } from '../token';
+import { getTotalOrderNumber } from '../../api';
+import { getToken } from '../../token';
 import { useQuery } from '@tanstack/react-query';
 
 interface CardSizeInterface {

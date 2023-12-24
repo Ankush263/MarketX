@@ -6,7 +6,7 @@ import UploadNavButtonComponent from '../uploadproducts/UploadNavButtonComponent
 import OverviewNavButtonComponent from '../overview/OverviewNavButtonComponent';
 import MyAccountButtonComponent from '../account/MyAccountButtonComponent';
 import OrderHistoryNavButton from '../orderhistory/OrderHistoryNavButton';
-import MyProductsButtonComponent from '../../myproducts/MyProductsButtonComponent';
+import MyProductsButtonComponent from '../myproducts/MyProductsButtonComponent';
 
 function SideBar() {
 	const styles = useComponentStyle();

@@ -1,9 +1,9 @@
 import { ActionIcon, Flex, Text } from '@mantine/core';
 import { IconClipboardList } from '@tabler/icons-react';
-import { useComponentStyle } from '../components/nav/styles/useComponentStyle';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNavigationState } from '../redux/component/componentSlice';
-import { RootState } from '../redux/store';
+import { useComponentStyle } from '../nav/styles/useComponentStyle';
+import { RootState } from '../../redux/store';
+import { setNavigationState } from '../../redux/component/componentSlice';
 
 function MyProductsButtonComponent() {
 	const styles = useComponentStyle();

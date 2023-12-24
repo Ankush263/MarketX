@@ -13,11 +13,11 @@ import {
 	IconDotsVertical,
 	IconDownload,
 } from '@tabler/icons-react';
-import { getProductSellOnTags } from '../api';
-import { getToken } from '../token';
+import { getProductSellOnTags } from '../../api';
+import { getToken } from '../../token';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import '../styles/style.css';
+import '../../styles/style.css';
 import { saveAs } from 'file-saver';
 import html2canvas from 'html2canvas';
 

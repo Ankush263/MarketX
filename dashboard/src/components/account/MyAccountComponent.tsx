@@ -8,9 +8,9 @@ import {
 	Button,
 	Tooltip,
 } from '@mantine/core';
-import TotalProductCard from '../../stats/TotalProductCard';
-import TotalRevenewCard from '../../stats/TotalRevenewCard';
-import TotalOrderNumberCard from '../../stats/TotalOrderNumberCard';
+import TotalProductCard from '../stats/TotalProductCard';
+import TotalRevenewCard from '../stats/TotalRevenewCard';
+import TotalOrderNumberCard from '../stats/TotalOrderNumberCard';
 import { IconEdit, IconRefresh } from '@tabler/icons-react';
 import { useState } from 'react';
 import { getMe, updateMe } from '../../api';

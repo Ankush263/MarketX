@@ -1,8 +1,8 @@
 import { Badge, Card, Flex, Progress, Text } from '@mantine/core';
-import { IconReportAnalytics } from '@tabler/icons-react';
-import { getToken } from '../token';
+import { IconCash } from '@tabler/icons-react';
+import { getToken } from '../../token';
 import { useQuery } from '@tanstack/react-query';
-import { getTodaysRevenew } from '../api';
+import { getTotalRevenew } from '../../api';
 
 interface CardSizeInterface {
 	w: number;
@@ -11,16 +11,16 @@ interface CardSizeInterface {
 	fz: number;
 }
 
-function TodaysRevenew({ w, h, iconSize, fz }: CardSizeInterface) {
-	const handleGetTodaysRevenew = async () => {
+function TotalRevenewCard({ w, h, iconSize, fz }: CardSizeInterface) {
+	const handleGetTotalRevenew = async () => {
 		const token = getToken();
-		const total = await getTodaysRevenew(token);
-		return total.data.data.revenew.sum;
+		const total = await getTotalRevenew(token);
+		return total.data.data.total.totalSum;
 	};
 
 	const query = useQuery({
-		queryKey: ['sale_today'],
-		queryFn: handleGetTodaysRevenew,
+		queryKey: ['total_revenew'],
+		queryFn: handleGetTotalRevenew,
 	});
 	return (
 		<Card w={w} h={h} radius={'md'} bg={'rgba(225, 225, 225, 0.09)'}>
@@ -30,7 +30,7 @@ function TodaysRevenew({ w, h, iconSize, fz }: CardSizeInterface) {
 						$ {query.isLoading ? 'Loading...' : query.data}
 					</Text>
 					<Text fz={14} color="white">
-						Sales Today
+						Total revenew
 					</Text>
 				</Flex>
 				<Flex
@@ -40,9 +40,9 @@ function TodaysRevenew({ w, h, iconSize, fz }: CardSizeInterface) {
 					h={90}
 				>
 					<Badge radius="sm" variant="filled" mb={10} tt={'capitalize'}>
-						Today
+						Anual
 					</Badge>
-					<IconReportAnalytics color="rgb(71, 130, 218)" size={iconSize} />
+					<IconCash color="rgb(71, 130, 218)" size={iconSize} />
 				</Flex>
 			</Flex>
 			<Progress mt={25} radius="md" size="sm" value={23} />
@@ -50,4 +50,4 @@ function TodaysRevenew({ w, h, iconSize, fz }: CardSizeInterface) {
 	);
 }
 
-export default TodaysRevenew;
+export default TotalRevenewCard;
