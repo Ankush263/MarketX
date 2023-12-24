@@ -35,6 +35,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 										},
 									},
 								},
+								PasswordInput: {
+									styles: {
+										input: {
+											backgroundColor: 'rgb(27, 38, 53)',
+											color: 'white',
+										},
+										label: {
+											color: 'white',
+										},
+									},
+								},
 								Textarea: {
 									styles: {
 										input: {
