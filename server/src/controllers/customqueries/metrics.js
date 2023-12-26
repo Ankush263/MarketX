@@ -5,11 +5,12 @@ exports.usersMetrices = async (req, res, next, table) => {
 	if (query.metrices) {
 		selectedFields = query.metrices.split(', ');
 	}
-	// if (query.withTable_metrices) {
-	// 	selectedFields = query.withTable_metrices.split(', ');
-	// }
 	if (query.toTable_metrices) {
 		selectedFields = query.toTable_metrices.split(', ');
+	}
+
+	if (query.thirdTable_metrices) {
+		selectedFields = query.thirdTable_metrices.split(', ');
 	}
 
 	let selectedElements = [];
@@ -31,6 +32,7 @@ exports.usersMetrices = async (req, res, next, table) => {
 	});
 
 	selectedElements = selectedElements.join(' ');
+
 	return selectedElements;
 };
 
@@ -43,9 +45,6 @@ exports.buyMetrices = async (req, res, next, table) => {
 	}
 	if (query.withTable_metrices) {
 		selectedFields = query.withTable_metrices.split(', ');
-	}
-	if (query.toTable_metrices) {
-		selectedFields = query.toTable_metrices.split(', ');
 	}
 
 	let selectedElements = [];
@@ -95,9 +94,10 @@ exports.productsMetrices = async (req, res, next, table) => {
 	if (query.withTable_metrices) {
 		selectedFields = query.withTable_metrices.split(', ');
 	}
-	// if (query.toTable_metrices) {
-	// 	selectedFields = query.toTable_metrices.split(', ');
-	// }
+
+	if (req.url.startsWith('/joinBuyProductsUsers') && query.toTable_metrices) {
+		selectedFields = query.toTable_metrices.split(', ');
+	}
 
 	let selectedElements = [];
 
