@@ -1,6 +1,16 @@
 exports.usersMetrices = async (req, res, next, table) => {
 	const query = req.query;
-	const selectedFields = query.metrices.split(', ');
+
+	let selectedFields;
+	if (query.metrices) {
+		selectedFields = query.metrices.split(', ');
+	}
+	// if (query.withTable_metrices) {
+	// 	selectedFields = query.withTable_metrices.split(', ');
+	// }
+	if (query.toTable_metrices) {
+		selectedFields = query.toTable_metrices.split(', ');
+	}
 
 	let selectedElements = [];
 	selectedFields.forEach((field, index) => {
@@ -26,7 +36,17 @@ exports.usersMetrices = async (req, res, next, table) => {
 
 exports.buyMetrices = async (req, res, next, table) => {
 	const query = req.query;
-	const selectedFields = query.metrices.split(', ');
+
+	let selectedFields;
+	if (query.metrices) {
+		selectedFields = query.metrices.split(', ');
+	}
+	if (query.withTable_metrices) {
+		selectedFields = query.withTable_metrices.split(', ');
+	}
+	if (query.toTable_metrices) {
+		selectedFields = query.toTable_metrices.split(', ');
+	}
 
 	let selectedElements = [];
 
@@ -67,7 +87,17 @@ exports.buyMetrices = async (req, res, next, table) => {
 
 exports.productsMetrices = async (req, res, next, table) => {
 	const query = req.query;
-	const selectedFields = query.metrices.split(', ');
+
+	let selectedFields;
+	if (query.metrices) {
+		selectedFields = query.metrices.split(', ');
+	}
+	if (query.withTable_metrices) {
+		selectedFields = query.withTable_metrices.split(', ');
+	}
+	// if (query.toTable_metrices) {
+	// 	selectedFields = query.toTable_metrices.split(', ');
+	// }
 
 	let selectedElements = [];
 

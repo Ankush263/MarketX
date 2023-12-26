@@ -64,19 +64,100 @@ exports.createCustomQuery = async (req, res, next, table) => {
 		tempQuery = select + metrices + tableOption + groupOption;
 	}
 
-	// let joinQuery = '';
-	// if (query.join) {
-	// 	if (table === 'products') {
-	// 		const joinOn = query.join;
-	// 		joinQuery = `
-	// 		LEFT OUTER JOIN ${joinOn}
-	// 		ON ${joinOn}.id = ${table}.user_id \n
-	// 		`;
-	// 	}
-	// 	tempQuery = select + metrices + tableOption + joinQuery + groupOption;
-	// }
-
 	console.log(tempQuery);
+
+	const { rows } = await pool.query(tempQuery);
+
+	res.status(200).json({
+		status: 'success',
+		data: {
+			data: toCamelCase(rows),
+		},
+		query: tempQuery,
+	});
+};
+
+exports.createJoinQuery = async (req, res, next, withTable, toTable) => {
+	const query = req.query;
+	if (Object.keys(query).length === 0) {
+		return next(new AppError(`Please select some elements`, 404));
+	}
+
+	let selectedElements = [];
+	let group = '';
+
+	const pushSelectedFields = (dimensionName, tableName) => {
+		if (dimensionName) {
+			const selectedFields = dimensionName.split(', ');
+
+			selectedFields.forEach((field) => {
+				selectedElements.push(`${tableName}.${field} AS ${tableName}_${field}`);
+			});
+		}
+	};
+
+	pushSelectedFields(query.withTable_dimension, withTable);
+	pushSelectedFields(query.toTable_dimension, toTable);
+
+	let select = selectedElements
+		? `
+		SELECT
+		${selectedElements.join(', ')} \n
+		`
+		: 'SELECT \n';
+
+	const joinQuery = `
+	JOIN ${toTable}
+	ON ${toTable}.id = ${withTable}.user_id \n
+	`;
+
+	const fromOption =
+		!query.toTable_dimension && !query.toTable_metrices
+			? `
+	FROM ${withTable} \n
+	`
+			: `
+	FROM ${withTable}
+	${joinQuery} \n
+	`;
+
+	const length = selectedElements.length;
+	// selectedElements = selectedElements.join(', \n');
+	if (length > 0) {
+		group = Array.from({ length }, (_, i) => i + 1).join(', ');
+	}
+
+	const groupOption =
+		selectedElements.length === 0
+			? ''
+			: `
+	GROUP BY ${group}
+	`;
+
+	let metrices = [];
+
+	if (query.withTable_metrices || query.toTable_metrices) {
+		if (query.withTable_metrices) {
+			metrices.push(await productsMetrices(req, res, next, withTable));
+		}
+		if (query.toTable_metrices) {
+			metrices.push(await usersMetrices(req, res, next, toTable));
+		}
+	}
+
+	const comma =
+		metrices.length === 0 || selectedElements.length === 0 ? '' : ',';
+
+	select = select + comma + metrices;
+
+	let tempQuery = `
+	SELECT
+	FROM ${withTable}
+	`;
+
+	tempQuery = select + fromOption + groupOption;
+
+	console.log('🔍🔍', tempQuery, '🔍🔍');
 
 	const { rows } = await pool.query(tempQuery);
 

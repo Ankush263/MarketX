@@ -1,5 +1,5 @@
 const catchAsync = require('../../utils/catchAsync');
-const { createCustomQuery } = require('./queries');
+const { createCustomQuery, createJoinQuery } = require('./queries');
 /*
   ALL queries
 ---------------
@@ -39,6 +39,10 @@ exports.usersDimensions = catchAsync(async (req, res, next) => {
 
 exports.productsDimensions = catchAsync(async (req, res, next) => {
 	await createCustomQuery(req, res, next, 'products');
+});
+
+exports.productAndUserJoinDimension = catchAsync(async (req, res, next) => {
+	await createJoinQuery(req, res, next, 'products', 'users');
 });
 
 exports.buyDimensions = catchAsync(async (req, res, next) => {
