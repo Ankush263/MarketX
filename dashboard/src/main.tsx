@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Notifications } from '@mantine/notifications';
 import AuthPage from './pages/auth/AuthPage.tsx';
 import { Provider } from 'react-redux';
+import CustomQueryPage from './pages/customquery/CustomQueryPage.tsx';
 
 const queryClient = new QueryClient();
 
@@ -107,6 +108,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 						}}
 					>
 						<Switch>
+							<Route path={'/custom_query/:tableName'}>
+								<CustomQueryPage />
+							</Route>
+							<Route path={'/custom_query'}>
+								<CustomQueryPage />
+							</Route>
 							<Route path={'/auth'}>
 								<AuthPage />
 							</Route>

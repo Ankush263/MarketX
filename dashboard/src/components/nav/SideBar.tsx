@@ -1,16 +1,13 @@
-import { ActionIcon, Box, Divider, Flex, Text } from '@mantine/core';
-import { IconBrandGoogleBigQuery } from '@tabler/icons-react';
-import { useComponentStyle } from './styles/useComponentStyle';
+import { Box, Divider, Flex, Text } from '@mantine/core';
 import LogoutComponent from '../auth/LogoutComponent';
 import UploadNavButtonComponent from '../uploadproducts/UploadNavButtonComponent';
 import OverviewNavButtonComponent from '../overview/OverviewNavButtonComponent';
 import MyAccountButtonComponent from '../account/MyAccountButtonComponent';
 import OrderHistoryNavButton from '../orderhistory/OrderHistoryNavButton';
 import MyProductsButtonComponent from '../myproducts/MyProductsButtonComponent';
+import CustomQueryButtonComponent from '../customquery/CustomQueryButtonComponent';
 
 function SideBar() {
-	const styles = useComponentStyle();
-
 	return (
 		<Box>
 			<Flex
@@ -38,14 +35,7 @@ function SideBar() {
 					<UploadNavButtonComponent />
 					<MyProductsButtonComponent />
 					<OrderHistoryNavButton />
-					<Flex w={250} sx={styles.hoverComponent} align={'center'}>
-						<ActionIcon variant="transparent">
-							<IconBrandGoogleBigQuery color="white" size="1.2rem" />
-						</ActionIcon>
-						<Text fw={500} color="white" fz={15} ml={12}>
-							Custom Query
-						</Text>
-					</Flex>
+					<CustomQueryButtonComponent />
 					<MyAccountButtonComponent />
 				</Flex>
 				<Divider my={'xl'} w={280} />
