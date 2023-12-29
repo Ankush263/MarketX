@@ -8,19 +8,22 @@ function BuyDimensionComponent() {
 				tooltipText="Unique Transaction Id"
 				name="transaction id"
 				type="string"
-				metrices={true}
+				metrices={false}
+				table="buy"
 			/>
 			<MetricesDimensionsBtnComponent
 				tooltipText="Order Quantity"
 				name="quantity"
 				type="number"
-				metrices={true}
+				metrices={false}
+				table="buy"
 			/>
 			<MetricesDimensionsBtnComponent
 				tooltipText="Order Sub total"
 				name="sub_total"
 				type="number"
-				metrices={true}
+				metrices={false}
+				table="buy"
 			/>
 		</Flex>
 	);

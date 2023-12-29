@@ -1,8 +1,9 @@
 import { Button, Flex, Tooltip } from '@mantine/core';
-import { IconPlayerPlayFilled, IconRefresh } from '@tabler/icons-react';
+import { IconRefresh } from '@tabler/icons-react';
 import { useState } from 'react';
 import { callSuccessNotification } from '../../../notification';
 import { useParams } from 'react-router-dom';
+import RunQueryBtn from './RunQueryBtn';
 
 interface ParamsInterface {
 	tableName: string;
@@ -59,26 +60,7 @@ function NavComponent() {
 					Refresh
 				</Button>
 			</Tooltip>
-			<Tooltip
-				label="click here to run the query"
-				color="gray"
-				c="black"
-				position="bottom"
-				withArrow
-			>
-				<Button
-					mr={30}
-					leftIcon={<IconPlayerPlayFilled size="1.2rem" />}
-					disabled={!disabled}
-					sx={{
-						':disabled': {
-							backgroundColor: 'rgba(225, 225, 225, 0.2)',
-						},
-					}}
-				>
-					Run query
-				</Button>
-			</Tooltip>
+			<RunQueryBtn />
 		</Flex>
 	);
 }

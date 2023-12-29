@@ -14,10 +14,12 @@ function ProductsButtonComponent() {
 			/>
 			<Flex mt={20} w={'85%'} mb={20}>
 				<Text color="#228be6">Dimensions</Text>
+				{/* <Text color="#228be6">Dimensions</Text> */}
 			</Flex>
 			<ProductsDimensionButton />
 			<Flex mt={20} w={'85%'} mb={20}>
 				<Text color="#deb821">Metrices</Text>
+				{/* <Text color="#deb821">Metrices</Text> */}
 			</Flex>
 			<ProductMetricesButton />
 			<TableBtnComponent

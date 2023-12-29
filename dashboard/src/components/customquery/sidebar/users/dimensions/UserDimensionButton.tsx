@@ -6,21 +6,24 @@ function UserDimensionButton() {
 		<Flex w={'100%'} direction={'column'} align={'center'}>
 			<MetricesDimensionsBtnComponent
 				tooltipText="Users Id"
-				name="Id"
+				name="User Id"
 				type="number"
-				metrices={true}
+				metrices={false}
+				table="users"
 			/>
 			<MetricesDimensionsBtnComponent
 				tooltipText="Users username"
 				name="username"
 				type="string"
-				metrices={true}
+				metrices={false}
+				table="users"
 			/>
 			<MetricesDimensionsBtnComponent
 				tooltipText="Users email"
 				name="email"
 				type="string"
-				metrices={true}
+				metrices={false}
+				table="users"
 			/>
 		</Flex>
 	);

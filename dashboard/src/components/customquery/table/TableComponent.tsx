@@ -1,6 +1,9 @@
 import { Accordion, Text, Flex } from '@mantine/core';
 import { IconDatabase } from '@tabler/icons-react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { RootState } from '../../../redux/store';
+import MetricesAndDimensionTable from './MetricesAndDimensionTable';
 
 interface ParamsInterface {
 	tableName: string;
@@ -8,6 +11,9 @@ interface ParamsInterface {
 
 function TableComponent() {
 	const params: ParamsInterface = useParams();
+	const metricesAndDimensions = useSelector(
+		(state: RootState) => state.dimensionAndMetrices.value
+	);
 
 	const disabled =
 		params.tableName === 'users' ||
@@ -28,25 +34,40 @@ function TableComponent() {
 				}}
 			>
 				<Accordion.Item value="results">
-					<Accordion.Control disabled={!disabled}>
+					<Flex justify={'start'} align={'center'}>
+						<Accordion.Control w={50} h={50} disabled={!disabled}>
+							<Text c={'white'}>{''}</Text>
+						</Accordion.Control>
 						<Text c={'white'}>Results</Text>
-					</Accordion.Control>
+					</Flex>
 					<Accordion.Panel>
-						<Flex
-							h={300}
-							direction={'column'}
-							justify={'center'}
-							align={'center'}
-						>
-							<IconDatabase size={'10rem'} color="gray" />
-							<Text color="white" fz={20} fw={500} mt={15}>
-								Select a table
-							</Text>
-							<Text color="gray" fz={12} fw={400} mt={15}>
-								To run a query, first select the table that you would like to
-								explore.
-							</Text>
-						</Flex>
+						{metricesAndDimensions.length === 0 ? (
+							<Flex
+								h={300}
+								direction={'column'}
+								justify={'center'}
+								align={'center'}
+							>
+								<IconDatabase size={'10rem'} color="gray" />
+								<Text color="white" fz={20} fw={500} mt={15}>
+									Select a table
+								</Text>
+								{/* <Flex></Flex> */}
+								<Text color="gray" fz={12} fw={400} mt={15}>
+									To run a query, first select the table that you would like to
+									explore.
+								</Text>
+							</Flex>
+						) : (
+							<Flex
+								h={300}
+								direction={'column'}
+								justify={'center'}
+								align={'center'}
+							>
+								<MetricesAndDimensionTable />
+							</Flex>
+						)}
 					</Accordion.Panel>
 				</Accordion.Item>
 			</Accordion>

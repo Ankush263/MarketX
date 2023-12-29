@@ -8,19 +8,22 @@ function UserMetrices() {
 				tooltipText="Max of created_at"
 				name="Date of most recent created user"
 				type="number"
-				metrices={false}
+				metrices={true}
+				table="users"
 			/>
 			<MetricesDimensionsBtnComponent
 				tooltipText="Min of created_at"
 				name="Date of first created user"
 				type="number"
-				metrices={false}
+				metrices={true}
+				table="users"
 			/>
 			<MetricesDimensionsBtnComponent
 				tooltipText="Unique users"
 				name="Unique user count"
 				type="number"
-				metrices={false}
+				metrices={true}
+				table="users"
 			/>
 		</Flex>
 	);

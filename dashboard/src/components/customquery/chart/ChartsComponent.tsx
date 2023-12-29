@@ -14,12 +14,7 @@ function ChartsComponent() {
 		params.tableName === 'buy';
 
 	return (
-		<Flex
-			w={'100%'}
-			justify={'center'}
-			mt={30}
-			onClick={() => console.log(params.tableName)}
-		>
+		<Flex w={'100%'} justify={'center'} mt={30}>
 			<Accordion
 				chevronPosition="left"
 				w={'96%'}
@@ -31,9 +26,12 @@ function ChartsComponent() {
 				}}
 			>
 				<Accordion.Item value="charts">
-					<Accordion.Control disabled={!disabled}>
+					<Flex justify={'start'} align={'center'}>
+						<Accordion.Control w={50} h={50} disabled={!disabled}>
+							<Text c={'white'}>{''}</Text>
+						</Accordion.Control>
 						<Text c={'white'}>Charts</Text>
-					</Accordion.Control>
+					</Flex>
 					<Accordion.Panel>
 						Colors, fonts, shadows and many other parts are customizable to fit
 						your design needs

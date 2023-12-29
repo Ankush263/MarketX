@@ -4,8 +4,25 @@ import ChartsComponent from '../../components/customquery/chart/ChartsComponent'
 import TableComponent from '../../components/customquery/table/TableComponent';
 import SqlComponents from '../../components/customquery/sql/SqlComponents';
 import SidebarComponents from '../../components/customquery/sidebar/SidebarComponents';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { reset } from '../../redux/dimensionAndMatrices/dimensionAndMatricesSlice';
+import { useParams } from 'react-router-dom';
+
+interface Params {
+	tableName: string;
+}
 
 function CustomQueryPage() {
+	const dispatch = useDispatch();
+	const params: Params = useParams();
+
+	useEffect(() => {
+		if (!params.tableName) {
+			dispatch(reset());
+		}
+	}, [dispatch, params.tableName]);
+
 	return (
 		<Flex bg={'rgb(27, 38, 53)'} mih={'100vh'}>
 			<Flex

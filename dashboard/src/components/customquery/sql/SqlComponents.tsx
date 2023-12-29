@@ -26,9 +26,12 @@ function SqlComponents() {
 				}}
 			>
 				<Accordion.Item value="sql">
-					<Accordion.Control disabled={!disabled}>
+					<Flex justify={'start'} align={'center'}>
+						<Accordion.Control w={50} h={50} disabled={!disabled}>
+							<Text c={'white'}>{''}</Text>
+						</Accordion.Control>
 						<Text c={'white'}>SQL</Text>
-					</Accordion.Control>
+					</Flex>
 					<Accordion.Panel>
 						Colors, fonts, shadows and many other parts are customizable to fit
 						your design needs

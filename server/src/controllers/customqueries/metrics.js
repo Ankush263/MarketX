@@ -52,25 +52,25 @@ exports.buyMetrices = async (req, res, next, table) => {
 	selectedFields.forEach((field, index) => {
 		let tempQuery;
 
-		if (field === 'max') {
+		if (field === 'buy_max') {
 			tempQuery = `MAX(${table}.created_at) AS max_${table}_created_at \n`;
 		}
-		if (field === 'min') {
+		if (field === 'buy_min') {
 			tempQuery = `MIN(${table}.created_at) AS min_${table}_created_at \n`;
 		}
-		if (field === 'unique') {
+		if (field === 'buy_unique') {
 			tempQuery = `COUNT(DISTINCT ${table}.transaction_id) AS unique_${table}_transaction_id \n`;
 		}
-		if (field === 'total_transactions') {
+		if (field === 'buy_total_transactions') {
 			tempQuery = `COUNT(${table}.id) AS total_transaction_${table} \n`;
 		}
-		if (field === 'total_quantity') {
+		if (field === 'buy_total_quantity') {
 			tempQuery = `SUM(${table}.quantity) AS sum_${table}_total_quantity \n`;
 		}
-		if (field === 'total_completed_transaction') {
+		if (field === 'buy_total_completed_transaction') {
 			tempQuery = `COUNT(${table}.paid) AS ${table}_total_completed_transaction \n`;
 		}
-		if (field === 'unique_user_buy') {
+		if (field === 'buy_unique_user_buy') {
 			tempQuery = `COUNT(DISTINCT ${table}.user_id) AS unique_${table}_user_buy \n`;
 		}
 
@@ -104,19 +104,19 @@ exports.productsMetrices = async (req, res, next, table) => {
 	selectedFields.forEach((field, index) => {
 		let tempQuery;
 
-		if (field === 'max') {
+		if (field === 'product_max') {
 			tempQuery = `MAX(${table}.created_at) AS max_${table}_created_at \n`;
 		}
-		if (field === 'min') {
+		if (field === 'product_min') {
 			tempQuery = `MIN(${table}.created_at) AS min_${table}_created_at \n`;
 		}
-		if (field === 'total') {
+		if (field === 'product_total') {
 			tempQuery = `COUNT(${table}.id) AS total_${table} \n`;
 		}
-		if (field === 'highest_price') {
+		if (field === 'product_highest_price') {
 			tempQuery = `MAX(${table}.price) AS ${table}_highest_price \n`;
 		}
-		if (field === 'lowest_price') {
+		if (field === 'product_lowest_price') {
 			tempQuery = `MIN(${table}.price) AS ${table}_lowest_price \n`;
 		}
 

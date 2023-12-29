@@ -6,11 +6,13 @@ const USER_URL = `${URL}/api/v1/users`;
 const PRODUCT_URL = `${URL}/api/v1/products`;
 const STATS_URL = `${URL}/api/v1/stats`;
 const BUY_URL = `${URL}/api/v1/buy`;
+const CUSTOM_QUERY_URL = `${URL}/api/v1/customQuery`;
 
 const USER_API = axios.create({ baseURL: USER_URL });
 const PRODUCT_API = axios.create({ baseURL: PRODUCT_URL });
 const STATS_API = axios.create({ baseURL: STATS_URL });
 const BUY_API = axios.create({ baseURL: BUY_URL });
+const CUSTOM_QUERY_API = axios.create({ baseURL: CUSTOM_QUERY_URL });
 
 export const signup = (_details: {
 	username: string;
@@ -101,3 +103,63 @@ export const updateProducts = (
 	PRODUCT_API.patch(`/${id}`, details, {
 		headers: { Authorization: `Bearer ${_token}` },
 	});
+
+export const getUsersMetricesAndDimensions = (
+	_token: string | null,
+	metrices: string[],
+	dimensions: string[]
+) => {
+	const metrice = metrices.join(', ');
+	const dimension = dimensions.join(', ');
+
+	return CUSTOM_QUERY_API.get(
+		`/users?dimension=${dimension}&metrices=${metrice}`,
+		{
+			headers: { Authorization: `Bearer ${_token}` },
+		}
+	);
+};
+
+export const getProductsAndUsersMetricesAndDimensions = (
+	_token: string | null,
+	withTable_dimension: string[],
+	withTable_metrices: string[],
+	toTable_dimension: string[],
+	toTable_metrices: string[]
+) => {
+	const withTableDimension = withTable_dimension.join(', ');
+	const withTableMetrices = withTable_metrices.join(', ');
+	const toTableDimension = toTable_dimension.join(', ');
+	const toTableMetrices = toTable_metrices.join(', ');
+
+	return CUSTOM_QUERY_API.get(
+		`/joinProductsAndUsers?withTable_dimension=${withTableDimension}&withTable_metrices=${withTableMetrices}&toTable_dimension=${toTableDimension}&toTable_metrices=${toTableMetrices}`,
+		{
+			headers: { Authorization: `Bearer ${_token}` },
+		}
+	);
+};
+
+export const getJoinBuyProductsUsersMetricesAndDimensions = (
+	_token: string | null,
+	withTable_dimension: string[],
+	withTable_metrices: string[],
+	toTable_dimension: string[],
+	toTable_metrices: string[],
+	thirdTable_dimension: string[],
+	thirdTable_metrices: string[]
+) => {
+	const withTableDimension = withTable_dimension.join(', ');
+	const withTableMetrices = withTable_metrices.join(', ');
+	const toTableDimension = toTable_dimension.join(', ');
+	const toTableMetrices = toTable_metrices.join(', ');
+	const thirdTableDimension = thirdTable_dimension.join(', ');
+	const thirdTableMetrices = thirdTable_metrices.join(', ');
+
+	return CUSTOM_QUERY_API.get(
+		`/joinBuyProductsUsers?withTable_dimension=${withTableDimension}&withTable_metrices=${withTableMetrices}&toTable_dimension=${toTableDimension}&toTable_metrices=${toTableMetrices}&thirdTable_dimension=${thirdTableDimension}&thirdTable_metrices=${thirdTableMetrices}`,
+		{
+			headers: { Authorization: `Bearer ${_token}` },
+		}
+	);
+};
