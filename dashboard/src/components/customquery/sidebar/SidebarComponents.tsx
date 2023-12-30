@@ -14,7 +14,7 @@ function SidebarComponents() {
 	const params: ParamsInterface = useParams();
 
 	return (
-		<ScrollArea w={'100%'} h={'100vh'}>
+		<ScrollArea w={'100%'} h={'100vh'} sx={{ borderBottom: '1px solid black' }}>
 			<Flex w={'100%'} direction={'column'} align={'center'}>
 				<Text c={'white'} fz={20} fw={500} mr={'auto'} mt={20} ml={20} mb={10}>
 					{params.tableName === 'users'

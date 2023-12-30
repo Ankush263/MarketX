@@ -99,26 +99,15 @@ exports.createJoinQuery = async (req, res, next, withTable, toTable) => {
 
 	let select =
 		selectedElements.length !== 0
-			? `
-		SELECT
-		${selectedElements.join(', ')} \n
-		`
+			? `SELECT ${selectedElements.join(', \n')}`
 			: 'SELECT \n';
 
-	const joinQuery = `
-	JOIN ${toTable}
-	ON ${toTable}.id = ${withTable}.user_id \n
-	`;
+	const joinQuery = `JOIN ${toTable} ON ${toTable}.id = ${withTable}.user_id`;
 
 	const fromOption =
 		!query.toTable_dimension && !query.toTable_metrices
-			? `
-	FROM ${withTable} \n
-	`
-			: `
-	FROM ${withTable}
-	${joinQuery} \n
-	`;
+			? `\nFROM ${withTable} \n`
+			: `\nFROM ${withTable} ${joinQuery} \n`;
 
 	const length = selectedElements.length;
 
@@ -126,12 +115,7 @@ exports.createJoinQuery = async (req, res, next, withTable, toTable) => {
 		group = Array.from({ length }, (_, i) => i + 1).join(', ');
 	}
 
-	const groupOption =
-		selectedElements.length === 0
-			? ''
-			: `
-	GROUP BY ${group}
-	`;
+	const groupOption = selectedElements.length === 0 ? '' : `GROUP BY ${group}`;
 
 	let metrices = [];
 
@@ -149,10 +133,8 @@ exports.createJoinQuery = async (req, res, next, withTable, toTable) => {
 
 	select = select + comma + metrices;
 
-	let tempQuery = `
-	SELECT
-	FROM ${withTable}
-	`;
+	let tempQuery = `SELECT
+FROM ${withTable}`;
 
 	tempQuery = select + fromOption + groupOption;
 
@@ -200,21 +182,12 @@ exports.createJoinQueryForbuyProductsAndUsers = async (
 
 	let select =
 		selectedElements.length !== 0
-			? `
-		SELECT
-		${selectedElements.join(', ')} \n
-		`
+			? `SELECT ${selectedElements.join(', \n')}`
 			: 'SELECT \n';
 
-	const firstJoinQuery = `
-	LEFT OUTER JOIN ${toTable}
-	ON ${toTable}.id = ${withTable}.product_id \n
-	`;
+	const firstJoinQuery = `LEFT OUTER JOIN ${toTable} \nON ${toTable}.id = ${withTable}.product_id \n`;
 
-	const secondJoinQuery = `
-	LEFT OUTER JOIN ${thirdTable} 
-	ON ${thirdTable}.id = ${toTable}.user_id \n
-	`;
+	const secondJoinQuery = `\nLEFT OUTER JOIN ${thirdTable} \nON ${thirdTable}.id = ${toTable}.user_id \n`;
 
 	let fromOption = '';
 
@@ -224,10 +197,7 @@ exports.createJoinQueryForbuyProductsAndUsers = async (
 		`;
 	}
 	if (query.thirdTable_dimension || query.thirdTable_metrices) {
-		fromOption = `
-		${firstJoinQuery}
-		${secondJoinQuery}
-		`;
+		fromOption = `${firstJoinQuery} ${secondJoinQuery}\n`;
 	}
 
 	const length = selectedElements.length;
@@ -236,12 +206,7 @@ exports.createJoinQueryForbuyProductsAndUsers = async (
 		group = Array.from({ length }, (_, i) => i + 1).join(', ');
 	}
 
-	const groupOption =
-		selectedElements.length === 0
-			? ''
-			: `
-	GROUP BY ${group}
-	`;
+	const groupOption = selectedElements.length === 0 ? '' : `GROUP BY ${group}`;
 
 	let metrices = [];
 
@@ -266,12 +231,11 @@ exports.createJoinQueryForbuyProductsAndUsers = async (
 
 	select = select + comma + metrices;
 
-	let tempQuery = `
-	SELECT
-	FROM ${withTable}
+	let tempQuery = `SELECT
+FROM ${withTable}
 	`;
 
-	tempQuery = select + 'FROM buy' + fromOption + groupOption;
+	tempQuery = select + 'FROM buy ' + fromOption + groupOption;
 
 	const { rows } = await pool.query(tempQuery);
 

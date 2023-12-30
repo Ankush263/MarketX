@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { reset } from '../../redux/dimensionAndMatrices/dimensionAndMatricesSlice';
 import { useParams } from 'react-router-dom';
+import { resetQueryResult } from '../../redux/queryresult/queryResultSlice';
+import { resetQuerySql } from '../../redux/querySql/querySqlSlice';
 
 interface Params {
 	tableName: string;
@@ -20,6 +22,8 @@ function CustomQueryPage() {
 	useEffect(() => {
 		if (!params.tableName) {
 			dispatch(reset());
+			dispatch(resetQueryResult());
+			dispatch(resetQuerySql());
 		}
 	}, [dispatch, params.tableName]);
 

@@ -2,12 +2,16 @@ import { configureStore } from '@reduxjs/toolkit';
 import tokenReducer from './jwt/tokenSlice';
 import componentReducer from './component/componentSlice';
 import dimensionAndMatricesReducer from './dimensionAndMatrices/dimensionAndMatricesSlice';
+import queryResultReducer from './queryresult/queryResultSlice';
+import querySqlReducer from './querySql/querySqlSlice';
 
 export const store = configureStore({
 	reducer: {
 		token: tokenReducer,
 		component: componentReducer,
 		dimensionAndMetrices: dimensionAndMatricesReducer,
+		queryResult: queryResultReducer,
+		querySql: querySqlReducer,
 	},
 });
 

@@ -52,7 +52,6 @@ function TableComponent() {
 								<Text color="white" fz={20} fw={500} mt={15}>
 									Select a table
 								</Text>
-								{/* <Flex></Flex> */}
 								<Text color="gray" fz={12} fw={400} mt={15}>
 									To run a query, first select the table that you would like to
 									explore.
@@ -60,7 +59,8 @@ function TableComponent() {
 							</Flex>
 						) : (
 							<Flex
-								h={300}
+								mih={300}
+								mah={400}
 								direction={'column'}
 								justify={'center'}
 								align={'center'}
