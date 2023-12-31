@@ -1,5 +1,22 @@
-import { Accordion, Flex, Text } from '@mantine/core';
+import {
+	Accordion,
+	ActionIcon,
+	Button,
+	Flex,
+	Popover,
+	Text,
+} from '@mantine/core';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { RootState } from '../../../redux/store';
+import {
+	IconChartBar,
+	IconDotsVertical,
+	IconDownload,
+} from '@tabler/icons-react';
+import BarChartComponent from './BarChartComponent';
+import html2canvas from 'html2canvas';
+import { saveAs } from 'file-saver';
 
 interface ParamsInterface {
 	tableName: string;
@@ -7,6 +24,27 @@ interface ParamsInterface {
 
 function ChartsComponent() {
 	const params: ParamsInterface = useParams();
+	const queryResult = useSelector(
+		(state: RootState) => state.queryResult.value
+	);
+
+	const handleDownloadChart = () => {
+		const chartElement = document.querySelector(
+			'.echarts-for-react-custom-table'
+		) as HTMLElement;
+		const originalBackgroundColor = chartElement.style.backgroundColor;
+		chartElement.style.backgroundColor = 'black';
+		if (chartElement) {
+			html2canvas(chartElement).then((canvas) => {
+				canvas.toBlob((blob) => {
+					if (blob) {
+						saveAs(blob, 'chart.png');
+						chartElement.style.backgroundColor = originalBackgroundColor;
+					}
+				});
+			});
+		}
+	};
 
 	const disabled =
 		params.tableName === 'users' ||
@@ -31,10 +69,53 @@ function ChartsComponent() {
 							<Text c={'white'}>{''}</Text>
 						</Accordion.Control>
 						<Text c={'white'}>Charts</Text>
+						{queryResult.length !== 0 && (
+							<Popover shadow="md" position="right-start" withArrow>
+								<Popover.Target>
+									<ActionIcon
+										radius="xl"
+										variant="transparent"
+										ml={'auto'}
+										mr={40}
+									>
+										<IconDotsVertical size="1.125rem" />
+									</ActionIcon>
+								</Popover.Target>
+								<Popover.Dropdown py={0} bg={'rgb(27, 38, 53)'} px={0}>
+									<Button
+										leftIcon={<IconDownload size={'1.2rem'} />}
+										fz={12}
+										variant="subtle"
+										w={150}
+										onClick={handleDownloadChart}
+									>
+										{`Download`}
+									</Button>
+								</Popover.Dropdown>
+							</Popover>
+						)}
 					</Flex>
 					<Accordion.Panel>
-						Colors, fonts, shadows and many other parts are customizable to fit
-						your design needs
+						{queryResult.length === 0 ? (
+							<Flex
+								h={200}
+								direction={'column'}
+								justify={'center'}
+								align={'center'}
+							>
+								<IconChartBar size={'5rem'} color="gray" />
+								<Text color="white" fz={20} fw={500} mt={10}>
+									No data available
+								</Text>
+								<Text color="gray" fz={12} fw={400} mt={10}>
+									Query metrics and dimensions with results.
+								</Text>
+							</Flex>
+						) : (
+							<Flex h={400} justify={'center'} align={'center'}>
+								<BarChartComponent />
+							</Flex>
+						)}
 					</Accordion.Panel>
 				</Accordion.Item>
 			</Accordion>

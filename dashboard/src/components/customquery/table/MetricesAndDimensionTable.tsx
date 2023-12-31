@@ -21,9 +21,7 @@ function MetricesAndDimensionTable() {
 			<tr key={index}>
 				{metricesAndDimensions.map((key, i: Key | null | undefined) => (
 					<td key={i}>
-						<Text c={'white'} onClick={() => console.log(key)}>
-							{element[handleChangeKeyName(key.name)]}
-						</Text>
+						<Text c={'white'}>{element[handleChangeKeyName(key.name)]}</Text>
 					</td>
 				))}
 			</tr>

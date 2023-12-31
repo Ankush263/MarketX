@@ -62,7 +62,7 @@ function TableComponent() {
 								mih={300}
 								mah={400}
 								direction={'column'}
-								justify={'center'}
+								justify={'start'}
 								align={'center'}
 							>
 								<MetricesAndDimensionTable />

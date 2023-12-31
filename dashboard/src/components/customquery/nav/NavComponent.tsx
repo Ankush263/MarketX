@@ -4,6 +4,10 @@ import { useState } from 'react';
 import { callSuccessNotification } from '../../../notification';
 import { useParams } from 'react-router-dom';
 import RunQueryBtn from './RunQueryBtn';
+import { useDispatch } from 'react-redux';
+import { reset } from '../../../redux/dimensionAndMatrices/dimensionAndMatricesSlice';
+import { resetQueryResult } from '../../../redux/queryresult/queryResultSlice';
+import { resetQuerySql } from '../../../redux/querySql/querySqlSlice';
 
 interface ParamsInterface {
 	tableName: string;
@@ -12,6 +16,7 @@ interface ParamsInterface {
 function NavComponent() {
 	const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
 	const params: ParamsInterface = useParams();
+	const dispatch = useDispatch();
 
 	const disabled =
 		params.tableName === 'users' ||
@@ -19,10 +24,10 @@ function NavComponent() {
 		params.tableName === 'buy';
 
 	const handleRefresh = () => {
-		// queryClient.refetchQueries({ queryKey: ['products'] });
-		// queryClient.refetchQueries({ queryKey: ['total_order'] });
-		// queryClient.refetchQueries({ queryKey: ['total_revenew'] });
 		setIsRefreshing(true);
+		dispatch(reset());
+		dispatch(resetQueryResult());
+		dispatch(resetQuerySql());
 		setTimeout(() => {
 			callSuccessNotification('Successfully update all the details');
 			setIsRefreshing(false);
@@ -57,7 +62,7 @@ function NavComponent() {
 					sx={{ ':disabled': { backgroundColor: 'rgba(225, 225, 225, 0.2)' } }}
 					disabled={!disabled}
 				>
-					Refresh
+					Reset
 				</Button>
 			</Tooltip>
 			<RunQueryBtn />
