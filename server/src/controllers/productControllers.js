@@ -165,6 +165,17 @@ exports.searchByUsername = catchAsync(async (req, res, next) => {
 	});
 });
 
+exports.getTopFourProducts = catchAsync(async (req, res, next) => {
+	const products = await ProductRepo.topFiveProducts();
+
+	res.status(200).json({
+		status: 'success',
+		data: {
+			products,
+		},
+	});
+});
+
 exports.getMyProducts = getProductByUserId('myProducts');
 
 exports.getProductsByUserId = getProductByUserId('userProducts');

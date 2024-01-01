@@ -1,5 +1,6 @@
 import { Box, Text, Button } from '@mantine/core';
 import { useDescriptionComponentStyle } from './styles/useDescriptionComponentStyle';
+import { useHistory } from 'react-router-dom';
 
 interface DescriptionProps {
 	mainText: string;
@@ -13,6 +14,7 @@ function DescriptionComponent({
 	buttonText,
 }: DescriptionProps) {
 	const styles = useDescriptionComponentStyle();
+	const history = useHistory();
 
 	return (
 		<Box>
@@ -42,8 +44,9 @@ function DescriptionComponent({
 					sx={
 						buttonText === 'shop now' ? styles.buttonWhite : styles.buttonPink
 					}
-					component={'a'}
-					href={'/product/ProductPage'}
+					onClick={() => history.push('/products')}
+					// component={'a'}
+					// href={'/product/ProductPage'}
 					w={200}
 				>
 					{buttonText}

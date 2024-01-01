@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Text } from '@mantine/core';
 import { useDiscountTextStyles } from './styles/useDiscountTextStyles';
+import { useHistory } from 'react-router-dom';
 
 interface DiscountTextProps {
 	smallText: string;
@@ -17,6 +18,7 @@ function DiscountText({
 	left,
 }: DiscountTextProps) {
 	const styles = useDiscountTextStyles();
+	const history = useHistory();
 
 	return (
 		<Flex
@@ -51,8 +53,7 @@ function DiscountText({
 				uppercase
 				size="md"
 				w={150}
-				component={'a'}
-				href={'/product/ProductPage'}
+				onClick={() => history.push('/products')}
 			>
 				{buttonText}
 			</Button>

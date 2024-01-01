@@ -47,3 +47,27 @@ export const callSuccessNotification = (message: string) => {
 		}),
 	});
 };
+
+export const callWarningNotification = (message: string) => {
+	notifications.show({
+		color: 'orange',
+		title: 'Warning',
+		message: message,
+		autoClose: 10000,
+		styles: (theme) => ({
+			root: {
+				backgroundColor: theme.colors.orange[6],
+				borderColor: theme.colors.orange[6],
+
+				'&::before': { backgroundColor: theme.white },
+			},
+
+			title: { color: theme.white },
+			description: { color: theme.white },
+			closeButton: {
+				color: theme.white,
+				'&:hover': { backgroundColor: theme.colors.orange[7] },
+			},
+		}),
+	});
+};

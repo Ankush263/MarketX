@@ -120,6 +120,31 @@ class ProductRepo {
 		);
 		return toCamelCase(rows);
 	}
+
+	static async topFiveProducts() {
+		const { rows } = await pool.query(
+			`
+			SELECT 
+			product_id AS id,
+			p.name,
+			p.company,
+			p.description,
+			p.image,
+			p.tags,
+			p.price,
+			p.weight,
+			p.ratings,
+			p.type,
+				COUNT(product_id) AS total_count
+			FROM buy
+			JOIN products AS p ON p.id = buy.product_id
+			GROUP BY product_id, p.name, p.company, p.description, p.image, p.tags, p.price, p.weight, p.ratings, p.type
+			ORDER BY total_count DESC, p.name DESC
+			LIMIT 4;
+			`
+		);
+		return toCamelCase(rows);
+	}
 }
 
 module.exports = ProductRepo;

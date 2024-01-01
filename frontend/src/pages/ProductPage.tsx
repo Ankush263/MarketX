@@ -61,7 +61,7 @@ function ProductPage() {
 			<Box mt={20}>
 				<Flex direction={'column'} align={'center'} mt="50px">
 					<Text fz={'25px'} fw={550} ff={'Josefin Sans'} mb={30}>
-						Our Best Sellers
+						Our Products
 					</Text>
 					<Grid maw={'100%'} w="80%" gutter={'xl'}>
 						{fetchProductsQuery.isLoading && (

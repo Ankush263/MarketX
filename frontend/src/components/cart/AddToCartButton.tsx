@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addToCart } from '../../api';
 import { RootState } from '../../redux/store';
 import { Product } from '../../redux/products/productSlice';
+import { callWarningNotification } from '../../notification';
 
 interface CartProduct {
 	product: Product | undefined;
@@ -34,10 +35,19 @@ function AddToCartButton({ product }: CartProduct) {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['carts'] });
 		},
+		onError: (error) => {
+			console.log(error);
+		},
 	});
 
 	const handleAddToCart = async () => {
 		try {
+			if (!token) {
+				callWarningNotification(
+					`You aren't logged in, please log in to get access`
+				);
+				return;
+			}
 			dispatch(setOpenCart(true));
 			if (product && product.id) {
 				addToCartMutation.mutate(product.id);

@@ -68,3 +68,5 @@ export const search = (_token: string | null, query: string) =>
 	PRODUCT_API.get(`/search?name=${query}`, {
 		headers: { Authorization: `Bearer ${_token}` },
 	});
+
+export const getTopFourProducts = () => PRODUCT_API.get('/top-4-products');

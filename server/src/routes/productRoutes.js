@@ -12,6 +12,7 @@ const {
 	checkUser,
 	deletePhoto,
 	searchByUsername,
+	getTopFourProducts,
 } = require('../controllers/productControllers');
 
 const { protect } = require('../controllers/authControllers');
@@ -19,6 +20,7 @@ const { protect } = require('../controllers/authControllers');
 const router = express.Router();
 
 router.route('/').get(getAllProducts);
+router.route('/top-4-products').get(getTopFourProducts);
 
 router.use(protect);
 router.route('/userId/:id').get(getProductsByUserId);

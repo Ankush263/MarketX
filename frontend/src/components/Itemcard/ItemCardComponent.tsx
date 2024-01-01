@@ -4,6 +4,9 @@ import { useItemCardStyles } from './styles/useitemCardStyles';
 import { Product } from '../../redux/products/productSlice';
 import { useHistory } from 'react-router-dom';
 import AddToCartButton from '../cart/AddToCartButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { callWarningNotification } from '../../notification';
 
 interface ItemCardInterface {
 	width: number;
@@ -12,11 +15,18 @@ interface ItemCardInterface {
 }
 
 function ItemCardComponent({ width, height, product }: ItemCardInterface) {
+	const token = useSelector((state: RootState) => state.token.value);
 	const [mouseHover, setMouseHover] = useState<boolean>(false);
 	const styles = useItemCardStyles();
 	const history = useHistory();
 
 	const handleClick = (id: number) => {
+		if (!token) {
+			callWarningNotification(
+				`You aren't logged in, please log in to get access`
+			);
+			return;
+		}
 		history.push(`/products/product/${id}`);
 	};
 
