@@ -6,7 +6,7 @@ const UserRepo = require('../repo/user-repo');
 const BusinessRepo = require('../repo/business-repo');
 const bcrypt = require('bcryptjs');
 const pool = require('../pool');
-require('dotenv').config({ path: '../../.env' });
+require('dotenv').config();
 
 const signToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, {

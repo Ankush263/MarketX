@@ -18,19 +18,6 @@ const s3Storage = multerS3({
 	},
 });
 
-// const s3StorageForStory = multerS3({
-// 	s3: s3,
-// 	bucket: `${process.env.BUCKET_NAME}`,
-// 	contentType: multerS3.AUTO_CONTENT_TYPE,
-// 	metadata: (req, file, cb) => {
-// 		cb(null, { fieldname: file.fieldname });
-// 	},
-// 	key: (req, file, cb) => {
-// 		const fileName = 'story' + req.user.id + '/' + uuid() + '.jpeg';
-// 		cb(null, fileName);
-// 	},
-// });
-
 function sanitizeFile(file, cb) {
 	const fileExts = ['.png', '.jpg', '.jpeg'];
 
@@ -54,13 +41,3 @@ exports.uploadImage = multer({
 		fileSize: 1024 * 1024 * 2,
 	},
 });
-
-// exports.uploadImageInStory = multer({
-// 	storage: s3StorageForStory,
-// 	fileFilter: (req, file, callback) => {
-// 		sanitizeFile(file, callback);
-// 	},
-// 	limits: {
-// 		fileSize: 1024 * 1024 * 2,
-// 	},
-// });
