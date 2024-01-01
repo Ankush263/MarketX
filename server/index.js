@@ -12,6 +12,9 @@ const connect = async () => {
 			database: process.env.DATABASE,
 			user: process.env.USER,
 			password: process.env.PASSWORD,
+			ssl: {
+				rejectUnauthorized: false,
+			},
 		});
 
 		app().listen(port, () => {
