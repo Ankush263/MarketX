@@ -3,6 +3,7 @@ const globalErrorHandler = require('../src/controllers/errorControllers');
 const AppError = require('../src/utils/appError');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const xss = require('xss-clean');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./routes/userRoutes');
@@ -44,6 +45,7 @@ module.exports = () => {
 
 	app.use(cookieParser());
 	app.use(express.json({ limit: '10kb' }));
+	app.use(xss());
 
 	app.use('/api/v1/users', userRouter);
 	app.use('/api/v1/products', productRouter);
