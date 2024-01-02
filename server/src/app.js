@@ -38,7 +38,7 @@ module.exports = () => {
 	}
 
 	app.post(
-		'/webhook-checkout',
+		'/v1/webhook_endpoints',
 		bodyParser.raw({ type: 'application/json' }),
 		webhookCheckout
 	);
