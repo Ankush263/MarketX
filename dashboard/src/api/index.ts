@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const URL = `http://localhost:8000`;
+const URL = `https://marketx-vudv.onrender.com`;
+// const URL = `http://localhost:8000`;
 
 const USER_URL = `${URL}/api/v1/users`;
 const PRODUCT_URL = `${URL}/api/v1/products`;

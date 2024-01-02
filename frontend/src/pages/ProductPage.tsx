@@ -1,7 +1,7 @@
 import { Box, Flex, Grid, Loader, Text } from '@mantine/core';
 import Nav from '../components/navbar/Nav';
 import { getProducts } from '../api';
-import { Suspense, useCallback } from 'react';
+import { Suspense } from 'react';
 import { useDispatch } from 'react-redux';
 import { setProductAction } from '../redux/products/productSlice';
 import React from 'react';
@@ -15,7 +15,7 @@ const ItemCardComponent = React.lazy(
 function ProductPage() {
 	const dispatch = useDispatch();
 
-	const fetch = useCallback(async () => {
+	const fetch = async () => {
 		try {
 			const product = await getProducts();
 			dispatch(setProductAction(product.data.data.doc));
@@ -23,10 +23,10 @@ function ProductPage() {
 		} catch (error) {
 			console.log(error);
 		}
-	}, [dispatch]);
+	};
 
 	const fetchProductsQuery = useQuery({
-		queryKey: ['products'],
+		queryKey: ['all-products'],
 		queryFn: fetch,
 	});
 
