@@ -34,17 +34,6 @@ class BuyRepo {
 			const buyQueries = cartItems.map(async (cartItem) => {
 				const { product_id, quantity } = cartItem;
 
-				console.log(
-					'details: ',
-					user_id,
-					product_id,
-					transaction_id,
-					quantity,
-					payment_option,
-					paid,
-					sub_total
-				);
-
 				const buyQuery = await pool.query(
 					`
 						INSERT INTO buy (user_id, product_id, transaction_id, quantity, payment_option, paid, sub_total)
