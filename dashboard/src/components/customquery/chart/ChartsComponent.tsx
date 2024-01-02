@@ -2,21 +2,25 @@ import {
 	Accordion,
 	ActionIcon,
 	Button,
+	Divider,
 	Flex,
+	Menu,
 	Popover,
 	Text,
 } from '@mantine/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../../redux/store';
 import {
 	IconChartBar,
+	IconChevronLeft,
 	IconDotsVertical,
 	IconDownload,
 } from '@tabler/icons-react';
 import BarChartComponent from './BarChartComponent';
 import html2canvas from 'html2canvas';
 import { saveAs } from 'file-saver';
+import { setChart } from '../../../redux/chart-type/chart-typeSlice';
 
 interface ParamsInterface {
 	tableName: string;
@@ -24,9 +28,11 @@ interface ParamsInterface {
 
 function ChartsComponent() {
 	const params: ParamsInterface = useParams();
+	// const chartType = useSelector((state: RootState) => state.chartType);
 	const queryResult = useSelector(
 		(state: RootState) => state.queryResult.value
 	);
+	const dispatch = useDispatch();
 
 	const handleDownloadChart = () => {
 		const chartElement = document.querySelector(
@@ -81,7 +87,41 @@ function ChartsComponent() {
 										<IconDotsVertical size="1.125rem" />
 									</ActionIcon>
 								</Popover.Target>
-								<Popover.Dropdown py={0} bg={'rgb(27, 38, 53)'} px={0}>
+								<Popover.Dropdown py={3} px={3} bg={'rgb(27, 38, 53)'}>
+									<Menu shadow="md" width={200} withArrow position="left-start">
+										<Menu.Target>
+											<Button
+												leftIcon={<IconChevronLeft size={'1.2rem'} />}
+												fz={12}
+												variant="subtle"
+												w={150}
+											>
+												Chart type
+											</Button>
+										</Menu.Target>
+										<Menu.Dropdown bg={'rgb(27, 38, 53)'}>
+											<Menu.Item
+												color="white"
+												p={0}
+												onClick={() => dispatch(setChart('bar'))}
+											>
+												<Button fz={12} variant="subtle">
+													Bar Chart
+												</Button>
+											</Menu.Item>
+											<Divider w={'100%'} my={5} />
+											<Menu.Item
+												color="white"
+												p={0}
+												onClick={() => dispatch(setChart('horizontal_bar'))}
+											>
+												<Button fz={12} variant="subtle">
+													Horizontal Bar Chart
+												</Button>
+											</Menu.Item>
+										</Menu.Dropdown>
+									</Menu>
+									<Divider w={'100%'} my={5} />
 									<Button
 										leftIcon={<IconDownload size={'1.2rem'} />}
 										fz={12}

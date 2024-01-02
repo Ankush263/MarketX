@@ -1,15 +1,18 @@
 import { Flex } from '@mantine/core';
 import ReactECharts from 'echarts-for-react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { handleChangeKeyName } from '../table/utils/changeKeyName';
 import { reverseChangeKeyName } from '../table/utils/reverseChangeKeyName';
 import { useEffect, useState } from 'react';
+import { barChartOption, horizontalBarChart } from './chartOption';
 
 function BarChartComponent() {
 	const [dimenssions, setDimensions] = useState<string[]>(['']);
 	const [metricesData, setMetricesData] = useState<object[]>([]);
 	const [maxValue, setMaxValue] = useState<number>(0);
+	const chartType = useSelector((state: RootState) => state.chartType);
+	const dispatch = useDispatch();
 	const queryResult = useSelector(
 		(state: RootState) => state.queryResult.value
 	);
@@ -75,53 +78,18 @@ function BarChartComponent() {
 		setMaxValue(max);
 		setMetricesData(data);
 		setDimensions(updatedDimensions);
-	}, [metricesAndDimensions, queryResult]);
-
-	const option = {
-		tooltip: {
-			trigger: 'axis',
-			axisPointer: {
-				type: 'shadow',
-			},
-		},
-		legend: {
-			textStyle: {
-				color: 'white',
-			},
-		},
-		grid: {
-			left: '5%',
-			right: '4%',
-			bottom: '10%',
-			containLabel: true,
-		},
-		xAxis: [
-			{
-				type: 'category',
-				name: `${reverseChangeKeyName(dimenssions[0])}`,
-				nameLocation: 'middle',
-				nameTextStyle: {
-					padding: 10,
-					color: 'white',
-				},
-			},
-		],
-		yAxis: [
-			{
-				type: 'value',
-				min: 0,
-				max: Math.ceil(maxValue / 10) * 10,
-				axisLabel: {},
-			},
-		],
-
-		series: metricesData,
-	};
+	}, [dispatch, metricesAndDimensions, queryResult]);
 
 	return (
 		<Flex w={'100%'} h={'100%'} justify={'center'} align={'center'}>
 			<ReactECharts
-				option={option}
+				option={
+					chartType.bar
+						? barChartOption(metricesData, dimenssions[0], maxValue)
+						: chartType.horizontal_bar
+						? horizontalBarChart(metricesData, dimenssions[0])
+						: barChartOption(metricesData, dimenssions[0], maxValue)
+				}
 				className="echarts-for-react-custom-table"
 				style={{
 					width: '100%',
