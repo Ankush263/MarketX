@@ -49,16 +49,16 @@ const createCheckoutSession = async (session) => {
 exports.webhookCheckout = (req, res, next) => {
 	const signature = req.headers['stripe-signature'];
 
-	console.log(req.body, signature, process.env.STRIPE_WEBHOOK_SECRET);
+	console.log(req.body);
+	console.log(JSON.stringify(req.body));
 
 	let event;
 	try {
 		event = stripe.webhooks.constructEvent(
-			req.body,
+			JSON.stringify(req.body),
 			signature,
 			process.env.STRIPE_WEBHOOK_SECRET
 		);
-		console.log('running...');
 	} catch (err) {
 		console.log(err);
 		return res.status(400).send(`Webhook error: ${err.message}`);
