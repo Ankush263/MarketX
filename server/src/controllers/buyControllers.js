@@ -43,6 +43,8 @@ const createCheckoutSession = async (session) => {
 	const customer = await stripe.customers.retrieve(customerId);
 	const user = await UserRepo.findByEmail(customer.email);
 	const userId = user.id;
+	console.log('sessionId: ', session.id);
+	console.log('userId: ', userId);
 	await BuyRepo.buy(userId, session.id, 'card', 'true');
 };
 
