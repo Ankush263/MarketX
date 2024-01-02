@@ -38,7 +38,7 @@ module.exports = () => {
 	}
 
 	app.post(
-		'/webhooks',
+		'/webhook-checkout',
 		bodyParser.raw({ type: 'application/json' }),
 		webhookCheckout
 	);
@@ -60,7 +60,6 @@ module.exports = () => {
 	});
 
 	app.all('*', (req, res, next) => {
-		console.log(`Can't find ${req.originalUrl} on this server!`);
 		next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 	});
 
