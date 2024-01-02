@@ -19,7 +19,11 @@ const path = require('path');
 module.exports = () => {
 	const app = express();
 
-	app.use(cors());
+	app.use(
+		cors({
+			origin: 'http://127.0.0.1:5173',
+		})
+	);
 
 	app.set('views', path.join(__dirname, 'views'));
 	app.set('view engine', 'ejs');
