@@ -86,6 +86,14 @@ function LoginComponent({ setLogin }: LoginInterface) {
 				>
 					{`Don't have an account, Register here`}
 				</Text>
+				<Flex direction={'column'} mt={10}>
+					<Text color="white" fz={14} fw={500} align="center">
+						{`Email: business1@gmail.com`}
+					</Text>
+					<Text color="white" fz={14} fw={500} align="center">
+						{`Password: test1234`}
+					</Text>
+				</Flex>
 			</Card>
 		</Flex>
 	);
