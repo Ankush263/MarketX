@@ -5,6 +5,7 @@ import dimensionAndMatricesReducer from './dimensionAndMatrices/dimensionAndMatr
 import queryResultReducer from './queryresult/queryResultSlice';
 import querySqlReducer from './querySql/querySqlSlice';
 import chartTypeReducer from './chart-type/chart-typeSlice';
+import loadReducer from './load/loadSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
 		queryResult: queryResultReducer,
 		querySql: querySqlReducer,
 		chartType: chartTypeReducer,
+		load: loadReducer,
 	},
 });
 

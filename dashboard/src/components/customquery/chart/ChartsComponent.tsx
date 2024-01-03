@@ -28,7 +28,6 @@ interface ParamsInterface {
 
 function ChartsComponent() {
 	const params: ParamsInterface = useParams();
-	// const chartType = useSelector((state: RootState) => state.chartType);
 	const queryResult = useSelector(
 		(state: RootState) => state.queryResult.value
 	);

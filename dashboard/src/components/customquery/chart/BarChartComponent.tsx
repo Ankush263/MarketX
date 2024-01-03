@@ -1,4 +1,4 @@
-import { Flex } from '@mantine/core';
+import { Flex, Loader } from '@mantine/core';
 import ReactECharts from 'echarts-for-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
@@ -19,6 +19,7 @@ function BarChartComponent() {
 	const metricesAndDimensions = useSelector(
 		(state: RootState) => state.dimensionAndMetrices.value
 	);
+	const load = useSelector((state: RootState) => state.load.value);
 
 	useEffect(() => {
 		let updatedMetrices: string[] = [];
@@ -82,20 +83,26 @@ function BarChartComponent() {
 
 	return (
 		<Flex w={'100%'} h={'100%'} justify={'center'} align={'center'}>
-			<ReactECharts
-				option={
-					chartType.bar
-						? barChartOption(metricesData, dimenssions[0], maxValue)
-						: chartType.horizontal_bar
-						? horizontalBarChart(metricesData, dimenssions[0])
-						: barChartOption(metricesData, dimenssions[0], maxValue)
-				}
-				className="echarts-for-react-custom-table"
-				style={{
-					width: '100%',
-					height: '100%',
-				}}
-			/>
+			{load ? (
+				<Flex justify={'center'} align={'center'} w={'100%'} h={'100%'}>
+					<Loader variant="dots" />
+				</Flex>
+			) : (
+				<ReactECharts
+					option={
+						chartType.bar
+							? barChartOption(metricesData, dimenssions[0], maxValue)
+							: chartType.horizontal_bar
+							? horizontalBarChart(metricesData, dimenssions[0])
+							: barChartOption(metricesData, dimenssions[0], maxValue)
+					}
+					className="echarts-for-react-custom-table"
+					style={{
+						width: '100%',
+						height: '100%',
+					}}
+				/>
+			)}
 		</Flex>
 	);
 }

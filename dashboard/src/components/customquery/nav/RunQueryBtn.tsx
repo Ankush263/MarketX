@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom';
 import { handleChangefuncName } from './utils/changeFuncName';
 import { setQueryResult } from '../../../redux/queryresult/queryResultSlice';
 import { setQuerySql } from '../../../redux/querySql/querySqlSlice';
+import { setLoad } from '../../../redux/load/loadSlice';
 
 interface ParamsInterface {
 	tableName: string;
@@ -31,6 +32,7 @@ function RunQueryBtn() {
 
 	const handleRunUsersQuery = async () => {
 		try {
+			dispatch(setLoad(true));
 			const metrices: string[] = [];
 			const dimensions: string[] = [];
 			metricesAndDimensions.forEach((item) => {
@@ -48,13 +50,16 @@ function RunQueryBtn() {
 			);
 			dispatch(setQueryResult(res.data.data.data));
 			dispatch(setQuerySql(res.data.query));
+			dispatch(setLoad(false));
 		} catch (error) {
 			console.log(error);
+			dispatch(setLoad(false));
 		}
 	};
 
 	const handleRunJoinProductAndUserQuery = async () => {
 		try {
+			dispatch(setLoad(true));
 			const withTable_dimension: string[] = [];
 			const withTable_metrices: string[] = [];
 			const toTable_dimension: string[] = [];
@@ -88,13 +93,16 @@ function RunQueryBtn() {
 
 			dispatch(setQueryResult(res.data.data.data));
 			dispatch(setQuerySql(res.data.query));
+			dispatch(setLoad(false));
 		} catch (error) {
 			console.log(error);
+			dispatch(setLoad(false));
 		}
 	};
 
 	const handleJoinBuyUsersProducts = async () => {
 		try {
+			dispatch(setLoad(true));
 			const withTable_dimension: string[] = [];
 			const withTable_metrices: string[] = [];
 			const toTable_dimension: string[] = [];
@@ -138,8 +146,10 @@ function RunQueryBtn() {
 
 			dispatch(setQuerySql(res.data.query));
 			dispatch(setQueryResult(res.data.data.data));
+			dispatch(setLoad(false));
 		} catch (error) {
 			console.log(error);
+			dispatch(setLoad(false));
 		}
 	};
 

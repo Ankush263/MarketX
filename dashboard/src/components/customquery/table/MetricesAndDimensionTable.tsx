@@ -1,4 +1,4 @@
-import { Box, ScrollArea, Table, Text } from '@mantine/core';
+import { Box, Flex, Loader, ScrollArea, Table, Text } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import { Key } from 'react';
@@ -11,6 +11,7 @@ function MetricesAndDimensionTable() {
 	const metricesAndDimensions = useSelector(
 		(state: RootState) => state.dimensionAndMetrices.value
 	);
+	const load = useSelector((state: RootState) => state.load.value);
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const elements: any[] = queryResult;
 
@@ -30,30 +31,36 @@ function MetricesAndDimensionTable() {
 	return (
 		<ScrollArea w={'100%'} h={'100%'}>
 			<Box w={1100}>
-				<Table withColumnBorders>
-					<thead>
-						<tr>
-							{metricesAndDimensions.map((item) => {
-								return (
-									<Box
-										key={item.name}
-										component="th"
-										bg={
-											item.metrices
-												? 'rgba(222, 184, 33, 0.5)'
-												: 'rgba(34, 139, 230, 0.5)'
-										}
-									>
-										<Text fz={14} fw={500} color="white" miw={150}>
-											{item.name}
-										</Text>
-									</Box>
-								);
-							})}
-						</tr>
-					</thead>
-					<tbody>{rows}</tbody>
-				</Table>
+				{load ? (
+					<Flex justify={'center'} align={'center'} w={'100%'} h={300}>
+						<Loader variant="dots" />
+					</Flex>
+				) : (
+					<Table withColumnBorders>
+						<thead>
+							<tr>
+								{metricesAndDimensions.map((item) => {
+									return (
+										<Box
+											key={item.name}
+											component="th"
+											bg={
+												item.metrices
+													? 'rgba(222, 184, 33, 0.5)'
+													: 'rgba(34, 139, 230, 0.5)'
+											}
+										>
+											<Text fz={14} fw={500} color="white" miw={150}>
+												{item.name}
+											</Text>
+										</Box>
+									);
+								})}
+							</tr>
+						</thead>
+						<tbody>{rows}</tbody>
+					</Table>
+				)}
 			</Box>
 		</ScrollArea>
 	);
