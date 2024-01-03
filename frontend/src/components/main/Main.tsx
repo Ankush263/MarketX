@@ -32,7 +32,7 @@ function Main() {
 			<Box>
 				<DiscountComponent />
 			</Box>
-			<Suspense fallback={<ProductSkeleton />}>
+			<Suspense fallback={<ProductSkeleton w={270} h={420} />}>
 				<BestSellerComponent />
 			</Suspense>
 			<Box>

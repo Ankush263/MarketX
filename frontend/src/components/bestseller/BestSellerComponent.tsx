@@ -3,11 +3,12 @@ import ItemCardComponent from '../Itemcard/ItemCardComponent';
 import { getTopFourProducts } from '../../api';
 import { useQuery } from '@tanstack/react-query';
 import { ProductInterface } from '../../interface';
+import ProductSkeleton from '../main/ProductSkeleton';
 
 function BestSellerComponent() {
 	const fetch = async () => {
 		const allProducts = await getTopFourProducts();
-		return allProducts.data.data.products;
+		return allProducts?.data?.data.products;
 	};
 
 	const query = useQuery({ queryKey: ['top-4-products'], queryFn: fetch });
@@ -19,10 +20,42 @@ function BestSellerComponent() {
 				fw={550}
 				ff={'Josefin Sans'}
 				mb={30}
-				onClick={() => console.log(query.data)}
+				onClick={() => console.log(query)}
 			>
 				Our Best Sellers
 			</Text>
+			{query.isLoading && (
+				<Grid maw={'100%'} w="80%" gutter={'xl'}>
+					<Grid.Col md={6} lg={3}>
+						<ProductSkeleton w={70} h={420} />
+					</Grid.Col>
+					<Grid.Col md={6} lg={3}>
+						<ProductSkeleton w={70} h={420} />
+					</Grid.Col>
+					<Grid.Col md={6} lg={3}>
+						<ProductSkeleton w={70} h={420} />
+					</Grid.Col>
+					<Grid.Col md={6} lg={3}>
+						<ProductSkeleton w={70} h={420} />
+					</Grid.Col>
+				</Grid>
+			)}
+			{query.isError && (
+				<Grid maw={'100%'} w="80%" gutter={'xl'}>
+					<Grid.Col md={6} lg={3}>
+						<ProductSkeleton w={70} h={420} />
+					</Grid.Col>
+					<Grid.Col md={6} lg={3}>
+						<ProductSkeleton w={70} h={420} />
+					</Grid.Col>
+					<Grid.Col md={6} lg={3}>
+						<ProductSkeleton w={70} h={420} />
+					</Grid.Col>
+					<Grid.Col md={6} lg={3}>
+						<ProductSkeleton w={70} h={420} />
+					</Grid.Col>
+				</Grid>
+			)}
 			<Grid maw={'100%'} w="80%" gutter={'xl'}>
 				{query?.data?.map((product: ProductInterface) => {
 					return (
