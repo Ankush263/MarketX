@@ -5,6 +5,7 @@ import {
 	TextInput,
 	Text,
 	Button,
+	Loader,
 } from '@mantine/core';
 import { useState } from 'react';
 import { login } from '../../api';
@@ -18,9 +19,11 @@ interface LoginInterface {
 function LoginComponent({ setLogin }: LoginInterface) {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
+	const [loading, setLoading] = useState<boolean>(false);
 	const history = useHistory();
 
 	const handleLogin = async () => {
+		setLoading(true);
 		const response = await login({ email, password });
 		const token = response.data.token;
 		const expire =
@@ -35,9 +38,11 @@ function LoginComponent({ setLogin }: LoginInterface) {
 	const loginMutation = useMutation({
 		mutationFn: handleLogin,
 		onSuccess: () => {
+			setLoading(false);
 			history.replace('/');
 		},
 		onError: (error) => {
+			setLoading(false);
 			console.log(error);
 		},
 	});
@@ -74,7 +79,7 @@ function LoginComponent({ setLogin }: LoginInterface) {
 					labelProps={{ style: { color: 'white' } }}
 				/>
 				<Button mt={20} w={'100%'} onClick={() => loginMutation.mutate()}>
-					Login
+					{loading ? <Loader variant="dots" color="white" /> : 'Login'}
 				</Button>
 				<Text
 					color="white"
