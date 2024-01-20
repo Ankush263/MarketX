@@ -64,7 +64,7 @@ function ProductPage() {
 						Our Products
 					</Text>
 					<Grid maw={'100%'} w="80%" gutter={'xl'}>
-						{fetchProductsQuery.isLoading && (
+						{fetchProductsQuery.isFetching && (
 							<Flex justify={'center'} align={'center'} w={'100%'} h={'100vh'}>
 								<Loader />
 							</Flex>
