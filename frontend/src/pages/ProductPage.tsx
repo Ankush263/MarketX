@@ -1,39 +1,9 @@
 import { Box, Flex, Grid, Loader, Text } from '@mantine/core';
 import Nav from '../components/navbar/Nav';
-import { getProducts } from '../api';
-import { Suspense, useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setProductAction } from '../redux/products/productSlice';
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { ProductInterface } from '../interface';
-
-const ItemCardComponent = React.lazy(
-	() => import('../components/Itemcard/ItemCardComponent')
-);
+import { Suspense } from 'react';
+import ProductPageComponent from '../components/product/ProductPageComponent';
 
 function ProductPage() {
-	const dispatch = useDispatch();
-
-	const fetch = useCallback(async () => {
-		try {
-			const product = await getProducts();
-			dispatch(setProductAction(product.data.data.doc));
-			return product.data.data.doc;
-		} catch (error) {
-			console.log(error);
-		}
-	}, [dispatch]);
-
-	const fetchProductsQuery = useQuery({
-		queryKey: ['all-products'],
-		queryFn: fetch,
-	});
-
-	useEffect(() => {
-		fetch();
-	}, [fetch]);
-
 	return (
 		<Flex direction={'column'}>
 			<Box>
@@ -68,36 +38,15 @@ function ProductPage() {
 						Our Products
 					</Text>
 					<Grid maw={'100%'} w="80%" gutter={'xl'}>
-						{fetchProductsQuery.isFetching && (
-							<Flex justify={'center'} align={'center'} w={'100%'} h={'100vh'}>
-								<Loader />
-							</Flex>
-						)}
-						{fetchProductsQuery.isSuccess &&
-							fetchProductsQuery.data?.map((product: ProductInterface) => {
-								return (
-									<Grid.Col md={6} lg={4} key={product.id}>
-										<Suspense
-											fallback={
-												<Flex
-													justify={'center'}
-													align={'center'}
-													w={'100%'}
-													h={'100vh'}
-												>
-													<Loader />
-												</Flex>
-											}
-										>
-											<ItemCardComponent
-												width={380}
-												height={620}
-												product={product}
-											/>
-										</Suspense>
-									</Grid.Col>
-								);
-							})}
+						<Suspense
+							fallback={
+								<Grid.Col>
+									<Loader />
+								</Grid.Col>
+							}
+						>
+							<ProductPageComponent />
+						</Suspense>
 					</Grid>
 				</Flex>
 			</Box>

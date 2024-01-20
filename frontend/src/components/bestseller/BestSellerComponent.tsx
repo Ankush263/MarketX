@@ -15,13 +15,7 @@ function BestSellerComponent() {
 
 	return (
 		<Flex direction={'column'} align={'center'} mt="50px">
-			<Text
-				fz={'25px'}
-				fw={550}
-				ff={'Josefin Sans'}
-				mb={30}
-				onClick={() => console.log(query)}
-			>
+			<Text fz={'25px'} fw={550} ff={'Josefin Sans'} mb={30}>
 				Our Best Sellers
 			</Text>
 			{query.isLoading && (
