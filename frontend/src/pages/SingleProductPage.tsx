@@ -1,12 +1,13 @@
 import { Box, Flex, Image, Text } from '@mantine/core';
 import { useParams } from 'react-router-dom';
 import Nav from '../components/navbar/Nav';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getSingleProduct } from '../api';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { Product } from '../redux/products/productSlice';
 import AddToCartButton from '../components/cart/AddToCartButton';
+import { useQuery } from '@tanstack/react-query';
 
 interface RouteParams {
 	productId: string;
@@ -19,11 +20,13 @@ function SingleProductPage() {
 	const fetch = useCallback(async () => {
 		const product = await getSingleProduct(productId, token);
 		setProduct(product.data.data.doc);
+		return product.data.data.doc;
 	}, [productId, token]);
 
-	useEffect(() => {
-		fetch();
-	}, [fetch]);
+	const fetchSingleProducts = useQuery({
+		queryKey: ['single-product'],
+		queryFn: fetch,
+	});
 
 	return (
 		<Box>
@@ -32,48 +35,50 @@ function SingleProductPage() {
 			</Box>
 			<Flex justify={'center'} align={'center'} mt={50}>
 				<Box w={400} h={500}>
-					<Image src={product?.image[0]} />
+					{fetchSingleProducts.isSuccess && <Image src={product?.image[0]} />}
 				</Box>
 				<Flex w={600} h={500} direction={'column'}>
 					<Text fw={400} fz={27} ff={'Josefin Sans'} align="start">
-						{product?.name}
+						{fetchSingleProducts.isSuccess && product?.name}
 					</Text>
 					<Text fw={400} fz={30} ff={'Josefin Sans'} align="start" mt={10}>
-						${product?.price}
+						${fetchSingleProducts.isSuccess && product?.price}
 					</Text>
 					<Text fz={12}>Tax included</Text>
 					<Text fz={22} ff={'Josefin Sans'} mt={30} fw={500}>
 						Short description
 					</Text>
 					<Text fz={15} ff={'Josefin Sans'} mt={10}>
-						{product?.description}
+						{fetchSingleProducts.isSuccess && product?.description}
 					</Text>
 					<Text ff={'Josefin Sans'} mt={30} fw={600}>
 						Product Type:{' '}
 						<Text span fw={400}>
-							{product?.type}
+							{fetchSingleProducts.isSuccess && product?.type}
 						</Text>
 					</Text>
 					<Text ff={'Josefin Sans'} fw={600}>
 						Tags:{' '}
 						<Text span fw={400}>
-							{product?.tags}
+							{fetchSingleProducts.isSuccess && product?.tags}
 						</Text>
 					</Text>
 					<Text ff={'Josefin Sans'} fw={600}>
 						Weight:{' '}
 						<Text span fw={400}>
-							{product?.weight}
+							{fetchSingleProducts.isSuccess && product?.weight}
 						</Text>
 					</Text>
 					<Text ff={'Josefin Sans'} fw={600}>
 						Vendor:{' '}
 						<Text span fw={400}>
-							{product?.company}
+							{fetchSingleProducts.isSuccess && product?.company}
 						</Text>
 					</Text>
 					<Flex>
-						<AddToCartButton product={product && product} />
+						{fetchSingleProducts.isSuccess && (
+							<AddToCartButton product={product && product} />
+						)}
 					</Flex>
 				</Flex>
 			</Flex>

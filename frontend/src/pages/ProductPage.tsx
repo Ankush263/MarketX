@@ -69,30 +69,31 @@ function ProductPage() {
 								<Loader />
 							</Flex>
 						)}
-						{fetchProductsQuery.data?.map((product: ProductInterface) => {
-							return (
-								<Grid.Col md={6} lg={4} key={product.id}>
-									<Suspense
-										fallback={
-											<Flex
-												justify={'center'}
-												align={'center'}
-												w={'100%'}
-												h={'100vh'}
-											>
-												<Loader />
-											</Flex>
-										}
-									>
-										<ItemCardComponent
-											width={380}
-											height={620}
-											product={product}
-										/>
-									</Suspense>
-								</Grid.Col>
-							);
-						})}
+						{fetchProductsQuery.isSuccess &&
+							fetchProductsQuery.data?.map((product: ProductInterface) => {
+								return (
+									<Grid.Col md={6} lg={4} key={product.id}>
+										<Suspense
+											fallback={
+												<Flex
+													justify={'center'}
+													align={'center'}
+													w={'100%'}
+													h={'100vh'}
+												>
+													<Loader />
+												</Flex>
+											}
+										>
+											<ItemCardComponent
+												width={380}
+												height={620}
+												product={product}
+											/>
+										</Suspense>
+									</Grid.Col>
+								);
+							})}
 					</Grid>
 				</Flex>
 			</Box>
