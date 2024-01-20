@@ -1,7 +1,7 @@
 import { Box, Flex, Grid, Loader, Text } from '@mantine/core';
 import Nav from '../components/navbar/Nav';
 import { getProducts } from '../api';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setProductAction } from '../redux/products/productSlice';
 import React from 'react';
@@ -29,6 +29,10 @@ function ProductPage() {
 		queryKey: ['all-products'],
 		queryFn: fetch,
 	});
+
+	useEffect(() => {
+		fetchProductsQuery.refetch();
+	}, [fetchProductsQuery]);
 
 	return (
 		<Flex direction={'column'}>
