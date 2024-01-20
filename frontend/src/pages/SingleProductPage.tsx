@@ -26,6 +26,7 @@ function SingleProductPage() {
 	const fetchSingleProducts = useQuery({
 		queryKey: ['single-product'],
 		queryFn: fetch,
+		retry: 10,
 	});
 
 	return (

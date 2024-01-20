@@ -27,6 +27,7 @@ function ProductPageComponent() {
 	const fetchProductsQuery = useQuery({
 		queryKey: ['all-products'],
 		queryFn: fetch,
+		retry: 10,
 	});
 
 	return (
