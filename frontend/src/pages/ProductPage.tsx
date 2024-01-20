@@ -1,7 +1,11 @@
 import { Box, Flex, Grid, Loader, Text } from '@mantine/core';
 import Nav from '../components/navbar/Nav';
 import { Suspense } from 'react';
-import ProductPageComponent from '../components/product/ProductPageComponent';
+import React from 'react';
+
+const ProductPageComponent = React.lazy(
+	() => import('../components/product/ProductPageComponent')
+);
 
 function ProductPage() {
 	return (
