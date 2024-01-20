@@ -1,6 +1,6 @@
 import { Flex, Grid, Loader } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
-import { Suspense, useCallback } from 'react';
+import { Suspense } from 'react';
 import { getProducts } from '../../api';
 import { setProductAction } from '../../redux/products/productSlice';
 import { useDispatch } from 'react-redux';
@@ -14,15 +14,15 @@ const ItemCardComponent = React.lazy(
 function ProductPageComponent() {
 	const dispatch = useDispatch();
 
-	const fetch = useCallback(async () => {
+	const fetch = async () => {
 		try {
 			const product = await getProducts();
 			dispatch(setProductAction(product.data.data.doc));
 			return product.data.data.doc;
 		} catch (error) {
-			console.log(error);
+			console.log('Site Error', error);
 		}
-	}, [dispatch]);
+	};
 
 	const fetchProductsQuery = useQuery({
 		queryKey: ['all-products'],
