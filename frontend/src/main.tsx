@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
-import { Switch, Route, HashRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import { MantineProvider } from '@mantine/core';
 import ProductPage from './pages/ProductPage.tsx';
 import { Provider } from 'react-redux';
@@ -18,7 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
-				<HashRouter>
+				<Router>
 					<Notifications />
 					<MantineProvider
 						withGlobalStyles
@@ -42,7 +42,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 							</Route>
 						</Switch>
 					</MantineProvider>
-				</HashRouter>
+				</Router>
 				<ReactQueryDevtools initialIsOpen={false} />
 			</QueryClientProvider>
 		</Provider>
