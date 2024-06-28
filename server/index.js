@@ -8,7 +8,7 @@ const connect = async () => {
 	try {
 		await pool.connect({
 			host: process.env.HOST,
-			port: 5432,
+			port: 17060,
 			database: process.env.DATABASE,
 			user: process.env.USER,
 			password: process.env.PASSWORD,
